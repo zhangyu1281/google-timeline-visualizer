@@ -290,27 +290,12 @@ button, input, select, .button { font: inherit; }
   border: 1px solid var(--border);
 }
 
-.hero-preview video,
-.hero-preview img {
+.hero-preview video {
   display: block;
   width: 100%;
   height: auto;
   object-fit: cover;
   aspect-ratio: 16 / 9;
-}
-
-.hero-demo-poster {
-  display: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-demo-video {
-    display: none;
-  }
-
-  .hero-demo-poster {
-    display: block;
-  }
 }
 
 /* ── Main tool area ── */

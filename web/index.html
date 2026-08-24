@@ -128,7 +128,6 @@
               preload="metadata"
               aria-label="Animated map route preview"
             ></video>
-            <img class="hero-demo-poster" src="./demo-poster.jpg" alt="Map route preview" width="960" height="540" loading="eager" decoding="async" />
           </figure>
         </div>
       </div>
@@ -495,6 +494,11 @@
         new IntersectionObserver(([entry]) => {
           sticky.classList.toggle('hidden', entry.isIntersecting);
         }, { threshold: 0 }).observe(hero);
+      }
+      const heroVideo = document.querySelector('.hero-demo-video');
+      if (heroVideo && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        heroVideo.removeAttribute('autoplay');
+        heroVideo.pause();
       }
     </script>
   </body>
