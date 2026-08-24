@@ -1,0 +1,103 @@
+[
+  {
+    "startTime": "2025-03-01T01:00:00Z",
+    "endTime": "2025-03-01T14:00:00Z",
+    "timelinePath": [
+      { "point": "35.6762,139.6503", "durationMinutesOffsetFromStartTime": 0 },
+      { "point": "35.6895,139.6917", "durationMinutesOffsetFromStartTime": 45 },
+      { "point": "35.6586,139.7454", "durationMinutesOffsetFromStartTime": 120 },
+      { "point": "35.6329,139.8804", "durationMinutesOffsetFromStartTime": 240 },
+      { "point": "35.5494,139.7798", "durationMinutesOffsetFromStartTime": 360 }
+    ]
+  },
+  {
+    "startTime": "2025-03-04T06:00:00Z",
+    "endTime": "2025-03-04T18:00:00Z",
+    "timelinePath": [
+      { "point": "34.6937,135.5023", "durationMinutesOffsetFromStartTime": 0 },
+      { "point": "34.9671,135.7727", "durationMinutesOffsetFromStartTime": 90 },
+      { "point": "35.0116,135.7681", "durationMinutesOffsetFromStartTime": 240 },
+      { "point": "34.6851,135.8048", "durationMinutesOffsetFromStartTime": 420 }
+    ]
+  },
+  {
+    "startTime": "2025-03-08T02:00:00Z",
+    "endTime": "2025-03-08T15:00:00Z",
+    "timelinePath": [
+      { "point": "37.5665,126.9780", "durationMinutesOffsetFromStartTime": 0 },
+      { "point": "37.5512,126.9882", "durationMinutesOffsetFromStartTime": 60 },
+      { "point": "37.5796,126.9770", "durationMinutesOffsetFromStartTime": 180 },
+      { "point": "37.5172,127.0473", "durationMinutesOffsetFromStartTime": 360 }
+    ]
+  },
+  {
+    "startTime": "2025-03-12T05:00:00Z",
+    "endTime": "2025-03-12T16:00:00Z",
+    "timelinePath": [
+      { "point": "35.1796,129.0756", "durationMinutesOffsetFromStartTime": 0 },
+      { "point": "35.1587,129.1604", "durationMinutesOffsetFromStartTime": 120 },
+      { "point": "35.1028,129.0320", "durationMinutesOffsetFromStartTime": 300 }
+    ]
+  },
+  {
+    "startTime": "2025-03-16T03:00:00Z",
+    "endTime": "2025-03-16T14:00:00Z",
+    "timelinePath": [
+      { "point": "25.0330,121.5654", "durationMinutesOffsetFromStartTime": 0 },
+      { "point": "25.0478,121.5170", "durationMinutesOffsetFromStartTime": 90 },
+      { "point": "25.0330,121.5654", "durationMinutesOffsetFromStartTime": 240 },
+      { "point": "25.0879,121.5240", "durationMinutesOffsetFromStartTime": 360 }
+    ]
+  },
+  {
+    "startTime": "2025-03-20T04:00:00Z",
+    "endTime": "2025-03-20T16:00:00Z",
+    "timelinePath": [
+      { "point": "22.3193,114.1694", "durationMinutesOffsetFromStartTime": 0 },
+      { "point": "22.2783,114.1747", "durationMinutesOffsetFromStartTime": 60 },
+      { "point": "22.2988,114.1722", "durationMinutesOffsetFromStartTime": 180 },
+      { "point": "22.3526,114.1277", "durationMinutesOffsetFromStartTime": 360 }
+    ]
+  },
+  {
+    "startTime": "2025-03-24T01:00:00Z",
+    "endTime": "2025-03-25T04:00:00Z",
+    "timelinePath": [
+      { "point": "13.7563,100.5018", "durationMinutesOffsetFromStartTime": 0 },
+      { "point": "13.7466,100.5347", "durationMinutesOffsetFromStartTime": 120 },
+      { "point": "18.7883,98.9853", "durationMinutesOffsetFromStartTime": 480 },
+      { "point": "18.7877,98.9931", "durationMinutesOffsetFromStartTime": 720 }
+    ]
+  },
+  {
+    "startTime": "2025-03-28T06:00:00Z",
+    "endTime": "2025-03-28T18:00:00Z",
+    "timelinePath": [
+      { "point": "1.3521,103.8198", "durationMinutesOffsetFromStartTime": 0 },
+      { "point": "1.2834,103.8607", "durationMinutesOffsetFromStartTime": 90 },
+      { "point": "1.3644,103.9915", "durationMinutesOffsetFromStartTime": 240 },
+      { "point": "1.2494,103.8303", "durationMinutesOffsetFromStartTime": 420 }
+    ]
+  },
+  {
+    "startTime": "2025-04-02T08:00:00Z",
+    "endTime": "2025-04-03T06:00:00Z",
+    "timelinePath": [
+      { "point": "-33.8688,151.2093", "durationMinutesOffsetFromStartTime": 0 },
+      { "point": "-33.8568,151.2153", "durationMinutesOffsetFromStartTime": 120 },
+      { "point": "-33.8523,151.2108", "durationMinutesOffsetFromStartTime": 360 },
+      { "point": "-37.8136,144.9631", "durationMinutesOffsetFromStartTime": 720 },
+      { "point": "-37.8183,144.9671", "durationMinutesOffsetFromStartTime": 900 }
+    ]
+  },
+  {
+    "startTime": "2025-04-08T00:00:00Z",
+    "endTime": "2025-04-08T13:00:00Z",
+    "timelinePath": [
+      { "point": "31.2304,121.4737", "durationMinutesOffsetFromStartTime": 0 },
+      { "point": "31.2244,121.4692", "durationMinutesOffsetFromStartTime": 60 },
+      { "point": "30.2741,120.1551", "durationMinutesOffsetFromStartTime": 240 },
+      { "point": "30.2590,120.1300", "durationMinutesOffsetFromStartTime": 420 }
+    ]
+  }
+]
