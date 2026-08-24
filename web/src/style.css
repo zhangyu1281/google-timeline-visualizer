@@ -85,11 +85,20 @@ button, input, select, .button { font: inherit; }
 }
 
 .site-nav-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   color: var(--primary);
   font-size: 15px;
   font-weight: 800;
   text-decoration: none;
   letter-spacing: -0.02em;
+}
+
+.site-nav-logo img {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
 }
 
 .site-nav-links {

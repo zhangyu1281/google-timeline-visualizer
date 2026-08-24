@@ -1,4 +1,4 @@
-const CACHE_NAME = 'timeline-visualizer-web-v4';
+const CACHE_NAME = 'timeline-visualizer-web-v5';
 
 const PRECACHE = [
   './',
@@ -9,9 +9,19 @@ const PRECACHE = [
   './how-to-export.html',
   './how-to-export-iphone.html',
   './how-to-export-android.html',
+  './favicon.ico',
+  './favicon-16x16.png',
+  './favicon-32x32.png',
+  './logo-mark.svg',
   './icon.svg',
+  './icon-192.png',
+  './icon-512.png',
+  './apple-touch-icon.png',
   './apple-touch-icon.svg',
-  './og-image.svg',
+  './og-image.png',
+  './og-export.png',
+  './og-export-iphone.png',
+  './og-export-android.png',
   './demo-hero.mp4',
   './demo-poster.jpg',
   './site.css',

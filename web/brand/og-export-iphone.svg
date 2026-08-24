@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a365d"/>
+      <stop offset="100%" stop-color="#2c5282"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="980" cy="120" r="180" fill="#f97316" opacity="0.15"/>
+  <rect x="80" y="72" width="88" height="88" rx="20" fill="#fafbfc"/>
+  <path d="M97 130c10-3 14-22 26-21 11 1 11 18 22 14 5-2 7-8 12-11" fill="none" stroke="#f97316" stroke-width="6.5" stroke-linecap="round"/>
+  <circle cx="97" cy="130" r="5.5" fill="#0f172a"/>
+  <circle cx="144" cy="107" r="5.5" fill="#f97316"/>
+  <text x="188" y="118" fill="#fff" font-family="system-ui,sans-serif" font-size="48" font-weight="800">Export Timeline on iPhone</text>
+  <text x="80" y="188" fill="#bee3f8" font-family="system-ui,sans-serif" font-size="28">Download Timeline.json from Google Takeout</text>
+  <text x="80" y="560" fill="#a0aec0" font-family="system-ui,sans-serif" font-size="22">www.timelinevisualizer.app/how-to-export-iphone.html</text>
+</svg>

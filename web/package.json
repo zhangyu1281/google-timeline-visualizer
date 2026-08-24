@@ -6,6 +6,8 @@
   "packageManager": "pnpm@11.19.0",
   "scripts": {
     "dev": "vite",
+    "icons": "node brand/export-icons.mjs",
+    "prebuild": "pnpm icons",
     "build": "tsc -b && vite build",
     "test": "vitest run",
     "typecheck": "tsc -b --pretty false"
@@ -14,7 +16,9 @@
     "mediabunny": "1.55.1"
   },
   "devDependencies": {
+    "@resvg/resvg-js": "2.6.2",
     "@types/node": "24.10.0",
+    "to-ico": "1.1.5",
     "typescript": "7.0.2",
     "vite": "8.2.1",
     "vitest": "4.1.10"
