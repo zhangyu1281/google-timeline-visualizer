@@ -7,7 +7,9 @@
 3. Vercel reads `vercel.json` automatically:
    - Build: `cd web && pnpm install --frozen-lockfile && pnpm test && pnpm build`
    - Output: `web/dist`
-4. Add custom domain `timelinevisualizer.app` in Vercel project settings
+4. Add custom domains in Vercel project settings:
+   - Primary: `www.timelinevisualizer.app`
+   - Also add apex `timelinevisualizer.app` (redirects to www via `vercel.json`)
 5. Point DNS to Vercel (A record or CNAME as instructed)
 
 ## Environment variables
@@ -32,9 +34,9 @@ Resolve conflicts carefully — prefer upstream changes in `web/src/` core files
 ## Google Search Console
 
 After deploy:
-1. Add property `https://timelinevisualizer.app`
+1. Add property `https://www.timelinevisualizer.app`
 2. Verify ownership (DNS or HTML tag)
-3. Submit sitemap: `https://timelinevisualizer.app/sitemap.xml`
+3. Submit sitemap: `https://www.timelinevisualizer.app/sitemap.xml`
 4. Request indexing for `/` and `/how-to-export-iphone.html`
 
 ## Analytics (optional)

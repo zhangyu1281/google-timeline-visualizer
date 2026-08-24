@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://timelinevisualizer.app/sitemap.xml
+Sitemap: https://www.timelinevisualizer.app/sitemap.xml

@@ -2,7 +2,7 @@
 
 Free web tool to turn your Google Maps Timeline export into an animated travel recap video.
 
-**Live site:** [timelinevisualizer.app](https://timelinevisualizer.app)
+**Live site:** [www.timelinevisualizer.app](https://www.timelinevisualizer.app)
 
 ## Features
 

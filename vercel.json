@@ -3,6 +3,14 @@
   "buildCommand": "cd web && npm exec -y pnpm@11.19.0 test && npm exec -y pnpm@11.19.0 build",
   "outputDirectory": "web/dist",
   "framework": null,
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "timelinevisualizer.app" }],
+      "destination": "https://www.timelinevisualizer.app/:path*",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
