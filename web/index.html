@@ -98,39 +98,39 @@
       </nav>
     </header>
 
-    <section class="landing-hero" aria-labelledby="hero-heading">
-      <div class="hero-grid">
-        <div class="hero-copy">
-          <p class="hero-eyebrow">Free · Private · Browser-based</p>
-          <h1 id="hero-heading">Google Timeline Visualizer — Turn Your Location History into a Travel Video</h1>
-          <p class="hero-tagline">Your year on a map. One video. Zero upload.</p>
-          <p class="hero-subtitle">Upload your exported Google Maps <code>Timeline.json</code> and download a shareable travel recap MP4 — processed entirely on your device.</p>
-          <ul class="hero-steps" aria-label="How it works">
-            <li><span class="step-icon">1</span> Export Timeline</li>
-            <li><span class="step-icon">2</span> Upload here</li>
-            <li><span class="step-icon">3</span> Download MP4</li>
-          </ul>
-          <div class="hero-actions">
-            <a class="hero-cta" href="#tool">Create your video</a>
-            <button id="hero-sample-button" class="hero-secondary hero-demo-pulse" type="button">Try demo — no file needed</button>
+    <section class="hero-band" aria-labelledby="hero-heading">
+      <div class="landing-hero page-container">
+        <div class="hero-stack">
+          <div class="hero-copy">
+            <p class="hero-eyebrow">Free · Private · Browser-based</p>
+            <h1 id="hero-heading">
+              <span class="hero-heading-main">Turn Google Timeline into a Travel Video</span>
+              <span class="site-ui-hidden">Google Timeline Visualizer — location history to animated travel recap</span>
+            </h1>
+            <p class="hero-tagline">Your year on a map. One video. Zero upload.</p>
+            <p class="hero-subtitle">Upload your exported Google Maps <code>Timeline.json</code> and download a shareable MP4 — processed entirely on your device.</p>
+            <div class="hero-actions">
+              <a class="hero-cta" href="#tool">Create your video</a>
+              <button id="hero-sample-button" class="hero-secondary hero-demo-pulse" type="button">Try demo — no file needed</button>
+            </div>
           </div>
+          <figure class="hero-preview">
+            <video
+              class="hero-demo-video"
+              src="./demo-hero.mp4"
+              poster="./demo-poster.jpg"
+              width="960"
+              height="540"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              aria-label="Animated map route preview"
+            ></video>
+            <img class="hero-demo-poster" src="./demo-poster.jpg" alt="Map route preview" width="960" height="540" loading="eager" decoding="async" />
+          </figure>
         </div>
-        <figure class="hero-preview">
-          <video
-            class="hero-demo-video"
-            src="./demo-hero.mp4"
-            poster="./demo-poster.jpg"
-            width="560"
-            height="315"
-            autoplay
-            muted
-            loop
-            playsinline
-            preload="metadata"
-            aria-label="Animated map route preview"
-          ></video>
-          <img class="hero-demo-poster" src="./demo-poster.jpg" alt="Map route preview" width="560" height="315" loading="eager" decoding="async" />
-        </figure>
       </div>
     </section>
 
@@ -140,7 +140,8 @@
     </div>
 
     <main id="tool">
-      <div class="shell">
+      <div class="tool-band">
+      <div class="shell page-container page-container--tool">
       <p id="preview-banner" class="preview-banner hidden" data-i18n="previewBanner">iPhone preview build · Test with non-sensitive sample data first</p>
 
       <section id="preset-link-card" class="card hidden" aria-labelledby="preset-link-heading">
@@ -329,11 +330,15 @@
         </div>
       </section>
       </div>
+      </div>
 
-      <div class="landing-content shell-wide">
+      <div class="landing-band">
+      <div class="landing-content page-container">
         <section id="how-it-works" class="landing-section" aria-labelledby="how-heading">
-          <h2 id="how-heading">How Timeline Visualizer Works</h2>
-          <p class="section-lead">Three steps from Google Timeline export to shareable travel video — no account, no install.</p>
+          <div class="landing-section-header">
+            <h2 id="how-heading">How Timeline Visualizer Works</h2>
+            <p class="section-lead">Three steps from Google Timeline export to shareable travel video — no account, no install.</p>
+          </div>
           <ol class="feature-steps">
             <li>
               <h3>Export your Timeline</h3>
@@ -351,9 +356,15 @@
             </li>
           </ol>
         </section>
+      </div>
+      </div>
 
+      <div class="landing-band landing-band--alt">
+      <div class="landing-content page-container">
         <section class="landing-section" aria-labelledby="why-heading">
-          <h2 id="why-heading">Why Use Timeline Visualizer?</h2>
+          <div class="landing-section-header">
+            <h2 id="why-heading">Why Use Timeline Visualizer?</h2>
+          </div>
           <div class="benefit-grid">
             <article class="benefit-card">
               <h3>Private by design</h3>
@@ -373,10 +384,16 @@
             </article>
           </div>
         </section>
+      </div>
+      </div>
 
+      <div class="landing-band">
+      <div class="landing-content page-container">
         <section class="landing-section" aria-labelledby="export-heading">
-          <h2 id="export-heading">Export Your Timeline First</h2>
-          <p class="section-lead">Choose your platform for step-by-step instructions on getting <code>Timeline.json</code> from Google Maps.</p>
+          <div class="landing-section-header">
+            <h2 id="export-heading">Export Your Timeline First</h2>
+            <p class="section-lead">Choose your platform for step-by-step instructions on getting <code>Timeline.json</code> from Google Maps.</p>
+          </div>
           <div class="export-card-grid">
             <a class="export-card" href="/how-to-export-iphone.html">
               <h3>iPhone</h3>
@@ -390,9 +407,15 @@
             </a>
           </div>
         </section>
+      </div>
+      </div>
 
+      <div class="landing-band landing-band--alt">
+      <div class="landing-content page-container">
         <section class="landing-section" aria-labelledby="faq-preview-heading">
-          <h2 id="faq-preview-heading">Frequently Asked Questions</h2>
+          <div class="landing-section-header">
+            <h2 id="faq-preview-heading">Frequently Asked Questions</h2>
+          </div>
           <div class="faq-preview-list">
             <details class="faq-preview-item">
               <summary>Is my location data uploaded?</summary>
@@ -411,20 +434,23 @@
               <p>No. Timeline Visualizer is an unofficial third-party tool and is not affiliated with Google.</p>
             </details>
           </div>
-          <p class="section-cta-link"><a href="/faq.html">Read all FAQ →</a></p>
+          <p class="section-cta-link section-cta-link--center"><a href="/faq.html">Read all FAQ →</a></p>
         </section>
+      </div>
+      </div>
 
-        <section class="landing-cta-band" aria-labelledby="final-cta-heading">
+      <div class="landing-cta-outer" aria-labelledby="final-cta-heading">
+        <div class="landing-cta-band page-container">
           <h2 id="final-cta-heading">Ready to visualize your timeline?</h2>
           <p>Try the demo journey first — no file needed — or upload your own Timeline.json.</p>
           <div class="landing-cta-actions">
             <a class="hero-cta" href="#tool">Create your video</a>
             <button id="footer-demo-button" class="hero-secondary" type="button">Try demo</button>
           </div>
-        </section>
+        </div>
       </div>
 
-      <footer class="app-footer shell-wide">
+      <footer class="app-footer page-container">
         <p class="footer-links">
           <a href="/how-to-export.html">How to export</a>
           <a href="/faq.html">FAQ</a>
@@ -464,7 +490,7 @@
         }
       } catch (_) {}
       const sticky = document.getElementById('sticky-cta');
-      const hero = document.querySelector('.landing-hero');
+      const hero = document.querySelector('.hero-band');
       if (sticky && hero) {
         new IntersectionObserver(([entry]) => {
           sticky.classList.toggle('hidden', entry.isIntersecting);
