@@ -1,3 +1,4 @@
+# Android
 /.gradle/
 /.idea/
 /local.properties
@@ -5,9 +6,36 @@
 *.iml
 *.jks
 *.keystore
+
+# Node / pnpm
+node_modules/
+pnpm-debug.log*
+
+# Web
+web/dist/
+web/*.tsbuildinfo
+
+# Env & secrets
+.env
+.env.*
+!.env.example
+
+# Privacy — real user exports only (test fixtures like Timeline-test-2025.json are OK)
 Timeline.json
+
+# Media — ignore generated videos except site demo
 *.mp4
 !web/public/demo-hero.mp4
+
+# Python
 __pycache__/
 .pytest_cache/
+
+# OS & tooling
+.DS_Store
+Thumbs.db
+.vercel
+*.log
+
+# Editor / AI
 .claude/
