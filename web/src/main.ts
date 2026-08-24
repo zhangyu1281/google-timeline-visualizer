@@ -1,4 +1,6 @@
 import './style.css';
+import { initAnalytics } from './analytics';
+import { SITE_LOCALE, HIDE_LANGUAGE_PICKER } from './site-config';
 import { frameAtElapsedSeconds, totalDurationSeconds } from './animation';
 import { AppError } from './errors';
 import { cumulativeDistances } from './geo';
@@ -7,7 +9,6 @@ import {
   createI18n,
   formattingLocale,
   isLanguagePreference,
-  readLanguagePreference,
   writeLanguagePreference,
 } from './i18n';
 import { applyStrings, syncDocumentLang } from './i18n-dom';
@@ -62,6 +63,7 @@ const sampleButton = element<HTMLButtonElement>('sample-button');
 const fileStatus = element<HTMLParagraphElement>('file-status');
 const compatibilityStatus = element<HTMLParagraphElement>('compatibility-status');
 const languageSelect = element<HTMLSelectElement>('app-language');
+const languageField = element<HTMLElement>('language-field');
 const languageWarning = element<HTMLParagraphElement>('language-warning');
 const settingsCard = element<HTMLElement>('settings-card');
 const exactDateToggle = element<HTMLInputElement>('exact-date-toggle');
@@ -128,7 +130,7 @@ function buildI18n(preference: LanguagePreference): I18n {
   return createI18n(locale, formattingLocale(preference, tags, locale));
 }
 
-let languagePreference: LanguagePreference = readLanguagePreference();
+let languagePreference: LanguagePreference = SITE_LOCALE;
 let i18n: I18n = buildI18n(languagePreference);
 
 /** Where the loaded points came from. The sample has no filename, so it carries a catalog key. */
@@ -845,6 +847,27 @@ sampleButton.addEventListener('click', async () => {
   }
 });
 
+const dropZone = document.getElementById('drop-zone');
+if (dropZone) {
+  for (const eventName of ['dragenter', 'dragover'] as const) {
+    dropZone.addEventListener(eventName, (event) => {
+      event.preventDefault();
+      dropZone.classList.add('drop-zone-active');
+    });
+  }
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drop-zone-active'));
+  dropZone.addEventListener('drop', (event) => {
+    event.preventDefault();
+    dropZone.classList.remove('drop-zone-active');
+    const file = event.dataTransfer?.files?.[0];
+    if (!file) return;
+    const transfer = new DataTransfer();
+    transfer.items.add(file);
+    fileInput.files = transfer.files;
+    fileInput.dispatchEvent(new Event('change'));
+  });
+}
+
 startSelect.addEventListener('change', updateSelection);
 endSelect.addEventListener('change', updateSelection);
 startDateInput.addEventListener('change', updateSelection);
@@ -1071,7 +1094,9 @@ function applyFormatSupport(support: VideoFormatSupport): void {
 
 // Before anything else touches the DOM: the HTML ships the English source text so a failed
 // script still renders a usable page, and this replaces it with the active catalog.
-languageSelect.value = languagePreference;
+languageSelect.value = SITE_LOCALE;
+if (HIDE_LANGUAGE_PICKER) languageField.classList.add('site-ui-hidden');
+writeLanguagePreference(SITE_LOCALE);
 renderLocalizedText();
 // Safari restores form control values on reload and on bfcache restore without firing
 // change, so the canvas has to be synced to the selected format before anything is drawn.
@@ -1088,3 +1113,5 @@ if ('serviceWorker' in navigator) {
     void navigator.serviceWorker.register(`${import.meta.env.BASE_URL}service-worker.js`);
   });
 }
+
+initAnalytics();

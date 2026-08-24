@@ -1,0 +1,71 @@
+[
+  {
+    "startTime": "2025-01-03T08:00:00Z",
+    "endTime": "2025-01-03T18:00:00Z",
+    "timelinePath": [
+      { "point": "37.7749,-122.4194", "durationMinutesOffsetFromStartTime": 0 },
+      { "point": "37.8044,-122.2712", "durationMinutesOffsetFromStartTime": 45 },
+      { "point": "37.3382,-121.8863", "durationMinutesOffsetFromStartTime": 120 },
+      { "point": "36.6002,-121.8947", "durationMinutesOffsetFromStartTime": 240 }
+    ]
+  },
+  {
+    "startTime": "2025-01-05T10:00:00Z",
+    "endTime": "2025-01-05T22:00:00Z",
+    "timelinePath": [
+      { "point": "34.0522,-118.2437", "durationMinutesOffsetFromStartTime": 0 },
+      { "point": "34.1478,-118.1445", "durationMinutesOffsetFromStartTime": 60 },
+      { "point": "33.9425,-118.4081", "durationMinutesOffsetFromStartTime": 180 },
+      { "point": "34.4208,-119.6982", "durationMinutesOffsetFromStartTime": 360 }
+    ]
+  },
+  {
+    "startTime": "2025-01-08T14:00:00Z",
+    "endTime": "2025-01-09T02:00:00Z",
+    "timelinePath": [
+      { "point": "36.1699,-115.1398", "durationMinutesOffsetFromStartTime": 0 },
+      { "point": "35.6111,-115.4016", "durationMinutesOffsetFromStartTime": 90 },
+      { "point": "34.8697,-111.7610", "durationMinutesOffsetFromStartTime": 240 },
+      { "point": "33.4484,-112.0740", "durationMinutesOffsetFromStartTime": 420 }
+    ]
+  },
+  {
+    "startTime": "2025-01-12T06:00:00Z",
+    "endTime": "2025-01-12T20:00:00Z",
+    "timelinePath": [
+      { "point": "40.7128,-74.0060", "durationMinutesOffsetFromStartTime": 0 },
+      { "point": "40.7580,-73.9855", "durationMinutesOffsetFromStartTime": 45 },
+      { "point": "40.6892,-74.0445", "durationMinutesOffsetFromStartTime": 120 },
+      { "point": "40.7484,-73.9857", "durationMinutesOffsetFromStartTime": 300 }
+    ]
+  },
+  {
+    "startTime": "2025-01-18T09:00:00Z",
+    "endTime": "2025-01-19T01:00:00Z",
+    "timelinePath": [
+      { "point": "51.5074,-0.1278", "durationMinutesOffsetFromStartTime": 0 },
+      { "point": "51.5007,-0.1246", "durationMinutesOffsetFromStartTime": 60 },
+      { "point": "51.5033,-0.1195", "durationMinutesOffsetFromStartTime": 180 },
+      { "point": "51.5155,-0.0922", "durationMinutesOffsetFromStartTime": 360 }
+    ]
+  },
+  {
+    "startTime": "2025-01-22T11:00:00Z",
+    "endTime": "2025-01-23T03:00:00Z",
+    "timelinePath": [
+      { "point": "48.8566,2.3522", "durationMinutesOffsetFromStartTime": 0 },
+      { "point": "48.8738,2.2950", "durationMinutesOffsetFromStartTime": 90 },
+      { "point": "48.8584,2.2945", "durationMinutesOffsetFromStartTime": 240 },
+      { "point": "48.8606,2.3376", "durationMinutesOffsetFromStartTime": 420 }
+    ]
+  },
+  {
+    "startTime": "2025-01-28T07:00:00Z",
+    "endTime": "2025-01-28T19:00:00Z",
+    "timelinePath": [
+      { "point": "41.9028,12.4964", "durationMinutesOffsetFromStartTime": 0 },
+      { "point": "41.8902,12.4922", "durationMinutesOffsetFromStartTime": 120 },
+      { "point": "41.9009,12.4833", "durationMinutesOffsetFromStartTime": 300 }
+    ]
+  }
+]

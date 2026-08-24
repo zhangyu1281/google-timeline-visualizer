@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FAQ — Timeline Visualizer</title>
+    <meta name="description" content="Frequently asked questions about Timeline Visualizer — Google Timeline export, privacy, video formats, and browser support." />
+    <link rel="canonical" href="https://timelinevisualizer.app/faq.html" />
+    <meta property="og:title" content="Timeline Visualizer FAQ" />
+    <meta property="og:image" content="https://timelinevisualizer.app/og-image.svg" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
+    <link rel="stylesheet" href="/site.css" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is Timeline Visualizer?",
+          "acceptedAnswer": { "@type": "Answer", "text": "A free browser tool that reads your exported Google Maps Timeline.json and creates an animated travel recap MP4. It runs entirely in your browser — your location data is never uploaded." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my data uploaded to a server?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Your Timeline JSON is read locally in the browser. The only network requests are for map tiles from CARTO." }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I get my Timeline.json file?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Export directly from your phone via Google Maps settings. Google Takeout no longer works for newer on-device Timeline data." }
+        },
+        {
+          "@type": "Question",
+          "name": "Which browsers are supported?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Video creation requires WebCodecs with H.264. Safari 16.4+ on iPhone and recent Chrome/Edge on desktop work best." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this an official Google product?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Timeline Visualizer is an unofficial third-party tool and is not affiliated with Google." }
+        }
+      ]
+    }
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="site-logo" href="/">Timeline Visualizer</a>
+      <nav class="site-nav" aria-label="Main">
+        <a href="/how-to-export.html">How to export</a>
+        <a href="/faq.html" aria-current="page">FAQ</a>
+        <a href="/">Create video</a>
+      </nav>
+    </header>
+
+    <main class="page-shell">
+      <article class="page-card">
+        <h1>Frequently Asked Questions</h1>
+        <p class="lead">Everything you need to know about turning Google Timeline data into a travel video.</p>
+
+        <div class="faq-item">
+          <h2>What is Timeline Visualizer?</h2>
+          <p>A free browser tool that reads your exported Google Maps <code>Timeline.json</code> and creates an animated travel recap MP4. It runs entirely in your browser — your location data is never uploaded.</p>
+        </div>
+
+        <div class="faq-item">
+          <h2>Is my data uploaded to a server?</h2>
+          <p>No. Your Timeline JSON is read locally in the browser. The only network requests are for map tiles from CARTO, which may reveal the geographic areas shown in your journey.</p>
+        </div>
+
+        <div class="faq-item">
+          <h2>How do I get my Timeline.json file?</h2>
+          <p>Export directly from your phone. See our <a href="/how-to-export.html">export guide</a> for <a href="/how-to-export-iphone.html">iPhone</a> and <a href="/how-to-export-android.html">Android</a> steps. Google Takeout no longer works for newer on-device Timeline data.</p>
+        </div>
+
+        <div class="faq-item">
+          <h2>Which browsers are supported?</h2>
+          <p>Video creation requires WebCodecs with H.264 encoding. Safari 16.4+ on iPhone and recent Chrome/Edge on desktop work best. Browsers without WebCodecs can still load Timeline data but cannot create MP4 videos.</p>
+        </div>
+
+        <div class="faq-item">
+          <h2>What video formats are available?</h2>
+          <p>Square (480p–1080p), Portrait (1080×1920 for TikTok/Reels), and Landscape (1920×1080). Portrait is selected by default.</p>
+        </div>
+
+        <div class="faq-item">
+          <h2>Can I try it without exporting my data?</h2>
+          <p>Yes! Click <strong>Try demo journey</strong> on the homepage to load a fictional sample Timeline and preview the tool instantly.</p>
+        </div>
+
+        <div class="faq-item">
+          <h2>Is this an official Google product?</h2>
+          <p>No. Timeline Visualizer is an unofficial third-party tool and is not affiliated with Google. See <a href="/about.html">About</a> for attribution.</p>
+        </div>
+
+        <a class="cta-button" href="/">Try Timeline Visualizer →</a>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p><a href="/privacy.html">Privacy</a> · <a href="/about.html">About</a> · Unofficial tool · Not affiliated with Google</p>
+    </footer>
+  </body>
+</html>

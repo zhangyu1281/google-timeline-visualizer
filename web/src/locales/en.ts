@@ -17,7 +17,7 @@ import type { Strings } from '../i18n';
 export const en: Strings = {
   appName: 'Timeline Visualizer',
   appShortName: 'Timeline',
-  appDescription: 'Create a travel animation privately from a Google Maps Timeline export.',
+  appDescription: 'Turn your Google Maps Timeline.json into an animated travel recap MP4. Free, private, and browser-based.',
   previewBanner: 'iPhone preview build · Test with non-sensitive sample data first',
   headerTitle: 'Create video',
   presetLinkTitle: 'Shared Android preset',

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a365d"/>
+      <stop offset="100%" stop-color="#2c5282"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="980" cy="120" r="180" fill="#ed8936" opacity="0.15"/>
+  <circle cx="200" cy="520" r="140" fill="#63b3ed" opacity="0.12"/>
+  <!-- stylized map route -->
+  <path d="M180 420 C280 380, 340 260, 460 240 S680 180, 760 220 S920 320, 1020 280" fill="none" stroke="#ed8936" stroke-width="8" stroke-linecap="round" opacity="0.9"/>
+  <circle cx="180" cy="420" r="14" fill="#fff"/>
+  <circle cx="1020" cy="280" r="14" fill="#ed8936"/>
+  <!-- title -->
+  <text x="80" y="140" fill="#fff" font-family="system-ui,sans-serif" font-size="56" font-weight="800">Timeline Visualizer</text>
+  <text x="80" y="200" fill="#bee3f8" font-family="system-ui,sans-serif" font-size="28">Turn Google Timeline into a travel video</text>
+  <text x="80" y="560" fill="#a0aec0" font-family="system-ui,sans-serif" font-size="22">timelinevisualizer.app · Free · Private · No upload</text>
+</svg>
