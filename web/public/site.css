@@ -216,6 +216,23 @@ li { margin: 8px 0; }
   font-size: 17px;
 }
 
+.ad-slot {
+  margin-block: 8px 24px;
+}
+
+.ad-slot-label {
+  margin: 0 0 8px;
+  color: #a0aec0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ad-slot--native {
+  min-height: 120px;
+}
+
 .site-footer {
   max-width: 920px;
   margin: 0 auto;

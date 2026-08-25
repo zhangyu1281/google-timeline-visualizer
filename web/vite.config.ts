@@ -1,10 +1,11 @@
 import { resolve } from 'node:path';
 import { defineConfig } from 'vitest/config';
 import { analyticsPlugin } from './src/analytics-plugin.ts';
+import { adsPlugin } from './src/ads-plugin.ts';
 
 export default defineConfig({
   base: '/',
-  plugins: [analyticsPlugin()],
+  plugins: [analyticsPlugin(), adsPlugin()],
   build: {
     target: 'safari16.4',
     rollupOptions: {
