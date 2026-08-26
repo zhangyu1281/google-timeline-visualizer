@@ -1,4 +1,5 @@
 import type { Strings } from '../i18n';
+import { landingEn } from './landing-en';
 
 /**
  * Brazilian Portuguese (pt-BR) catalog. Translated.
@@ -201,4 +202,5 @@ export const ptBR: Strings = {
   hintSelectWiderPeriod: 'Selecione um período com pelo menos duas localizações diferentes.',
   warnFormatLockedExporting: 'O formato de vídeo não pode ser alterado enquanto um vídeo está sendo criado.',
   warnFormatLockedPreparing: 'O formato de vídeo não pode ser alterado enquanto o mapa está sendo preparado.',
+  ...landingEn,
 };

@@ -58,6 +58,8 @@ export const LANGUAGE_NAMES: Readonly<Record<LocaleTag, string>> = {
 
 export type PluralCategory = Intl.LDMLPluralRule;
 
+import type { LandingStrings } from './locales/landing-en.ts';
+
 /** 'other' is the one category every CLDR locale defines, so it is the only required form. */
 export type PluralEntry =
   & { readonly other: string }
@@ -81,7 +83,7 @@ export type PluralEntry =
  * - Frozen tokens inside translated sentences: Timeline.json, semanticSegments, rawSignals,
  *   CARTO, OpenStreetMap, Google Maps, Safari, H.264, MP4, MB, km, mi, iPhone.
  */
-export interface Strings {
+export interface Strings extends LandingStrings {
   // --- app shell and document metadata ---
   appName: string;
   appShortName: string;

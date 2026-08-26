@@ -1,4 +1,5 @@
 import type { Strings } from '../i18n';
+import { landingEn } from './landing-en';
 
 /**
  * Spanish (es) catalog, translated from the English source.
@@ -201,4 +202,5 @@ export const es: Strings = {
   hintSelectWiderPeriod: 'Selecciona un periodo que contenga al menos dos ubicaciones diferentes.',
   warnFormatLockedExporting: 'No se puede cambiar el formato de vídeo mientras se crea un vídeo.',
   warnFormatLockedPreparing: 'No se puede cambiar el formato de vídeo mientras se prepara el mapa.',
+  ...landingEn,
 };

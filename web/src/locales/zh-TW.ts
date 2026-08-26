@@ -1,4 +1,5 @@
 import type { Strings } from '../i18n';
+import { landingEn } from './landing-en';
 
 /**
  * Traditional Chinese (zh-TW) catalog, translated.
@@ -183,4 +184,5 @@ export const zhTW: Strings = {
   hintSelectWiderPeriod: '請選擇至少包含兩個不同地點的期間。',
   warnFormatLockedExporting: '建立影片時無法變更影片格式。',
   warnFormatLockedPreparing: '準備地圖時無法變更影片格式。',
+  ...landingEn,
 };

@@ -1,4 +1,5 @@
 import type { Strings } from '../i18n';
+import { landingEn } from './landing-en';
 
 /**
  * French (fr) catalog. Translated from the English source; every value is real French.
@@ -201,4 +202,5 @@ export const fr: Strings = {
   hintSelectWiderPeriod: 'Choisissez une période contenant au moins deux positions différentes.',
   warnFormatLockedExporting: 'Le format vidéo ne peut pas être modifié pendant la création d’une vidéo.',
   warnFormatLockedPreparing: 'Le format vidéo ne peut pas être modifié pendant la préparation de la carte.',
+  ...landingEn,
 };

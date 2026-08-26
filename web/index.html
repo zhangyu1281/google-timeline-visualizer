@@ -10,16 +10,16 @@
     <link rel="canonical" href="https://www.timelinevisualizer.app/" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.timelinevisualizer.app/" />
-    <meta property="og:title" content="Timeline Visualizer — Free Google Timeline to Travel Video" />
-    <meta property="og:description" content="Turn your Google Maps Timeline.json into an animated travel recap MP4. Free, private, and browser-based — no upload to our servers." />
+    <meta property="og:title" data-i18n-attr="content:ogTitle" content="Timeline Visualizer — Free Google Timeline to Travel Video" />
+    <meta property="og:description" data-i18n-attr="content:ogDescription" content="Turn your Google Maps Timeline.json into an animated travel recap MP4. Free, private, and browser-based — no upload to our servers." />
     <meta property="og:image" content="https://www.timelinevisualizer.app/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:site_name" content="Timeline Visualizer" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Timeline Visualizer — Free Google Timeline to Travel Video" />
-    <meta name="twitter:description" content="Turn your Google Maps Timeline.json into an animated travel recap MP4. Free, private, and browser-based — no upload to our servers." />
+    <meta name="twitter:title" data-i18n-attr="content:ogTitle" content="Timeline Visualizer — Free Google Timeline to Travel Video" />
+    <meta name="twitter:description" data-i18n-attr="content:ogDescription" content="Turn your Google Maps Timeline.json into an animated travel recap MP4. Free, private, and browser-based — no upload to our servers." />
     <meta name="twitter:image" content="https://www.timelinevisualizer.app/og-image.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -31,7 +31,7 @@
     <link rel="icon" href="/favicon-16x16.png" sizes="16x16" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="mask-icon" href="/logo-mark.svg" color="#1a365d" />
-    <title>Timeline Visualizer — Free Google Timeline to Travel Video</title>
+    <title data-i18n="pageTitle">Timeline Visualizer — Free Google Timeline to Travel Video</title>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -98,15 +98,15 @@
           <span>Timeline Visualizer</span>
         </a>
         <div class="site-nav-links">
-          <a href="#how-it-works">How it works</a>
-          <a href="/how-to-export.html">How to export</a>
-          <a href="/faq.html">FAQ</a>
+          <a href="#how-it-works" data-i18n="navHowItWorks">How it works</a>
+          <a href="/how-to-export.html" data-i18n="navHowToExport">How to export</a>
+          <a href="/faq.html" data-i18n="navFaq">FAQ</a>
           <div class="site-lang-switch" role="navigation" aria-label="Language">
             <button type="button" class="site-lang-btn" data-lang-pref="en" aria-pressed="false">EN</button>
             <span class="site-lang-sep" aria-hidden="true">|</span>
             <button type="button" class="site-lang-btn" data-lang-pref="ko" aria-pressed="false">KO</button>
           </div>
-          <a class="nav-cta" href="#tool">Get started</a>
+          <a class="nav-cta" href="#tool" data-i18n="navGetStarted">Get started</a>
         </div>
       </nav>
     </header>
@@ -115,16 +115,16 @@
       <div class="landing-hero page-container">
         <div class="hero-stack">
           <div class="hero-copy">
-            <p class="hero-eyebrow">Free · Private · Browser-based</p>
+            <p class="hero-eyebrow" data-i18n="heroEyebrow">Free · Private · Browser-based</p>
             <h1 id="hero-heading">
-              <span class="hero-heading-main">Turn Google Timeline into a Travel Video</span>
-              <span class="site-ui-hidden">Google Timeline Visualizer — location history to animated travel recap</span>
+              <span class="hero-heading-main" data-i18n="heroHeading">Turn Google Timeline into a Travel Video</span>
+              <span class="site-ui-hidden" data-i18n="heroHeadingSeo">Google Timeline Visualizer — location history to animated travel recap</span>
             </h1>
-            <p class="hero-tagline">Your year on a map. One video. Zero upload.</p>
-            <p class="hero-subtitle">Upload your exported Google Maps <code>Timeline.json</code> and download a shareable MP4 — processed entirely on your device.</p>
+            <p class="hero-tagline" data-i18n="heroTagline">Your year on a map. One video. Zero upload.</p>
+            <p class="hero-subtitle" data-i18n="heroSubtitle">Upload your exported Google Maps Timeline.json and download a shareable MP4 — processed entirely on your device.</p>
             <div class="hero-actions">
-              <a class="hero-cta" href="#tool">Create your video</a>
-              <button id="hero-sample-button" class="hero-secondary hero-demo-pulse" type="button">Try demo — no file needed</button>
+              <a class="hero-cta" href="#tool" data-i18n="heroCta">Create your video</a>
+              <button id="hero-sample-button" class="hero-secondary hero-demo-pulse" type="button" data-i18n="heroTryDemo">Try demo — no file needed</button>
             </div>
           </div>
           <figure class="hero-preview">
@@ -139,6 +139,7 @@
               loop
               playsinline
               preload="metadata"
+              data-i18n-attr="aria-label:heroVideoAriaLabel"
               aria-label="Animated map route preview"
             ></video>
           </figure>
@@ -147,8 +148,8 @@
     </section>
 
     <div id="sticky-cta" class="sticky-cta hidden" role="complementary" aria-label="Quick actions">
-      <a class="sticky-cta-primary" href="#tool">Create video</a>
-      <button id="sticky-demo-button" class="sticky-cta-secondary" type="button">Try demo</button>
+      <a class="sticky-cta-primary" href="#tool" data-i18n="stickyCreateVideo">Create video</a>
+      <button id="sticky-demo-button" class="sticky-cta-secondary" type="button" data-i18n="tryDemoShort">Try demo</button>
     </div>
 
     <main id="tool">
@@ -167,15 +168,15 @@
         <div id="drop-zone" class="drop-zone">
           <div class="drop-zone-inner">
             <p class="drop-zone-title" data-i18n="chooseFileButton">Choose Timeline.json</p>
-            <p class="drop-zone-hint">Drop your file here, or browse</p>
+            <p class="drop-zone-hint" data-i18n="dropZoneHint">Drop your file here, or browse</p>
             <label class="file-button drop-zone-button">
-              <span>Browse files</span>
+              <span data-i18n="browseFilesLabel">Browse files</span>
               <input id="timeline-file" type="file" accept="application/json,.json" />
             </label>
             <button id="sample-button" class="text-link-button" type="button" data-i18n="sampleButton">Try a fictional sample journey</button>
           </div>
         </div>
-        <p class="export-help-line">Need to export first? <a href="/how-to-export.html">See the export guide</a></p>
+        <p class="export-help-line"><span data-i18n="exportHelpPrompt">Need to export first?</span> <a href="/how-to-export.html" data-i18n="exportHelpLink">See the export guide</a></p>
         <p id="file-status" class="status" role="status" data-i18n="fileStatusEmpty">No Timeline loaded</p>
         <p id="compatibility-status" class="status" data-i18n="compatibilityChecking">Checking video support…</p>
         <label id="language-field">
@@ -345,7 +346,7 @@
       </div>
 
       <aside class="ad-slot ad-slot--native" aria-label="Advertisement">
-        <p class="ad-slot-label">Advertisement</p>
+        <p class="ad-slot-label" data-i18n="adLabel">Advertisement</p>
         <div id="container-3079ea078c358dd1684ccf17f742e95a"></div>
       </aside>
 
@@ -353,23 +354,23 @@
       <div class="landing-content page-container">
         <section id="how-it-works" class="landing-section" aria-labelledby="how-heading">
           <div class="landing-section-header">
-            <h2 id="how-heading">How Timeline Visualizer Works</h2>
-            <p class="section-lead">Three steps from Google Timeline export to shareable travel video — no account, no install.</p>
+            <h2 id="how-heading" data-i18n="howItWorksTitle">How Timeline Visualizer Works</h2>
+            <p class="section-lead" data-i18n="howItWorksLead">Three steps from Google Timeline export to shareable travel video — no account, no install.</p>
           </div>
           <ol class="feature-steps">
             <li>
-              <h3>Export your Timeline</h3>
-              <p>Google Maps stores location history on your phone. Export it as <code>Timeline.json</code> from iPhone or Android.</p>
-              <a href="/how-to-export.html">Export guide →</a>
+              <h3 data-i18n="howStep1Title">Export your Timeline</h3>
+              <p data-i18n="howStep1Body">Google Maps stores location history on your phone. Export it as Timeline.json from iPhone or Android.</p>
+              <a href="/how-to-export.html" data-i18n="howStep1Link">Export guide →</a>
             </li>
             <li>
-              <h3>Upload in your browser</h3>
-              <p>Drop your file here or browse. Your data stays on your device — we never receive your location history.</p>
-              <a href="#tool">Upload Timeline.json →</a>
+              <h3 data-i18n="howStep2Title">Upload in your browser</h3>
+              <p data-i18n="howStep2Body">Drop your file here or browse. Your data stays on your device — we never receive your location history.</p>
+              <a href="#tool" data-i18n="howStep2Link">Upload Timeline.json →</a>
             </li>
             <li>
-              <h3>Download your MP4</h3>
-              <p>Pick dates, camera style, and format (Portrait for Reels, Landscape for YouTube). Create and share your recap.</p>
+              <h3 data-i18n="howStep3Title">Download your MP4</h3>
+              <p data-i18n="howStep3Body">Pick dates, camera style, and format (Portrait for Reels, Landscape for YouTube). Create and share your recap.</p>
             </li>
           </ol>
         </section>
@@ -380,24 +381,24 @@
       <div class="landing-content page-container">
         <section class="landing-section" aria-labelledby="why-heading">
           <div class="landing-section-header">
-            <h2 id="why-heading">Why Use Timeline Visualizer?</h2>
+            <h2 id="why-heading" data-i18n="whyTitle">Why Use Timeline Visualizer?</h2>
           </div>
           <div class="benefit-grid">
             <article class="benefit-card">
-              <h3>Private by design</h3>
-              <p>Your Timeline.json is parsed locally. Nothing is uploaded to our servers — only map tile coordinates go to CARTO.</p>
+              <h3 data-i18n="whyPrivateTitle">Private by design</h3>
+              <p data-i18n="whyPrivateBody">Your Timeline.json is parsed locally. Nothing is uploaded to our servers — only map tile coordinates go to CARTO.</p>
             </article>
             <article class="benefit-card">
-              <h3>Free, no account</h3>
-              <p>No sign-up, subscription, or app install. Open the page, upload your file, and download your video.</p>
+              <h3 data-i18n="whyFreeTitle">Free, no account</h3>
+              <p data-i18n="whyFreeBody">No sign-up, subscription, or app install. Open the page, upload your file, and download your video.</p>
             </article>
             <article class="benefit-card">
-              <h3>Works on phone &amp; desktop</h3>
-              <p>Export on your phone, create the video in Safari or Chrome. Portrait and landscape formats included.</p>
+              <h3 data-i18n="whyDevicesTitle">Works on phone & desktop</h3>
+              <p data-i18n="whyDevicesBody">Export on your phone, create the video in Safari or Chrome. Portrait and landscape formats included.</p>
             </article>
             <article class="benefit-card">
-              <h3>Shareable MP4 output</h3>
-              <p>H.264 video ready for Instagram, TikTok, YouTube, or messaging apps. Preview before you export.</p>
+              <h3 data-i18n="whyShareTitle">Shareable MP4 output</h3>
+              <p data-i18n="whyShareBody">H.264 video ready for Instagram, TikTok, YouTube, or messaging apps. Preview before you export.</p>
             </article>
           </div>
         </section>
@@ -408,19 +409,19 @@
       <div class="landing-content page-container">
         <section class="landing-section" aria-labelledby="export-heading">
           <div class="landing-section-header">
-            <h2 id="export-heading">Export Your Timeline First</h2>
-            <p class="section-lead">Choose your platform for step-by-step instructions on getting <code>Timeline.json</code> from Google Maps.</p>
+            <h2 id="export-heading" data-i18n="exportSectionTitle">Export Your Timeline First</h2>
+            <p class="section-lead" data-i18n="exportSectionLead">Choose your platform for step-by-step instructions on getting Timeline.json from Google Maps.</p>
           </div>
           <div class="export-card-grid">
             <a class="export-card" href="/how-to-export-iphone.html">
-              <h3>iPhone</h3>
-              <p>Export via Google Maps → Settings → Personal content → Export Timeline data.</p>
-              <span class="export-card-link">iPhone guide →</span>
+              <h3 data-i18n="exportCardIphoneTitle">iPhone</h3>
+              <p data-i18n="exportCardIphoneBody">Export via Google Maps → Settings → Personal content → Export Timeline data.</p>
+              <span class="export-card-link" data-i18n="exportCardIphoneLink">iPhone guide →</span>
             </a>
             <a class="export-card" href="/how-to-export-android.html">
-              <h3>Android</h3>
-              <p>Export from Google Maps or Android settings — two methods depending on your device.</p>
-              <span class="export-card-link">Android guide →</span>
+              <h3 data-i18n="exportCardAndroidTitle">Android</h3>
+              <p data-i18n="exportCardAndroidBody">Export from Google Maps or Android settings — two methods depending on your device.</p>
+              <span class="export-card-link" data-i18n="exportCardAndroidLink">Android guide →</span>
             </a>
           </div>
         </section>
@@ -431,49 +432,49 @@
       <div class="landing-content page-container">
         <section class="landing-section" aria-labelledby="faq-preview-heading">
           <div class="landing-section-header">
-            <h2 id="faq-preview-heading">Frequently Asked Questions</h2>
+            <h2 id="faq-preview-heading" data-i18n="faqPreviewTitle">Frequently Asked Questions</h2>
           </div>
           <div class="faq-preview-list">
             <details class="faq-preview-item">
-              <summary>Is my location data uploaded?</summary>
-              <p>No. Timeline Visualizer reads your file locally in the browser. Map tiles are fetched from CARTO, which may receive coordinates for areas in your journey.</p>
+              <summary data-i18n="faqPreviewQ1">Is my location data uploaded?</summary>
+              <p data-i18n="faqPreviewA1">No. Timeline Visualizer reads your file locally in the browser. Map tiles are fetched from CARTO, which may receive coordinates for areas in your journey.</p>
             </details>
             <details class="faq-preview-item">
-              <summary>Which browsers can create MP4 video?</summary>
-              <p>Safari 16.4+ on iPhone and recent Chrome or Edge on desktop support WebCodecs H.264 encoding. Other browsers can load data but may not export video.</p>
+              <summary data-i18n="faqPreviewQ2">Which browsers can create MP4 video?</summary>
+              <p data-i18n="faqPreviewA2">Safari 16.4+ on iPhone and recent Chrome or Edge on desktop support WebCodecs H.264 encoding. Other browsers can load data but may not export video.</p>
             </details>
             <details class="faq-preview-item">
-              <summary>Does Google Takeout still work for Timeline?</summary>
-              <p>For newer on-device Timeline data, export directly from Google Maps on your phone. Takeout no longer includes the same data for many users.</p>
+              <summary data-i18n="faqPreviewQ3">Does Google Takeout still work for Timeline?</summary>
+              <p data-i18n="faqPreviewA3">For newer on-device Timeline data, export directly from Google Maps on your phone. Takeout no longer includes the same data for many users.</p>
             </details>
             <details class="faq-preview-item">
-              <summary>Is this an official Google product?</summary>
-              <p>No. Timeline Visualizer is an unofficial third-party tool and is not affiliated with Google.</p>
+              <summary data-i18n="faqPreviewQ4">Is this an official Google product?</summary>
+              <p data-i18n="faqPreviewA4">No. Timeline Visualizer is an unofficial third-party tool and is not affiliated with Google.</p>
             </details>
           </div>
-          <p class="section-cta-link section-cta-link--center"><a href="/faq.html">Read all FAQ →</a></p>
+          <p class="section-cta-link section-cta-link--center"><a href="/faq.html" data-i18n="faqPreviewReadAll">Read all FAQ →</a></p>
         </section>
       </div>
       </div>
 
       <div class="landing-cta-outer" aria-labelledby="final-cta-heading">
         <div class="landing-cta-band page-container">
-          <h2 id="final-cta-heading">Ready to visualize your timeline?</h2>
-          <p>Try the demo journey first — no file needed — or upload your own Timeline.json.</p>
+          <h2 id="final-cta-heading" data-i18n="finalCtaTitle">Ready to visualize your timeline?</h2>
+          <p data-i18n="finalCtaBody">Try the demo journey first — no file needed — or upload your own Timeline.json.</p>
           <div class="landing-cta-actions">
-            <a class="hero-cta" href="#tool">Create your video</a>
-            <button id="footer-demo-button" class="hero-secondary" type="button">Try demo</button>
+            <a class="hero-cta" href="#tool" data-i18n="heroCta">Create your video</a>
+            <button id="footer-demo-button" class="hero-secondary" type="button" data-i18n="tryDemoShort">Try demo</button>
           </div>
         </div>
       </div>
 
       <footer class="app-footer page-container">
         <p class="footer-links">
-          <a href="/how-to-export.html">How to export</a>
-          <a href="/faq.html">FAQ</a>
-          <a href="/privacy.html">Privacy</a>
-          <a href="/about.html">About</a>
-          <a href="https://github.com/mahlernim/google-timeline-visualizer" target="_blank" rel="noopener noreferrer">Open source</a>
+          <a href="/how-to-export.html" data-i18n="footerHowToExport">How to export</a>
+          <a href="/faq.html" data-i18n="footerFaq">FAQ</a>
+          <a href="/privacy.html" data-i18n="footerPrivacy">Privacy</a>
+          <a href="/about.html" data-i18n="footerAbout">About</a>
+          <a href="https://github.com/mahlernim/google-timeline-visualizer" target="_blank" rel="noopener noreferrer" data-i18n="footerOpenSource">Open source</a>
         </p>
         <p class="footer-disclaimer" data-i18n="footerNoAccount">No account, location permission, or Timeline upload is required.</p>
         <p class="footer-meta" data-i18n="footerMapAttribution">Map data © OpenStreetMap contributors and © CARTO.</p>

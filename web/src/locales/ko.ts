@@ -1,4 +1,5 @@
 import type { Strings } from '../i18n';
+import { landingKo } from './landing-ko';
 
 /**
  * Korean (ko) catalog. Translated; every value is real Korean text.
@@ -188,4 +189,5 @@ export const ko: Strings = {
   hintSelectWiderPeriod: '서로 다른 위치가 두 곳 이상 포함된 기간을 선택하세요.',
   warnFormatLockedExporting: '영상을 만드는 중에는 영상 형식을 변경할 수 없습니다.',
   warnFormatLockedPreparing: '지도를 준비하는 중에는 영상 형식을 변경할 수 없습니다.',
+  ...landingKo,
 };

@@ -1,4 +1,5 @@
 import type { Strings } from '../i18n';
+import { landingEn } from './landing-en';
 
 /**
  * Simplified Chinese (zh-CN) catalog, translated.
@@ -188,4 +189,5 @@ export const zhCN: Strings = {
   hintSelectWiderPeriod: '请选择至少包含两个不同位置的时间段。',
   warnFormatLockedExporting: '创建视频期间无法更改视频格式。',
   warnFormatLockedPreparing: '准备地图期间无法更改视频格式。',
+  ...landingEn,
 };
