@@ -6,12 +6,12 @@
     <meta name="theme-color" content="#1a365d" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <meta name="description" data-i18n-attr="content:appDescription" content="Turn your Google Maps Timeline.json into an animated travel recap MP4. Free, private, and browser-based." />
+    <meta name="description" data-i18n-attr="content:appDescription" content="Turn your Google Maps Timeline.json into an animated travel recap MP4. Free preview in your browser — download for $2.59." />
     <link rel="canonical" href="https://www.timelinevisualizer.app/" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.timelinevisualizer.app/" />
     <meta property="og:title" data-i18n-attr="content:ogTitle" content="Timeline Visualizer — Free Google Timeline to Travel Video" />
-    <meta property="og:description" data-i18n-attr="content:ogDescription" content="Turn your Google Maps Timeline.json into an animated travel recap MP4. Free, private, and browser-based — no upload to our servers." />
+    <meta property="og:description" data-i18n-attr="content:ogDescription" content="Turn your Google Maps Timeline.json into an animated travel recap MP4. Free preview in your browser — download for $2.59." />
     <meta property="og:image" content="https://www.timelinevisualizer.app/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -19,7 +19,7 @@
     <meta property="og:site_name" content="Timeline Visualizer" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" data-i18n-attr="content:ogTitle" content="Timeline Visualizer — Free Google Timeline to Travel Video" />
-    <meta name="twitter:description" data-i18n-attr="content:ogDescription" content="Turn your Google Maps Timeline.json into an animated travel recap MP4. Free, private, and browser-based — no upload to our servers." />
+    <meta name="twitter:description" data-i18n-attr="content:ogDescription" content="Turn your Google Maps Timeline.json into an animated travel recap MP4. Free preview in your browser — download for $2.59." />
     <meta name="twitter:image" content="https://www.timelinevisualizer.app/og-image.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -41,8 +41,8 @@
           "name": "Timeline Visualizer",
           "applicationCategory": "UtilitiesApplication",
           "operatingSystem": "Web Browser",
-          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-          "description": "Free Google Timeline visualizer. Upload Timeline.json in your browser and download a shareable travel recap MP4.",
+          "offers": { "@type": "Offer", "price": "2.59", "priceCurrency": "USD", "description": "MP4 download and share unlock per video. Preview is free." },
+          "description": "Free Google Timeline visualizer. Upload Timeline.json in your browser, preview for free, and download a shareable travel recap MP4 for $2.59.",
           "url": "https://www.timelinevisualizer.app/",
           "featureList": "Google Timeline to MP4, browser-based processing, no account required, H.264 video export"
         },
@@ -53,7 +53,7 @@
           "step": [
             { "@type": "HowToStep", "position": 1, "name": "Export Timeline", "text": "Export Timeline.json from Google Maps on your phone." },
             { "@type": "HowToStep", "position": 2, "name": "Upload", "text": "Upload the file to Timeline Visualizer in your browser." },
-            { "@type": "HowToStep", "position": 3, "name": "Download MP4", "text": "Customize your video and download a shareable MP4." }
+            { "@type": "HowToStep", "position": 3, "name": "Download MP4", "text": "Preview for free, then download your shareable MP4 for $2.59." }
           ]
         },
         {
@@ -81,8 +81,8 @@
             },
             {
               "@type": "Question",
-              "name": "Is Timeline Visualizer an official Google product?",
-              "acceptedAnswer": { "@type": "Answer", "text": "No. Timeline Visualizer is an unofficial third-party tool and is not affiliated with Google." }
+              "name": "How much does MP4 download cost?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Creating and previewing your video is free. Downloading and sharing the MP4 costs $2.59 USD per video (plus any applicable tax at checkout). Payments are processed securely by Waffo Pancake." }
             }
           ]
         }
@@ -117,13 +117,13 @@
       <div class="landing-hero page-container">
         <div class="hero-stack">
           <div class="hero-copy">
-            <p class="hero-eyebrow" data-i18n="heroEyebrow">Free · Private · Browser-based</p>
+            <p class="hero-eyebrow" data-i18n="heroEyebrow">Free preview · Private · Browser-based</p>
             <h1 id="hero-heading">
               <span class="hero-heading-main" data-i18n="heroHeading">Turn Google Timeline into a Travel Video</span>
               <span class="site-ui-hidden" data-i18n="heroHeadingSeo">Google Timeline Visualizer — location history to animated travel recap</span>
             </h1>
             <p class="hero-tagline" data-i18n="heroTagline">Your year on a map. One video. Zero upload.</p>
-            <p class="hero-subtitle" data-i18n="heroSubtitle">Upload your exported Google Maps Timeline.json and download a shareable MP4 — processed entirely on your device.</p>
+            <p class="hero-subtitle" data-i18n="heroSubtitle">Upload your exported Google Maps Timeline.json, preview your travel recap for free, and download a shareable MP4 for $2.59 — processed entirely on your device.</p>
             <div class="hero-actions">
               <a class="hero-cta" href="#tool" data-i18n="heroCta">Create your video</a>
               <button id="hero-sample-button" class="hero-secondary hero-demo-pulse" type="button" data-i18n="heroTryDemo">Try demo — no file needed</button>
@@ -450,10 +450,11 @@
           </div>
         </div>
         <div id="result-actions" class="preview-result-actions hidden">
-          <a id="download-link" class="button" download="timeline-journey.mp4" data-i18n="downloadButton">Download MP4</a>
+          <button id="download-button" class="button" type="button" data-i18n="downloadButton">Download MP4</button>
           <button id="share-button" class="secondary" type="button" data-i18n="shareButton">Share video</button>
           <button id="back-to-preview-button" class="text-link-button" type="button" data-i18n="backToPreviewButton">Back to preview</button>
         </div>
+        <p id="payment-status" class="payment-status hidden" role="status"></p>
         <p id="error-message" class="error hidden" role="alert"></p>
       </section>
         </div>
@@ -489,7 +490,7 @@
             </li>
             <li>
               <h3 data-i18n="howStep3Title">Download your MP4</h3>
-              <p data-i18n="howStep3Body">Pick dates, camera style, and format (Portrait for Reels, Landscape for YouTube). Create and share your recap.</p>
+              <p data-i18n="howStep3Body">Pick dates, camera style, and format (Portrait for Reels, Landscape for YouTube). Preview for free, then download your recap for $2.59.</p>
             </li>
           </ol>
         </section>
@@ -508,8 +509,8 @@
               <p data-i18n="whyPrivateBody">Your Timeline.json is parsed locally. Nothing is uploaded to our servers — only map tile coordinates go to CARTO.</p>
             </article>
             <article class="benefit-card">
-              <h3 data-i18n="whyFreeTitle">Free, no account</h3>
-              <p data-i18n="whyFreeBody">No sign-up, subscription, or app install. Open the page, upload your file, and download your video.</p>
+              <h3 data-i18n="whyFreeTitle">Free preview, pay to download</h3>
+              <p data-i18n="whyFreeBody">Create and preview your video for free. Download and share your MP4 for $2.59 — no account or subscription.</p>
             </article>
             <article class="benefit-card">
               <h3 data-i18n="whyDevicesTitle">Works on phone & desktop</h3>
@@ -570,6 +571,10 @@
               <summary data-i18n="faqPreviewQ4">Is this an official Google product?</summary>
               <p data-i18n="faqPreviewA4">No. Timeline Visualizer is an unofficial third-party tool and is not affiliated with Google.</p>
             </details>
+            <details class="faq-preview-item">
+              <summary data-i18n="faqPreviewQ5">How much does MP4 download cost?</summary>
+              <p data-i18n="faqPreviewA5">Creating and previewing your video is free. Downloading and sharing the MP4 costs $2.59 USD per video (plus any applicable tax at checkout). Payments are processed securely by Waffo Pancake.</p>
+            </details>
           </div>
           <p class="section-cta-link section-cta-link--center"><a href="/faq.html" data-i18n="faqPreviewReadAll">Read all FAQ →</a></p>
         </section>
@@ -594,6 +599,7 @@
           <a href="/how-to-export.html" data-i18n="footerHowToExport">How to export</a>
           <a href="/faq.html" data-i18n="footerFaq">FAQ</a>
           <a href="/privacy.html" data-i18n="footerPrivacy">Privacy</a>
+          <a href="/terms.html" data-i18n="footerTerms">Terms</a>
           <a href="/about.html" data-i18n="footerAbout">About</a>
           <a href="https://github.com/mahlernim/google-timeline-visualizer" target="_blank" rel="noopener noreferrer" data-i18n="footerOpenSource">Open source</a>
         </p>

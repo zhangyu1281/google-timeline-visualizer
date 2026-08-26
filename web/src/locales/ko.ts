@@ -155,6 +155,13 @@ export const ko: Strings = {
   cancelButton: '영상 만들기 취소',
   shareButton: '영상 공유',
   downloadButton: 'MP4 다운로드',
+  payToDownloadButton: '{price} 결제 후 다운로드',
+  paymentPending: '팝업 창에서 결제를 완료하세요…',
+  paymentComplete: '결제가 완료되었습니다. 영상을 다운로드하고 공유할 수 있습니다.',
+  downloadPriceHint: '미리보기는 무료입니다. 다운로드와 공유는 {price}입니다.',
+  paymentNotConfigured: '결제 기능을 아직 사용할 수 없습니다. 나중에 다시 시도하세요.',
+  paymentFailed: '결제를 시작할 수 없습니다. 다시 시도하세요.',
+  errorPaymentRequired: '다운로드와 공유를 사용하려면 결제가 필요합니다.',
 
   footerNoAccount: '계정도, 위치 권한도, 타임라인 업로드도 필요하지 않습니다.',
   footerMapAttribution: '지도 데이터 © OpenStreetMap 기여자 및 © CARTO.',

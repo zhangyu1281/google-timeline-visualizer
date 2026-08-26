@@ -118,6 +118,10 @@ export const pagesKo = {
   faqA7AboutLink: '소개',
   faqA7Suffix: '에서 출처를 확인하세요.',
 
+  faqQ8: 'MP4 다운로드 비용은 얼마인가요?',
+  faqA8:
+    '영상 만들기와 미리보기는 무료입니다. MP4 다운로드와 공유는 영상당 $2.59 USD(결제 시 해당 세금 별도)입니다. 결제는 Waffo Pancake가 안전하게 처리합니다.',
+
   aboutPageTitle: '소개 — Timeline Visualizer',
   aboutMetaDescription:
     'Timeline Visualizer 소개 — Google 타임라인 내보내기를 여행 recap 영상으로 바꾸는 무료 비공식 도구.',
@@ -141,32 +145,131 @@ export const pagesKo = {
   aboutWhyBody:
     'Google은 타임라인 데이터를 기기 저장으로 옮기고 웹 뷰어를 제거했습니다. 수많은 사용자가 여전히 여행 기록을 시각화하고 공유하고 싶어 합니다 — Timeline Visualizer는 간단하고 비공개인 웹 도구로 그 공백을 채웁니다.',
 
-  privacyPageTitle: '개인정보 처리방침 — Timeline Visualizer',
+  footerTerms: '약관',
+
+  termsPageTitle: 'Terms of Service — Timeline Visualizer',
+  termsMetaDescription:
+    'Terms of Service for Timeline Visualizer — one-time MP4 download purchases, refunds, and acceptable use.',
+  termsOgTitle: 'Terms of Service — Timeline Visualizer',
+  termsOgDescription:
+    'Terms governing use of Timeline Visualizer and $2.59 MP4 download purchases processed by Waffo Pancake.',
+  termsH1: 'Terms of Service',
+  termsUpdated: 'Last updated: August 26, 2026',
+  termsIntroTitle: '1. Introduction & acceptance',
+  termsIntroBody:
+    'Welcome to MahlerLab ("MahlerLab", "we", "us", or "our"). These Terms of Service ("Terms") govern your access to and use of Timeline Visualizer, a browser-based tool that turns exported Google Maps Timeline.json files into animated travel recap MP4 videos, available at https://www.timelinevisualizer.app (the "Service").',
+  termsIntroBody2:
+    'By using the Service or completing a checkout for an MP4 download, you confirm that you: (a) are at least 18 years of age; (b) have read, understood, and agree to these Terms; (c) agree to our Privacy Policy at https://www.timelinevisualizer.app/privacy.html; and (d) are authorized to enter this agreement on your own behalf or on behalf of any organization you represent. If you do not agree, do not use the Service.',
+  termsServiceTitle: '2. Service description',
+  termsServiceBody:
+    'Timeline Visualizer runs in your web browser. You select a Timeline.json file locally; the app renders a map animation and can encode an H.264 MP4 on your device. Creating and previewing a video is free. Downloading and sharing the finished MP4 requires a one-time purchase (currently $2.59 USD plus applicable tax at checkout, as shown before payment).',
+  termsServiceBody2:
+    'The Service is a digital, intangible product. After confirmed payment, download and share access for that export is unlocked immediately in your browser session. Because delivery is instant and digital, refunds are limited as described in Section 7.',
+  termsEligibilityTitle: '3. Eligibility & use',
+  termsEligibilityBody:
+    'No account is required. You are responsible for ensuring you have the right to use the Timeline data you load and the videos you create. Do not use the Service for unlawful purposes or to infringe others’ rights.',
+  termsPurchaseTitle: '4. One-time MP4 download purchase',
+  termsPurchaseBody:
+    'Each paid checkout unlocks download and share for one completed MP4 export in the current browser session (typically up to 72 hours). Pricing is displayed on the site and at checkout before you pay. We may change the price for future purchases; the price locked at checkout applies to that transaction.',
+  termsBillingTitle: '5. Billing & payment',
+  termsBillingBody:
+    'Payments are processed by Waffo Pancake, our Merchant of Record and PCI-DSS payment processor. We do not store full payment card numbers on our servers. By completing checkout, you authorize a one-time charge for the amount shown (including tax where applicable). Your card statement may show Waffo Pancake or a related descriptor — contact us if you do not recognize a charge before disputing with your bank.',
+  termsValidityTitle: '6. Purchase validity',
+  termsValidityBody:
+    'Download unlock is tied to your browser session and the specific export you created. Reloading the page after payment may require verifying your checkout again. Unlocked access does not transfer to other devices or browsers.',
+  termsRefundTitle: '7. Refund policy',
+  termsRefundBody:
+    'Because the MP4 is generated and delivered digitally in your browser, fees are generally non-refundable once download or share has been unlocked, except where required by law or as stated below.',
+  termsRefundList1: 'Duplicate charge: full refund for a confirmed billing error.',
+  termsRefundList2: 'Failed delivery: if payment succeeded but unlock never worked and we cannot fix it within 5 business days, contact us for a refund or credit.',
+  termsRefundList3: 'Statutory rights: if applicable law grants withdrawal or refund rights (e.g., EU/UK consumer rules), those rights are preserved.',
+  termsRefundBody2:
+    'To request a refund, email mahlerlabdiy@gmail.com with your checkout email, transaction or order reference, and reason. We respond within 2 business days and process eligible refunds within 5–10 business days.',
+  termsDisputesTitle: '8. Billing disputes',
+  termsDisputesBody:
+    'If you believe a charge is incorrect, contact mahlerlabdiy@gmail.com before opening a bank dispute. We aim to respond within 2 business days and resolve confirmed billing errors within 5 business days.',
+  termsIpTitle: '9. Intellectual property',
+  termsIpBody:
+    'You retain ownership of your Timeline data and the MP4 videos you generate. MahlerLab owns the Service, software, branding, and site content. Map tiles and attribution remain subject to third-party licenses (OpenStreetMap, CARTO).',
+  termsAupTitle: '10. Acceptable use',
+  termsAupBody: 'You agree not to use the Service to:',
+  termsAupList1: 'Violate any law or third-party rights.',
+  termsAupList2: 'Upload or process data you are not authorized to use.',
+  termsAupList3: 'Attempt to bypass payment, security, or usage limits.',
+  termsAupList4: 'Reverse engineer, scrape, or resell access to the Service without written permission.',
+  termsPrivacyTitle: '11. Data, privacy & security',
+  termsPrivacyBody:
+    'Your use of the Service is governed by our Privacy Policy at https://www.timelinevisualizer.app/privacy.html. Payment card data is processed exclusively by Waffo Pancake and is not stored on our servers. Timeline.json contents and generated videos are processed locally in your browser and are not uploaded to our application servers.',
+  termsDisclaimerTitle: '12. Disclaimers & limitation of liability',
+  termsDisclaimerBody:
+    'THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND. TO THE MAXIMUM EXTENT PERMITTED BY LAW, MAHLERLAB IS NOT LIABLE FOR INDIRECT, INCIDENTAL, OR CONSEQUENTIAL DAMAGES. OUR TOTAL LIABILITY FOR ANY CLAIM SHALL NOT EXCEED THE AMOUNT YOU PAID FOR THE MP4 DOWNLOAD IN THE 12 MONTHS BEFORE THE CLAIM.',
+  termsTerminationTitle: '13. Term & termination',
+  termsTerminationBody:
+    'We may suspend or restrict access if you materially breach these Terms or if required by law. You may stop using the Service at any time.',
+  termsLawTitle: '14. Governing law',
+  termsLawBody:
+    'These Terms are governed by the laws applicable to MahlerLab as operator of the Service, without regard to conflict-of-law rules. Contact us first to resolve disputes informally.',
+  termsGeneralTitle: '15. General provisions',
+  termsGeneralBody:
+    'We may update these Terms. Material changes will be posted on this page with an updated date at least 14 days before they take effect where practicable. Continued use after the effective date constitutes acceptance. If any provision is unenforceable, the remainder stays in effect.',
+  termsContactTitle: '16. Contact',
+  termsContactBody:
+    'General support & billing: mahlerlabdiy@gmail.com · Privacy: mahlerlabdiy@gmail.com · Website: https://www.timelinevisualizer.app',
+
+  privacyPageTitle: 'Privacy Policy — Timeline Visualizer',
   privacyMetaDescription:
-    'Timeline Visualizer 개인정보 처리방침. Google 타임라인 데이터는 기기에 남으며 업로드되지 않습니다.',
-  privacyOgTitle: '개인정보 처리방침 — Timeline Visualizer',
-  privacyOgDescription: 'Google 타임라인 데이터는 기기에 남으며 업로드되지 않습니다.',
-  privacyH1: '개인정보 처리방침',
-  privacyUpdated: '최종 업데이트: 2026년 8월',
-  privacyTimelineTitle: '타임라인 데이터',
-  privacyTimelineBody:
-    'Timeline Visualizer는 Google 지도 타임라인 내보내기를 웹 브라우저에서만 처리합니다. Timeline.json 파일은 서버에 업로드되지 않습니다. 위치 기록을 수집·저장·접근하지 않습니다.',
-  privacyMapTitle: '지도 타일',
-  privacyMapBody:
-    '여행 애니메이션을 렌더링하려면 CARTO(OpenStreetMap 데이터 기반)에서 지도 타일을 요청합니다. 선택한 이동 구간의 타일 좌표와 IP 주소 등 일반 네트워크 정보가 포함될 수 있으며, CARTO에 타임라인의 지리적 영역이 드러날 수 있습니다.',
-  privacyAnalyticsTitle: '분석',
-  privacyAnalyticsBody:
-    'Google Analytics(측정 ID G-D537HYXP7Z)로 집계 트래픽과 페이지 사용을 파악합니다. Cloudflare Web Analytics 등 개인정보 친화적 분석을 사용할 수 있습니다. 페이지 조회와 일반 사용만 추적하며 타임라인 내용·좌표·파일명·생성 미디어는 분석 이벤트에 포함되지 않습니다.',
-  privacyAdsTitle: '광고',
-  privacyAdsBody:
-    'Adsterra를 통해 서드파티 광고를 표시합니다. 광고 네트워크는 쿠키·기기 식별자 등으로 광고 제공·측정을 할 수 있습니다. IP 주소·브라우저 유형·조회 페이지 등을 수집할 수 있습니다. Timeline.json 내용과 생성 영상은 광고주와 공유되지 않습니다. Adsterra 정책은 해당 웹사이트에서 확인하세요.',
-  privacyNoAccountTitle: '계정 불필요',
-  privacyNoAccountBody:
-    '로그인, 위치 권한, 선택한 파일 외 광범위한 파일 시스템 접근이 필요하지 않습니다.',
-  privacyThirdPartyTitle: '서드파티 고지',
-  privacyThirdPartyBodyPrefix: '지도 데이터 © OpenStreetMap contributors 및 © CARTO. ',
-  privacyThirdPartyLink: '서드파티 고지',
-  privacyThirdPartyBodySuffix: '에서 전체 출처를 확인하세요.',
-  privacyContactTitle: '문의',
-  privacyContactBody: '개인정보 관련 문의는 GitHub 저장소에 이슈를 열어 주세요.',
+    'Privacy policy for Timeline Visualizer — local Timeline processing, Waffo Pancake payments, analytics, and third-party map tiles.',
+  privacyOgTitle: 'Privacy Policy — Timeline Visualizer',
+  privacyOgDescription:
+    'How Timeline Visualizer handles your data — local processing, Waffo Pancake payments, and third-party services.',
+  privacyH1: 'Privacy Policy',
+  privacyUpdated: 'Last updated: August 26, 2026',
+  privacyIntroBody:
+    'MahlerLab ("we", "us") respects your privacy. This Privacy Policy explains how we collect, use, store, and share information when you use Timeline Visualizer at https://www.timelinevisualizer.app (the "Service"). By using the Service, you agree to this policy.',
+  privacyControllerTitle: '1. Data controller',
+  privacyControllerBody:
+    'MahlerLab operates Timeline Visualizer. Privacy contact: mahlerlabdiy@gmail.com · Support: mahlerlabdiy@gmail.com · Website: https://www.timelinevisualizer.app · Data protection officer: Not applicable.',
+  privacyCollectTitle: '2. Information we collect',
+  privacyCollectBody:
+    '2.1 Information you provide: If you contact support or complete checkout, we may receive your email address, message content, transaction amount, payment status, and order reference. We do not store full payment card numbers — card data is handled by Waffo Pancake (see Section 5).',
+  privacyCollectBody2:
+    '2.2 Information collected automatically: device and browser type, IP address, pages visited, general usage events, and error logs. When you accept the map notice, map tile requests to CARTO include tile coordinates for areas in your selected journey plus standard network data (IP address, user agent).',
+  privacyCollectBody3:
+    '2.3 Timeline data: Your Timeline.json file, route coordinates, titles, and generated MP4 are processed locally in your browser. We do not upload your location history to our application servers.',
+  privacyUseTitle: '3. How we use information',
+  privacyUseBody:
+    'We use information to operate and improve the Service, process payments (via Waffo Pancake), provide support, prevent fraud, comply with law, and understand aggregate site traffic. We do not use your Timeline contents or generated videos for advertising profiling.',
+  privacyCookiesTitle: '4. Cookies & tracking',
+  privacyCookiesBody:
+    'We and our partners may use cookies and similar technologies. Strictly necessary cookies support core functionality. Analytics (e.g., Google Analytics measurement ID G-D537HYXP7Z, Cloudflare Web Analytics) help us measure aggregate traffic — not Timeline contents or coordinates. Ad partners (e.g., Adsterra) may use cookies to serve and measure ads. You can adjust browser settings to limit non-essential cookies.',
+  privacyShareTitle: '5. Sharing & disclosure',
+  privacyShareBody:
+    'We do not sell your personal information as defined by applicable privacy laws. We share information only with: service providers (hosting, analytics, payment processing); Waffo Pancake for checkout and card processing; CARTO for map tiles when you consent; and when required by law. Payment card data is processed exclusively by Waffo Pancake and is not stored on our servers.',
+  privacySecurityTitle: '6. Data security',
+  privacySecurityBody:
+    'We use HTTPS for transport and follow reasonable security practices. No method is 100% secure. If a breach affects your rights, we will notify you and regulators as required by law (typically within 72 hours where applicable).',
+  privacyRetentionTitle: '7. Retention',
+  privacyRetentionBody:
+    'Timeline data and videos remain in your browser until you close or reload the page (unless stored locally by your browser). Payment records are retained by Waffo Pancake per their policies. Support emails are kept up to 2 years. Analytics data is retained per each provider’s schedule (typically 14–26 months).',
+  privacyRightsTitle: '8. Your rights',
+  privacyRightsBody:
+    'Depending on your location, you may have rights to access, correct, delete, restrict, or port personal data, and to object to certain processing. Email mahlerlabdiy@gmail.com — we respond within 30 calendar days. You may also complain to your local data protection authority.',
+  privacyMarketingTitle: '9. Marketing',
+  privacyMarketingBody:
+    'We do not send marketing emails unless you opt in. Checkout and payment receipts are sent by Waffo Pancake as Merchant of Record.',
+  privacyTransferTitle: '10. Cross-border transfers',
+  privacyTransferBody:
+    'Our hosting and service providers may process data in the United States, Singapore, the EU, or other regions. Where required, we rely on appropriate safeguards such as standard contractual clauses.',
+  privacyMinorsTitle: '11. Minors',
+  privacyMinorsBody:
+    'The Service is not directed to children under 13. We do not knowingly collect personal information from children under 13. Contact us to request deletion if you believe a child provided information.',
+  privacyThirdPartyTitle: '12. Third-party links & services',
+  privacyThirdPartyBody:
+    'The Service links to third parties (Google Maps export instructions, GitHub, payment checkout). Their privacy practices are governed by their own policies. Map data © OpenStreetMap contributors and © CARTO — see /third-party-notices.txt for full attribution.',
+  privacyChangesTitle: '13. Changes to this policy',
+  privacyChangesBody:
+    'We may update this policy. Material changes will be posted here with a new "Last updated" date at least 15 days before they take effect where practicable.',
+  privacyContactTitle: '14. Contact',
+  privacyContactBody:
+    'Privacy & support: mahlerlabdiy@gmail.com · Website: https://www.timelinevisualizer.app',
 } as const satisfies import('./pages-en.ts').PagesStrings;

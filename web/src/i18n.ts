@@ -231,6 +231,15 @@ export interface Strings extends LandingStrings, PagesStrings {
   cancelButton: string;
   shareButton: string;
   downloadButton: string;
+  /** {price} */
+  payToDownloadButton: string;
+  paymentPending: string;
+  paymentComplete: string;
+  /** {price} */
+  downloadPriceHint: string;
+  paymentNotConfigured: string;
+  paymentFailed: string;
+  errorPaymentRequired: string;
 
   // --- footer ---
   footerNoAccount: string;

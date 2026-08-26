@@ -158,6 +158,13 @@ export const ptBR: Strings = {
   cancelButton: 'Cancelar a criação do vídeo',
   shareButton: 'Compartilhar vídeo',
   downloadButton: 'Baixar MP4',
+  payToDownloadButton: 'Desbloquear download · {price}',
+  paymentPending: 'Conclua o pagamento na janela pop-up…',
+  paymentComplete: 'Pagamento concluído. Você pode baixar e compartilhar seu vídeo.',
+  downloadPriceHint: 'A pré-visualização é gratuita. Download e compartilhamento custam {price}.',
+  paymentNotConfigured: 'O pagamento ainda não está disponível. Tente novamente mais tarde.',
+  paymentFailed: 'Não foi possível iniciar o pagamento. Tente novamente.',
+  errorPaymentRequired: 'Pague para desbloquear download e compartilhamento.',
 
   footerNoAccount: 'Não exige conta, permissão de localização nem envio do Timeline.',
   footerMapAttribution: 'Dados do mapa © colaboradores do OpenStreetMap e © CARTO.',

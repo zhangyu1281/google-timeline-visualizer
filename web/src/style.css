@@ -539,6 +539,13 @@ body.timeline-loaded #sticky-cta {
   text-align: center;
 }
 
+.payment-status {
+  margin-top: 10px;
+  font-size: 0.92rem;
+  color: var(--text-muted, #5c6570);
+  text-align: center;
+}
+
 .preview-stage[data-viewport="demo"] .preview-empty-state,
 .preview-stage[data-viewport="live"] .preview-empty-state,
 .preview-stage[data-viewport="busy"] .preview-empty-state,

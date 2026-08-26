@@ -16,6 +16,7 @@ export default defineConfig({
         'how-to-export-android': resolve(__dirname, 'how-to-export-android.html'),
         faq: resolve(__dirname, 'faq.html'),
         privacy: resolve(__dirname, 'privacy.html'),
+        terms: resolve(__dirname, 'terms.html'),
         about: resolve(__dirname, 'about.html'),
       },
     },

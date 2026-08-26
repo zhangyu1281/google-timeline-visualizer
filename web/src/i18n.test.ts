@@ -544,6 +544,7 @@ const STATIC_PAGES = [
   'faq.html',
   'about.html',
   'privacy.html',
+  'terms.html',
 ] as const;
 
 describe.each(STATIC_PAGES)('%s i18n keys', (page) => {

@@ -71,6 +71,46 @@ The current implementation supports the complete private browser path.
 9. Keep the screen awake when supported and allow video creation to be cancelled.
 10. Preview, share, or download the completed MP4.
 
+## MP4 download payment (Waffo Pancake)
+
+When `VITE_PAYMENT_ENABLED=true`, creating and previewing a video stays free. Download and share require a **$2.59 USD** checkout via [Waffo Pancake](https://docs.waffo.ai/).
+
+### Frontend (build-time)
+
+In `web/.env` or Vercel **Environment Variables** for the web build:
+
+```env
+VITE_PAYMENT_ENABLED=true
+```
+
+When unset or `false`, download and share work without payment (development default).
+
+### Backend (Vercel serverless)
+
+Set these in **Vercel Project Settings** (never prefix with `VITE_`):
+
+```env
+WAFFO_MERCHANT_ID=MER_xxx
+WAFFO_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n..."
+WAFFO_PRODUCT_ID=PROD_xxx
+SITE_ORIGIN=https://www.timelinevisualizer.app
+KV_REST_API_URL=...
+KV_REST_API_TOKEN=...
+```
+
+Optional dev-only bypass (never enable in production):
+
+```env
+PAYMENT_BYPASS=true
+```
+
+### Waffo Dashboard setup
+
+1. Create a one-time product priced at **USD $2.59** (digital goods).
+2. Configure **Test** and **Production** webhooks → `https://www.timelinevisualizer.app/api/webhooks/waffo`
+3. Complete KYB review before accepting live payments.
+4. See `.env.example` at the repo root for the full variable list.
+
 The browser layout, animated preview, encoded sample output, and camera following
 were validated at an iPhone-sized viewport and on a physical iPhone. Longer
 exports still benefit from representative-device memory, thermal, interruption,

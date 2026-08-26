@@ -19,7 +19,7 @@ import { pagesEn } from './pages-en';
 export const en: Strings = {
   appName: 'Timeline Visualizer',
   appShortName: 'Timeline',
-  appDescription: 'Turn your Google Maps Timeline.json into an animated travel recap MP4. Free, private, and browser-based.',
+  appDescription: 'Turn your Google Maps Timeline.json into an animated travel recap MP4. Free preview in your browser — download for $2.59.',
   previewBanner: 'iPhone preview build · Test with non-sensitive sample data first',
   headerTitle: 'Create video',
   presetLinkTitle: 'Shared Android preset',
@@ -155,6 +155,13 @@ export const en: Strings = {
   cancelButton: 'Cancel video creation',
   shareButton: 'Share video',
   downloadButton: 'Download MP4',
+  payToDownloadButton: 'Unlock download · {price}',
+  paymentPending: 'Complete payment in the popup window…',
+  paymentComplete: 'Payment complete. You can download and share your video.',
+  downloadPriceHint: 'Preview is free. Download and share cost {price}.',
+  paymentNotConfigured: 'Payment is not available yet. Try again later.',
+  paymentFailed: 'Payment could not be started. Try again.',
+  errorPaymentRequired: 'Pay to unlock download and share.',
 
   footerNoAccount: 'No account, location permission, or Timeline upload is required.',
   footerMapAttribution: 'Map data © OpenStreetMap contributors and © CARTO.',

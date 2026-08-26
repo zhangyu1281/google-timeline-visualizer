@@ -3,17 +3,17 @@ export const landingKo = {
   pageTitle: 'Timeline Visualizer — Google 타임라인 여행 영상 무료 만들기',
   ogTitle: 'Timeline Visualizer — Google 타임라인 여행 영상 무료 만들기',
   ogDescription:
-    'Google 지도 Timeline.json을 움직이는 여행 recap MP4로 만드세요. 무료, 비공개, 브라우저에서 처리 — 서버 업로드 없음.',
+    'Google 지도 Timeline.json을 움직이는 여행 recap MP4로 만드세요. 브라우저에서 무료 미리보기 — 다운로드 $2.59.',
   navHowItWorks: '사용 방법',
   navHowToExport: '내보내기 방법',
   navFaq: 'FAQ',
   navGetStarted: '시작하기',
-  heroEyebrow: '무료 · 비공개 · 브라우저',
+  heroEyebrow: '무료 미리보기 · 비공개 · 브라우저',
   heroHeading: 'Google 타임라인을 여행 영상으로',
   heroHeadingSeo: 'Google Timeline Visualizer — 위치 기록을 움직이는 여행 recap으로',
   heroTagline: '한 해의 이동을 지도 한 장, 영상 하나로. 업로드 없음.',
   heroSubtitle:
-    '내보낸 Google 지도 Timeline.json을 업로드하고 공유 가능한 MP4를 다운로드하세요. 전부 기기에서 처리됩니다.',
+    '내보낸 Google 지도 Timeline.json을 업로드하고 여행 recap을 무료로 미리본 뒤, $2.59에 MP4를 다운로드하세요 — 전부 기기에서 처리됩니다.',
   heroCta: '영상 만들기',
   heroTryDemo: '데모 체험 — 파일 불필요',
   heroVideoAriaLabel: '움직이는 지도 경로 미리보기',
@@ -37,14 +37,14 @@ export const landingKo = {
   howStep2Link: 'Timeline.json 업로드 →',
   howStep3Title: 'MP4 다운로드',
   howStep3Body:
-    '날짜, 카메라 스타일, 형식(Portrait는 Reels, Landscape는 YouTube)을 선택하고 recap을 만드세요.',
+    '날짜, 카메라, 형식(Portrait는 Reels, Landscape는 YouTube)을 선택하세요. 무료로 미리본 뒤 $2.59에 recap을 다운로드하세요.',
   whyTitle: 'Timeline Visualizer를 쓰는 이유',
   whyPrivateTitle: '설계상 비공개',
   whyPrivateBody:
     'Timeline.json은 기기에서만 처리됩니다. 서버 업로드 없음 — CARTO에는 지도 타일 좌표만 전송됩니다.',
-  whyFreeTitle: '무료, 계정 불필요',
+  whyFreeTitle: '무료 미리보기, 다운로드는 유료',
   whyFreeBody:
-    '가입, 구독, 앱 설치 없이 페이지를 열고 파일을 업로드한 뒤 영상을 다운로드하세요.',
+    '영상을 무료로 만들고 미리보세요. MP4 다운로드와 공유는 $2.59 — 계정이나 구독 없이 이용 가능합니다.',
   whyDevicesTitle: '휴대전화·PC 모두',
   whyDevicesBody:
     '휴대전화에서 내보내고 Safari 또는 Chrome에서 영상을 만드세요. 세로·가로 형식 포함.',
@@ -75,12 +75,16 @@ export const landingKo = {
   faqPreviewQ4: 'Google 공식 제품인가요?',
   faqPreviewA4:
     '아니요. Timeline Visualizer는 비공식 서드파티 도구이며 Google과 제휴하지 않습니다.',
+  faqPreviewQ5: 'MP4 다운로드 비용은 얼마인가요?',
+  faqPreviewA5:
+    '영상 만들기와 미리보기는 무료입니다. MP4 다운로드와 공유는 영상당 $2.59 USD(결제 시 해당 세금 별도)입니다. 결제는 Waffo Pancake가 안전하게 처리합니다.',
   faqPreviewReadAll: 'FAQ 전체 보기 →',
   finalCtaTitle: '타임라인을 영상으로 만들 준비가 되셨나요?',
   finalCtaBody: '데모 여행을 먼저 체험하거나 Timeline.json을 업로드하세요.',
   footerHowToExport: '내보내기 방법',
   footerFaq: 'FAQ',
   footerPrivacy: '개인정보',
+  footerTerms: '약관',
   footerAbout: '소개',
   footerOpenSource: '오픈 소스',
 } as const satisfies import('./landing-en.ts').LandingStrings;

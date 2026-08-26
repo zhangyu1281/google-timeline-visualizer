@@ -1,5 +1,5 @@
 {
-  "installCommand": "cd web && npm exec -y pnpm@11.19.0 install --frozen-lockfile",
+  "installCommand": "npm exec -y pnpm@11.19.0 install --frozen-lockfile && cd web && npm exec -y pnpm@11.19.0 install --frozen-lockfile",
   "buildCommand": "cd web && npm exec -y pnpm@11.19.0 test && npm exec -y pnpm@11.19.0 build",
   "outputDirectory": "web/dist",
   "framework": null,

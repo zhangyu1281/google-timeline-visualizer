@@ -21,7 +21,7 @@ import { pagesEn } from './pages-en';
 export const zhCN: Strings = {
   appName: 'Timeline Visualizer',
   appShortName: 'Timeline',
-  appDescription: '私密地将 Google 地图的 Timeline 导出文件制作成旅行动画。',
+  appDescription: '在浏览器中免费预览 Google 地图 Timeline 旅行动画 MP4，支付 $2.59 即可下载。',
   previewBanner: 'iPhone 预览版 · 请先使用非敏感的示例数据测试',
   headerTitle: '创建视频',
   presetLinkTitle: '共享的 Android 预设',
@@ -155,6 +155,13 @@ export const zhCN: Strings = {
   cancelButton: '取消视频创建',
   shareButton: '分享视频',
   downloadButton: '下载 MP4',
+  payToDownloadButton: '支付 {price} 下载',
+  paymentPending: '请在弹出窗口中完成支付…',
+  paymentComplete: '支付成功，可以下载和分享视频。',
+  downloadPriceHint: '预览免费。下载和分享需支付 {price}。',
+  paymentNotConfigured: '支付功能暂不可用，请稍后再试。',
+  paymentFailed: '无法发起支付，请重试。',
+  errorPaymentRequired: '请先支付以解锁下载和分享。',
 
   footerNoAccount: '无需账号或位置权限，也不会上传 Timeline。',
   footerMapAttribution: '地图数据 © OpenStreetMap 贡献者与 © CARTO。',

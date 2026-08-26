@@ -150,6 +150,13 @@ export const zhTW: Strings = {
   cancelButton: '取消建立影片',
   shareButton: '分享影片',
   downloadButton: '下載 MP4',
+  payToDownloadButton: '支付 {price} 下載',
+  paymentPending: '請在彈出視窗中完成付款…',
+  paymentComplete: '付款成功，可以下載和分享影片。',
+  downloadPriceHint: '預覽免費。下載和分享需支付 {price}。',
+  paymentNotConfigured: '付款功能暫不可用，請稍後再試。',
+  paymentFailed: '無法發起付款，請重試。',
+  errorPaymentRequired: '請先付款以解鎖下載和分享。',
 
   footerNoAccount: '不需要帳號、定位權限，也不需要上傳時間軸。',
   footerMapAttribution: '地圖資料 © OpenStreetMap 貢獻者與 © CARTO。',

@@ -1,5 +1,19 @@
 import './style.css';
 import { initAnalytics } from './analytics';
+import {
+  clearPaymentReturnParams,
+  clearPaymentSession,
+  createCheckoutSession,
+  createExportId,
+  isDownloadUnlocked,
+  isPaymentEnabled,
+  markDownloadUnlocked,
+  openCheckoutWindow,
+  paymentPriceLabel,
+  paymentReturnExportId,
+  pollPaymentStatus,
+  readStoredPaymentSession,
+} from './payment';
 import { SITE_LOCALE, HIDE_LANGUAGE_PICKER } from './site-config';
 import { resolveInitialLanguagePreference } from './site-locale';
 import { frameAtElapsedSeconds, totalDurationSeconds } from './animation';
@@ -151,7 +165,8 @@ const errorMessage = element<HTMLParagraphElement>('error-message');
 const resultVideo = element<HTMLVideoElement>('result-video');
 const resultActions = element<HTMLElement>('result-actions');
 const shareButton = element<HTMLButtonElement>('share-button');
-const downloadLink = element<HTMLAnchorElement>('download-link');
+const downloadButton = element<HTMLButtonElement>('download-button');
+const paymentStatus = element<HTMLParagraphElement>('payment-status');
 const backToPreviewButton = element<HTMLButtonElement>('back-to-preview-button');
 const rawOnlyDialog = element<HTMLDialogElement>('raw-only-dialog');
 const openGoogleMapsButton = element<HTMLButtonElement>('open-google-maps');
@@ -243,6 +258,9 @@ let prepared: PreparedJourney | null = null;
 let selectedSignature = '';
 let resultUrl: string | null = null;
 let resultFile: File | null = null;
+let currentExportId: string | null = null;
+let paymentPollController: AbortController | null = null;
+let isPaymentPending = false;
 let previewAnimation = 0;
 let previewLoopActive = false;
 let previewElapsedSeconds = 0;
@@ -710,10 +728,149 @@ function updatePreviewChrome(): void {
   renderPreviewPlaceholder();
 }
 
+function stopPaymentPolling(): void {
+  paymentPollController?.abort();
+  paymentPollController = null;
+  isPaymentPending = false;
+}
+
+function renderPaymentStatus(message: string | null): void {
+  paymentStatus.textContent = message ?? '';
+  paymentStatus.classList.toggle('hidden', message === null);
+}
+
+function triggerFileDownload(): void {
+  if (!resultUrl) return;
+  const link = document.createElement('a');
+  link.href = resultUrl;
+  link.download = 'timeline-journey.mp4';
+  link.rel = 'noopener';
+  document.body.append(link);
+  link.click();
+  link.remove();
+}
+
+function updateResultActions(): void {
+  const unlocked = isDownloadUnlocked(currentExportId);
+  if (isPaymentEnabled() && !unlocked) {
+    downloadButton.textContent = i18n.t('payToDownloadButton', { price: paymentPriceLabel() });
+    downloadButton.dataset.i18n = 'payToDownloadButton';
+    shareButton.disabled = true;
+  } else {
+    downloadButton.textContent = i18n.t('downloadButton');
+    downloadButton.dataset.i18n = 'downloadButton';
+    shareButton.disabled = false;
+  }
+  downloadButton.disabled = isPaymentPending;
+  const shareData = resultFile ? { files: [resultFile] } : null;
+  const canShare = shareData !== null
+    && typeof navigator.share === 'function'
+    && (typeof navigator.canShare !== 'function' || navigator.canShare(shareData));
+  shareButton.hidden = !canShare;
+}
+
+async function unlockAfterPayment(sessionId: string, exportId: string): Promise<void> {
+  markDownloadUnlocked(exportId, sessionId);
+  stopPaymentPolling();
+  renderPaymentStatus(i18n.t('paymentComplete'));
+  updateResultActions();
+}
+
+type PaymentFlowOptions = {
+  /** After a successful checkout, trigger file download. Default: true for the download button. */
+  downloadAfterUnlock?: boolean;
+};
+
+async function startPaymentFlow(options: PaymentFlowOptions = {}): Promise<boolean> {
+  const downloadAfterUnlock = options.downloadAfterUnlock ?? true;
+  if (!currentExportId || !resultFile) return false;
+  if (isDownloadUnlocked(currentExportId)) {
+    if (downloadAfterUnlock) triggerFileDownload();
+    return true;
+  }
+  if (!isPaymentEnabled()) {
+    if (downloadAfterUnlock) triggerFileDownload();
+    return true;
+  }
+
+  stopPaymentPolling();
+  isPaymentPending = true;
+  renderPaymentStatus(i18n.t('paymentPending'));
+  updateResultActions();
+
+  try {
+    const session = await createCheckoutSession(currentExportId, activeLocale(languagePreference, browserLanguages()));
+    const popup = openCheckoutWindow(session.checkoutUrl);
+    if (!popup) {
+      window.location.assign(session.checkoutUrl);
+      return false;
+    }
+
+    paymentPollController = new AbortController();
+    const popupClosedTimer = window.setInterval(() => {
+      if (popup.closed) {
+        window.clearInterval(popupClosedTimer);
+        paymentPollController?.abort();
+      }
+    }, 500);
+    try {
+      const paid = await pollPaymentStatus(session.sessionId, paymentPollController.signal);
+      if (paid) {
+        await unlockAfterPayment(session.sessionId, session.exportId);
+        if (downloadAfterUnlock) triggerFileDownload();
+        return true;
+      }
+      renderPaymentStatus(null);
+      return false;
+    } finally {
+      window.clearInterval(popupClosedTimer);
+    }
+  } catch (error) {
+    if (error instanceof DOMException && error.name === 'AbortError') {
+      renderPaymentStatus(null);
+    } else if (error instanceof Error && error.message.includes('not configured')) {
+      setError({ kind: 'key', key: 'paymentNotConfigured' });
+      renderPaymentStatus(null);
+    } else {
+      setError({ kind: 'key', key: 'paymentFailed' });
+      renderPaymentStatus(null);
+    }
+    return false;
+  } finally {
+    isPaymentPending = false;
+    updateResultActions();
+  }
+}
+
+async function resumePaymentFromReturn(): Promise<void> {
+  const exportId = paymentReturnExportId();
+  if (!exportId) return;
+  clearPaymentReturnParams();
+
+  if (currentExportId && exportId !== currentExportId) return;
+
+  const sessionId = readStoredPaymentSession();
+  if (!sessionId) return;
+
+  isPaymentPending = true;
+  renderPaymentStatus(i18n.t('paymentPending'));
+  updateResultActions();
+  try {
+    if (await pollPaymentStatus(sessionId, AbortSignal.timeout(15000))) {
+      await unlockAfterPayment(sessionId, exportId);
+    }
+  } finally {
+    isPaymentPending = false;
+    updateResultActions();
+  }
+}
+
 function backToPreview(): void {
   resultVideo.pause();
   resultVideo.classList.add('hidden');
   resultActions.classList.add('hidden');
+  stopPaymentPolling();
+  renderPaymentStatus(null);
   if (prepared && lastPreviewFrame) {
     previewSessionJourney = prepared;
     drawPreviewFrame(prepared, lastPreviewFrame);
@@ -1602,17 +1759,20 @@ createButton.addEventListener('click', async () => {
     if (resultUrl) URL.revokeObjectURL(resultUrl);
     resultUrl = URL.createObjectURL(blob);
     resultFile = new File([blob], 'timeline-journey.mp4', { type: 'video/mp4' });
-    downloadLink.href = resultUrl;
+    currentExportId = createExportId();
+    clearPaymentSession();
     resultVideo.src = resultUrl;
     resultVideo.style.setProperty('--preview-aspect', String(format.width / format.height));
     resultVideo.classList.remove('hidden');
     resultActions.classList.remove('hidden');
     updatePreviewChrome();
     setProgress({ kind: 'ready', bytes: blob.size });
-    const shareData = { files: [resultFile] };
-    const canShare = typeof navigator.share === 'function'
-      && (typeof navigator.canShare !== 'function' || navigator.canShare(shareData));
-    shareButton.hidden = !canShare;
+    updateResultActions();
+    renderPaymentStatus(
+      isPaymentEnabled() && !isDownloadUnlocked(currentExportId)
+        ? i18n.t('downloadPriceHint', { price: paymentPriceLabel() })
+        : null,
+    );
   } catch (error) {
     if (exportController.signal.aborted || (error instanceof DOMException && error.name === 'AbortError')) {
       setProgress({ kind: 'key', key: 'progressCancelled' });
@@ -1633,12 +1793,20 @@ createButton.addEventListener('click', async () => {
 
 shareButton.addEventListener('click', async () => {
   if (!resultFile || typeof navigator.share !== 'function') return;
+  if (isPaymentEnabled() && !isDownloadUnlocked(currentExportId)) {
+    const unlocked = await startPaymentFlow({ downloadAfterUnlock: false });
+    if (!unlocked) return;
+  }
   try {
     await navigator.share({ files: [resultFile], title: overlayText().title });
   } catch (error) {
     if (error instanceof DOMException && error.name === 'AbortError') return;
     setError({ kind: 'key', key: 'errorShareUnavailable' });
   }
+});
+
+downloadButton.addEventListener('click', () => {
+  void startPaymentFlow({ downloadAfterUnlock: true });
 });
 
 function applyFormatSupport(support: VideoFormatSupport): void {
@@ -1664,6 +1832,7 @@ languageSelect.value = languagePreference;
 languageField.classList.toggle('site-ui-hidden', HIDE_LANGUAGE_PICKER);
 distanceUnitSelect.value = distanceUnitPreference;
 renderLocalizedText();
+void resumePaymentFromReturn();
 initHeaderLanguageSwitch();
 // Safari restores form control values on reload and on bfcache restore without firing
 // change, so the canvas has to be synced to the selected format before anything is drawn.

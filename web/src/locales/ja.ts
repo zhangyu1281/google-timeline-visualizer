@@ -153,6 +153,13 @@ export const ja: Strings = {
   cancelButton: '動画作成をキャンセル',
   shareButton: '動画を共有',
   downloadButton: 'MP4をダウンロード',
+  payToDownloadButton: '{price} でダウンロード',
+  paymentPending: 'ポップアップウィンドウでお支払いを完了してください…',
+  paymentComplete: 'お支払いが完了しました。動画をダウンロードして共有できます。',
+  downloadPriceHint: 'プレビューは無料です。ダウンロードと共有は {price} です。',
+  paymentNotConfigured: '決済機能は現在利用できません。しばらくしてから再度お試しください。',
+  paymentFailed: '決済を開始できませんでした。もう一度お試しください。',
+  errorPaymentRequired: 'ダウンロードと共有のロックを解除するにはお支払いが必要です。',
 
   footerNoAccount: 'アカウント、位置情報の権限、タイムラインのアップロードはいずれも不要です。',
   footerMapAttribution: '地図データ © OpenStreetMap contributors および © CARTO。',

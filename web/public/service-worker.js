@@ -5,6 +5,7 @@ const PRECACHE = [
   './index.html',
   './faq.html',
   './privacy.html',
+  './terms.html',
   './about.html',
   './how-to-export.html',
   './how-to-export-iphone.html',

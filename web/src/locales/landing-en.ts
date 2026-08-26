@@ -3,17 +3,17 @@ export const landingEn = {
   pageTitle: 'Timeline Visualizer — Free Google Timeline to Travel Video',
   ogTitle: 'Timeline Visualizer — Free Google Timeline to Travel Video',
   ogDescription:
-    'Turn your Google Maps Timeline.json into an animated travel recap MP4. Free, private, and browser-based — no upload to our servers.',
+    'Turn your Google Maps Timeline.json into an animated travel recap MP4. Free preview in your browser — download for $2.59.',
   navHowItWorks: 'How it works',
   navHowToExport: 'How to export',
   navFaq: 'FAQ',
   navGetStarted: 'Get started',
-  heroEyebrow: 'Free · Private · Browser-based',
+  heroEyebrow: 'Free preview · Private · Browser-based',
   heroHeading: 'Turn Google Timeline into a Travel Video',
   heroHeadingSeo: 'Google Timeline Visualizer — location history to animated travel recap',
   heroTagline: 'Your year on a map. One video. Zero upload.',
   heroSubtitle:
-    'Upload your exported Google Maps Timeline.json and download a shareable MP4 — processed entirely on your device.',
+    'Upload your exported Google Maps Timeline.json, preview your travel recap for free, and download a shareable MP4 for $2.59 — processed entirely on your device.',
   heroCta: 'Create your video',
   heroTryDemo: 'Try demo — no file needed',
   heroVideoAriaLabel: 'Animated map route preview',
@@ -37,14 +37,14 @@ export const landingEn = {
   howStep2Link: 'Upload Timeline.json →',
   howStep3Title: 'Download your MP4',
   howStep3Body:
-    'Pick dates, camera style, and format (Portrait for Reels, Landscape for YouTube). Create and share your recap.',
+    'Pick dates, camera style, and format (Portrait for Reels, Landscape for YouTube). Preview for free, then download your recap for $2.59.',
   whyTitle: 'Why Use Timeline Visualizer?',
   whyPrivateTitle: 'Private by design',
   whyPrivateBody:
     'Your Timeline.json is parsed locally. Nothing is uploaded to our servers — only map tile coordinates go to CARTO.',
-  whyFreeTitle: 'Free, no account',
+  whyFreeTitle: 'Free preview, pay to download',
   whyFreeBody:
-    'No sign-up, subscription, or app install. Open the page, upload your file, and download your video.',
+    'Create and preview your video for free. Download and share your MP4 for $2.59 — no account or subscription.',
   whyDevicesTitle: 'Works on phone & desktop',
   whyDevicesBody:
     'Export on your phone, create the video in Safari or Chrome. Portrait and landscape formats included.',
@@ -75,12 +75,16 @@ export const landingEn = {
   faqPreviewQ4: 'Is this an official Google product?',
   faqPreviewA4:
     'No. Timeline Visualizer is an unofficial third-party tool and is not affiliated with Google.',
+  faqPreviewQ5: 'How much does MP4 download cost?',
+  faqPreviewA5:
+    'Creating and previewing your video is free. Downloading and sharing the MP4 costs $2.59 USD per video (plus any applicable tax at checkout). Payments are processed securely by Waffo Pancake.',
   faqPreviewReadAll: 'Read all FAQ →',
   finalCtaTitle: 'Ready to visualize your timeline?',
   finalCtaBody: 'Try the demo journey first — no file needed — or upload your own Timeline.json.',
   footerHowToExport: 'How to export',
   footerFaq: 'FAQ',
   footerPrivacy: 'Privacy',
+  footerTerms: 'Terms',
   footerAbout: 'About',
   footerOpenSource: 'Open source',
 } as const;
