@@ -1,6 +1,6 @@
 {
-  "installCommand": "npm exec -y pnpm@11.19.0 install --frozen-lockfile && cd web && npm exec -y pnpm@11.19.0 install --frozen-lockfile",
-  "buildCommand": "cd web && npm exec -y pnpm@11.19.0 test && npm exec -y pnpm@11.19.0 build",
+  "installCommand": "pnpm install --frozen-lockfile && cd web && pnpm install --frozen-lockfile",
+  "buildCommand": "cd web && pnpm test && pnpm build",
   "outputDirectory": "web/dist",
   "framework": null,
   "redirects": [
