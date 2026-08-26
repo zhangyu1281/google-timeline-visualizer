@@ -1,6 +1,7 @@
 import './style.css';
 import { initAnalytics } from './analytics';
 import { SITE_LOCALE, HIDE_LANGUAGE_PICKER } from './site-config';
+import { resolveInitialLanguagePreference } from './site-locale';
 import { frameAtElapsedSeconds, totalDurationSeconds } from './animation';
 import { AppError } from './errors';
 import { cumulativeDistances } from './geo';
@@ -139,7 +140,7 @@ function buildI18n(preference: LanguagePreference): I18n {
 }
 
 let languagePreference: LanguagePreference = SITE_LOCALE;
-let i18n: I18n = buildI18n(languagePreference);
+let i18n: I18n = buildI18n(SITE_LOCALE);
 let distanceUnitPreference: DistanceUnitPreference = readDistanceUnitPreference();
 
 function currentDistanceUnit(): DistanceUnit {
@@ -700,6 +701,27 @@ function requireMapConsent(): boolean {
   return false;
 }
 
+function syncHeaderLanguageButtons(): void {
+  const active = i18n.locale;
+  for (const button of document.querySelectorAll<HTMLButtonElement>('.site-lang-btn[data-lang-pref]')) {
+    const pref = button.dataset.langPref;
+    const isActive = pref === active;
+    button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    button.classList.toggle('site-lang-btn--active', isActive);
+  }
+}
+
+function initHeaderLanguageSwitch(): void {
+  for (const button of document.querySelectorAll<HTMLButtonElement>('.site-lang-btn[data-lang-pref]')) {
+    button.addEventListener('click', () => {
+      const pref = button.dataset.langPref;
+      if (pref === undefined || !isLanguagePreference(pref)) return;
+      languageSelect.value = pref;
+      onLanguageChange();
+    });
+  }
+}
+
 /**
  * Re-applies the whole catalog to the document and repaints every message that was derived
  * rather than authored in the HTML. applyStrings resets those nodes to their catalog defaults,
@@ -708,6 +730,7 @@ function requireMapConsent(): boolean {
 function renderLocalizedText(): void {
   applyStrings(document, i18n);
   syncDocumentLang(i18n);
+  syncHeaderLanguageButtons();
   renderDistanceUnitOptions();
   renderFrameRateOptions();
   renderCompatibilityStatus();
@@ -1135,11 +1158,13 @@ function applyFormatSupport(support: VideoFormatSupport): void {
 
 // Before anything else touches the DOM: the HTML ships the English source text so a failed
 // script still renders a usable page, and this replaces it with the active catalog.
-languageSelect.value = SITE_LOCALE;
-if (HIDE_LANGUAGE_PICKER) languageField.classList.add('site-ui-hidden');
-writeLanguagePreference(SITE_LOCALE);
+languagePreference = resolveInitialLanguagePreference();
+i18n = buildI18n(languagePreference);
+languageSelect.value = languagePreference;
+languageField.classList.toggle('site-ui-hidden', HIDE_LANGUAGE_PICKER);
 distanceUnitSelect.value = distanceUnitPreference;
 renderLocalizedText();
+initHeaderLanguageSwitch();
 // Safari restores form control values on reload and on bfcache restore without firing
 // change, so the canvas has to be synced to the selected format before anything is drawn.
 applyVideoFormat();

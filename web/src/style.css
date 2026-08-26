@@ -128,6 +128,43 @@ button, input, select, .button { font: inherit; }
 
 .nav-cta:hover { background: #1e293b !important; color: white !important; }
 
+.site-lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.site-lang-btn,
+.site-lang-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.site-lang-btn:hover,
+.site-lang-link:hover {
+  color: var(--primary);
+}
+
+.site-lang-btn--active,
+.site-lang-link[aria-current="page"] {
+  color: var(--primary);
+}
+
+.site-lang-sep {
+  color: var(--text-subtle);
+  user-select: none;
+}
+
 /* ── Hero ── */
 .hero-band {
   background:

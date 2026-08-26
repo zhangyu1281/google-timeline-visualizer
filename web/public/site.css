@@ -62,6 +62,26 @@ a:hover { color: #1a365d; }
 
 .site-nav a:hover { color: #1a365d; }
 
+.site-lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.site-lang-link {
+  color: #718096;
+  text-decoration: none;
+}
+
+.site-lang-link:hover { color: #1a365d; }
+
+.site-lang-sep {
+  color: #cbd5e0;
+  user-select: none;
+}
+
 .page-shell {
   max-width: 720px;
   margin: 0 auto;
