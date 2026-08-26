@@ -1,5 +1,5 @@
 {
-  "installCommand": "pnpm install --frozen-lockfile && cd web && pnpm install --frozen-lockfile",
+  "installCommand": "pnpm install --no-frozen-lockfile && cd web && pnpm install --frozen-lockfile",
   "buildCommand": "cd web && pnpm test && pnpm build",
   "outputDirectory": "web/dist",
   "framework": null,
