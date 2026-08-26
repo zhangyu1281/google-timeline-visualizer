@@ -8,4 +8,4 @@ export const SITE_LOCALE = 'system' as const;
 export const HIDE_LANGUAGE_PICKER = false;
 
 /** Compact header toggle targets for this deployment. */
-export const SITE_HEADER_LANGUAGES = ['en', 'ko'] as const;
+export const SITE_HEADER_LANGUAGES = ['en', 'ko', 'ja'] as const;

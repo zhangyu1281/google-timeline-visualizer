@@ -1,6 +1,6 @@
 import type { Strings } from '../i18n';
-import { landingEn } from './landing-en';
-import { pagesEn } from './pages-en';
+import { landingJa } from './landing-ja';
+import { pagesJa } from './pages-ja';
 
 /**
  * Japanese (ja) catalog, translated from the English source.
@@ -188,6 +188,6 @@ export const ja: Strings = {
   hintSelectWiderPeriod: '異なる位置情報が2件以上含まれる期間を選択してください。',
   warnFormatLockedExporting: '動画の作成中は動画形式を変更できません。',
   warnFormatLockedPreparing: '地図の準備中は動画形式を変更できません。',
-  ...landingEn,
-  ...pagesEn,
+  ...landingJa,
+  ...pagesJa,
 };
