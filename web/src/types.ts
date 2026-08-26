@@ -48,6 +48,8 @@ export interface TimelineFrame {
   outroProgress: number;
 }
 
+import type { MapTheme } from './render-theme';
+
 export interface PreparedJourney {
   points: GeoPoint[];
   worldPoints: WorldPoint[];
@@ -59,4 +61,5 @@ export interface PreparedJourney {
   cameraTrack: CameraTrack;
   overviewViewport: Viewport;
   tiles: Map<string, HTMLImageElement>;
+  mapTheme: MapTheme;
 }

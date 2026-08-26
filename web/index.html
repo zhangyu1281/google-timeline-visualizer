@@ -129,22 +129,6 @@
               <button id="hero-sample-button" class="hero-secondary hero-demo-pulse" type="button" data-i18n="heroTryDemo">Try demo — no file needed</button>
             </div>
           </div>
-          <figure class="hero-preview">
-            <video
-              class="hero-demo-video"
-              src="./demo-hero.mp4"
-              poster="./demo-poster.jpg"
-              width="960"
-              height="540"
-              autoplay
-              muted
-              loop
-              playsinline
-              preload="metadata"
-              data-i18n-attr="aria-label:heroVideoAriaLabel"
-              aria-label="Animated map route preview"
-            ></video>
-          </figure>
         </div>
       </div>
     </section>
@@ -165,46 +149,40 @@
         <a id="open-preset-link" class="button" href="#" data-i18n="presetLinkOpen">Open in Android app</a>
       </section>
 
-      <section class="card intro" aria-labelledby="tool-heading">
-        <h2 id="tool-heading" class="tool-heading" data-i18n="headerTitle">Create video</h2>
-        <div id="drop-zone" class="drop-zone">
-          <div class="drop-zone-inner">
-            <p class="drop-zone-title" data-i18n="chooseFileButton">Choose Timeline.json</p>
-            <p class="drop-zone-hint" data-i18n="dropZoneHint">Drop your file here, or browse</p>
-            <label class="file-button drop-zone-button">
-              <span data-i18n="browseFilesLabel">Browse files</span>
-              <input id="timeline-file" type="file" accept="application/json,.json" />
-            </label>
-            <button id="sample-button" class="text-link-button" type="button" data-i18n="sampleButton">Try a fictional sample journey</button>
+      <div id="tool-workspace" class="tool-workspace">
+        <div class="tool-workspace-settings">
+      <section id="timeline-summary-card" class="card timeline-summary hidden" aria-live="polite">
+        <div class="timeline-summary-header">
+          <div class="timeline-summary-copy">
+            <p class="timeline-summary-label" data-i18n="timelineSummaryLabel">Your Timeline</p>
+            <p id="timeline-summary-source" class="timeline-summary-source"></p>
+            <p id="timeline-summary-meta" class="timeline-summary-meta"></p>
+            <p id="timeline-summary-selection" class="timeline-summary-selection hidden"></p>
+            <p id="timeline-summary-warnings" class="timeline-summary-warnings hidden"></p>
           </div>
+          <button id="change-timeline-button" class="secondary timeline-summary-change" type="button" data-i18n="changeTimelineButton">Change</button>
         </div>
-        <p class="export-help-line"><span data-i18n="exportHelpPrompt">Need to export first?</span> <a href="/how-to-export.html" data-i18n="exportHelpLink">See the export guide</a></p>
-        <p id="file-status" class="status" role="status" data-i18n="fileStatusEmpty">No Timeline loaded</p>
-        <p id="compatibility-status" class="status" data-i18n="compatibilityChecking">Checking video support…</p>
-        <label id="language-field">
-          <span data-i18n="languageLabel">Language</span>
-          <select id="app-language">
-            <option value="system" data-i18n="languageSystemDefault">System default</option>
-            <option value="en" selected>English</option>
-            <option value="ko">한국어</option>
-            <option value="ja">日本語</option>
-            <option value="zh-CN">简体中文</option>
-            <option value="zh-TW">繁體中文</option>
-            <option value="es">Español</option>
-            <option value="fr">Français</option>
-            <option value="de">Deutsch</option>
-            <option value="pt-BR">Português (Brasil)</option>
-          </select>
-        </label>
-        <p id="language-warning" class="status hidden" role="status"></p>
-        <label id="distance-unit-field">
-          <span data-i18n="distanceUnitLabel">Distance unit</span>
-          <select id="distance-unit">
-            <option value="automatic" selected>Automatic · Kilometers</option>
-            <option value="kilometers" data-i18n="distanceUnitKilometers">Kilometers</option>
-            <option value="miles" data-i18n="distanceUnitMiles">Miles</option>
-          </select>
-        </label>
+        <p class="timeline-summary-privacy" data-i18n="timelineSummaryPrivacy">Processed on this device only</p>
+      </section>
+
+      <section id="intro-card" class="card intro" aria-labelledby="tool-heading">
+        <h2 id="tool-heading" class="tool-heading" data-i18n="headerTitle">Create video</h2>
+        <div id="upload-panel">
+          <div id="drop-zone" class="drop-zone">
+            <div class="drop-zone-inner">
+              <p class="drop-zone-title" data-i18n="chooseFileButton">Choose Timeline.json</p>
+              <p class="drop-zone-hint" data-i18n="dropZoneHint">Drop your file here, or browse</p>
+              <label class="file-button drop-zone-button">
+                <span data-i18n="browseFilesLabel">Browse files</span>
+                <input id="timeline-file" type="file" accept="application/json,.json" />
+              </label>
+              <button id="sample-button" class="text-link-button" type="button" data-i18n="sampleButton">Try a fictional sample journey</button>
+            </div>
+          </div>
+          <p class="export-help-line"><span data-i18n="exportHelpPrompt">Need to export first?</span> <a href="/how-to-export.html" data-i18n="exportHelpLink">See the export guide</a></p>
+          <p id="file-status" class="status" role="status" data-i18n="fileStatusEmpty">No Timeline loaded</p>
+          <p id="compatibility-status" class="status" data-i18n="compatibilityChecking">Checking video support…</p>
+        </div>
         <div class="site-ui-hidden" aria-hidden="true">
           <span data-i18n="headerTitle">Create video</span>
           <span data-i18n="fileCardTitle">Timeline file</span>
@@ -221,25 +199,9 @@
 
       <section id="settings-card" class="card hidden" aria-labelledby="settings-heading">
         <h2 id="settings-heading" data-i18n="settingsTitle">Create your journey</h2>
-        <label id="raw-signals-row" class="checkbox-row hidden">
-          <input id="raw-signals-toggle" type="checkbox" />
-          <span data-i18n="rawSignalsToggle">Use raw location data</span>
-        </label>
-        <p id="raw-signals-description" class="status hidden" data-i18n="rawSignalsDescription">Uses recent unprocessed location estimates. Noise is reduced, but the route and distance may still be inaccurate.</p>
-        <p id="raw-date-range" class="status hidden" aria-live="polite"></p>
-        <label id="raw-accuracy-field" class="hidden">
-          <span data-i18n="accuracyLimitLabel">Accuracy limit (meters)</span>
-          <input id="raw-accuracy-limit" type="number" min="0" step="1" inputmode="decimal" value="100" />
-          <span class="field-help" data-i18n="accuracyLimitHelp">Less accurate locations are excluded. Leave blank to include every usable location.</span>
-        </label>
-        <label id="location-filter-field">
-          <span data-i18n="locationFilterLabel">GPS outlier filtering</span>
-          <select id="location-filter">
-            <option value="conservative" selected data-i18n="locationFilterConservative">Conservative</option>
-            <option value="off" data-i18n="locationFilterOff">Off</option>
-          </select>
-          <span class="field-help" data-i18n="locationFilterHelp">Conservative filtering ignores only short, impossible round trips. Your Timeline file is never changed.</span>
-        </label>
+
+        <div class="settings-group">
+          <h3 class="settings-group-title" data-i18n="settingsGroupJourney">Journey</h3>
         <div id="period-controls">
           <label class="checkbox-row">
             <input id="exact-date-toggle" type="checkbox" />
@@ -270,6 +232,41 @@
           <span data-i18n="videoTitleLabel">Video title</span>
           <input id="video-title" type="text" maxlength="80" data-i18n-attr="value:defaultVideoTitle" value="My Journey" />
         </label>
+        <p id="selection-summary" class="status selection-summary"></p>
+        </div>
+
+        <div class="settings-group">
+          <h3 class="settings-group-title" data-i18n="settingsGroupLook">Map & route</h3>
+        <label>
+          <span data-i18n="cameraMovementLabel">Camera movement</span>
+          <select id="camera-movement">
+            <option value="fixed" data-i18n="cameraFixed">Fixed zoom</option>
+            <option value="steady" selected data-i18n="cameraSteady">Steady following</option>
+            <option value="dynamic" data-i18n="cameraDynamic">Dynamic following</option>
+            <option value="close-up" data-i18n="cameraCloseUp">Close-up</option>
+          </select>
+        </label>
+        <div class="field-grid">
+          <label>
+            <span data-i18n="mapThemeLabel">Map style</span>
+            <select id="map-theme">
+              <option value="light" selected data-i18n="mapThemeLight">Light</option>
+              <option value="dark" data-i18n="mapThemeDark">Dark</option>
+            </select>
+          </label>
+          <label>
+            <span data-i18n="routeColorLabel">Route color</span>
+            <select id="route-color">
+              <option value="classic" selected data-i18n="routeColorClassic">Classic</option>
+              <option value="neon" data-i18n="routeColorNeon">Neon</option>
+              <option value="sunset" data-i18n="routeColorSunset">Sunset</option>
+            </select>
+          </label>
+        </div>
+        </div>
+
+        <div class="settings-group">
+          <h3 class="settings-group-title" data-i18n="settingsGroupExport">Video export</h3>
         <label>
           <span data-i18n="durationLabel">Duration</span>
           <select id="duration">
@@ -279,15 +276,6 @@
             <option value="30" data-i18n="durationSeconds" data-i18n-count="30">30 seconds</option>
             <option value="45" data-i18n="durationSeconds" data-i18n-count="45">45 seconds</option>
             <option value="60" data-i18n="durationSeconds" data-i18n-count="60">60 seconds</option>
-          </select>
-        </label>
-        <label>
-          <span data-i18n="cameraMovementLabel">Camera movement</span>
-          <select id="camera-movement">
-            <option value="fixed" data-i18n="cameraFixed">Fixed zoom</option>
-            <option value="steady" selected data-i18n="cameraSteady">Steady following</option>
-            <option value="dynamic" data-i18n="cameraDynamic">Dynamic following</option>
-            <option value="close-up" data-i18n="cameraCloseUp">Close-up</option>
           </select>
         </label>
         <label>
@@ -312,7 +300,59 @@
           <span class="field-help" data-i18n="frameRateHelp">Higher frame rates look smoother but take longer and create larger files.</span>
         </label>
         <p id="format-warning" class="status hidden" role="status"></p>
-        <p id="selection-summary" class="status"></p>
+        </div>
+
+        <details class="settings-group settings-group--advanced">
+          <summary class="settings-group-title" data-i18n="settingsGroupAdvanced">Advanced</summary>
+        <label id="raw-signals-row" class="checkbox-row hidden">
+          <input id="raw-signals-toggle" type="checkbox" />
+          <span data-i18n="rawSignalsToggle">Use raw location data</span>
+        </label>
+        <p id="raw-signals-description" class="status hidden" data-i18n="rawSignalsDescription">Uses recent unprocessed location estimates. Noise is reduced, but the route and distance may still be inaccurate.</p>
+        <p id="raw-date-range" class="status hidden" aria-live="polite"></p>
+        <label id="raw-accuracy-field" class="hidden">
+          <span data-i18n="accuracyLimitLabel">Accuracy limit (meters)</span>
+          <input id="raw-accuracy-limit" type="number" min="0" step="1" inputmode="decimal" value="100" />
+          <span class="field-help" data-i18n="accuracyLimitHelp">Less accurate locations are excluded. Leave blank to include every usable location.</span>
+        </label>
+        <label id="location-filter-field">
+          <span data-i18n="locationFilterLabel">GPS outlier filtering</span>
+          <select id="location-filter">
+            <option value="conservative" selected data-i18n="locationFilterConservative">Conservative</option>
+            <option value="off" data-i18n="locationFilterOff">Off</option>
+          </select>
+          <span class="field-help" data-i18n="locationFilterHelp">Conservative filtering ignores only short, impossible round trips. Your Timeline file is never changed.</span>
+        </label>
+        </details>
+
+        <div class="settings-group settings-group--preferences">
+          <h3 class="settings-group-title" data-i18n="settingsGroupPreferences">Preferences</h3>
+        <label id="language-field">
+          <span data-i18n="languageLabel">Language</span>
+          <select id="app-language">
+            <option value="system" data-i18n="languageSystemDefault">System default</option>
+            <option value="en" selected>English</option>
+            <option value="ko">한국어</option>
+            <option value="ja">日本語</option>
+            <option value="zh-CN">简体中文</option>
+            <option value="zh-TW">繁體中文</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+            <option value="pt-BR">Português (Brasil)</option>
+          </select>
+        </label>
+        <p id="language-warning" class="status hidden" role="status"></p>
+        <label id="distance-unit-field">
+          <span data-i18n="distanceUnitLabel">Distance unit</span>
+          <select id="distance-unit">
+            <option value="automatic" selected>Automatic · Kilometers</option>
+            <option value="kilometers" data-i18n="distanceUnitKilometers">Kilometers</option>
+            <option value="miles" data-i18n="distanceUnitMiles">Miles</option>
+          </select>
+        </label>
+        </div>
+
         <div class="privacy-notice">
           <strong data-i18n="privacyNoticeTitle">Before loading the map</strong>
           <p data-i18n="privacyNoticeBody">Your Timeline file is never uploaded. CARTO receives the tile coordinates for map areas in the selected journey, along with normal network information such as your IP address. This may reveal places in your Timeline to CARTO.</p>
@@ -323,35 +363,75 @@
           <a href="/privacy.html" data-i18n="privacyPolicyLink">Read the web app privacy policy</a>
         </div>
         <p id="settings-error" class="error hidden" role="alert"></p>
-        <div class="actions">
+        <div class="actions actions--inline">
           <button id="preview-button" class="secondary" type="button" data-i18n="previewButton">Preview</button>
           <button id="create-button" type="button" disabled data-i18n="createButton">Create MP4</button>
         </div>
+        <p id="action-hint" class="action-hint hidden" role="status"></p>
       </section>
+        </div>
 
-      <section id="preview-card" class="card hidden" aria-labelledby="preview-heading">
+        <div class="tool-workspace-preview">
+      <section id="preview-card" class="card preview-panel" aria-labelledby="preview-heading">
         <div class="section-heading">
           <h2 id="preview-heading" data-i18n="previewTitle">Preview</h2>
           <span id="progress-label" data-i18n="progressReady">Ready</span>
         </div>
-        <canvas id="journey-canvas" width="480" height="480"></canvas>
-        <progress id="export-progress" class="hidden" value="0" max="1"></progress>
-        <button id="cancel-button" class="secondary cancel-button hidden" type="button" data-i18n="cancelButton">Cancel video creation</button>
-        <p id="error-message" class="error hidden" role="alert"></p>
-        <video id="result-video" class="hidden" controls playsinline></video>
-        <div id="result-actions" class="actions hidden">
-          <button id="share-button" type="button" data-i18n="shareButton">Share video</button>
-          <a id="download-link" class="button secondary" download="timeline-journey.mp4" data-i18n="downloadButton">Download MP4</a>
+        <div id="preview-stage" class="preview-stage">
+          <div class="preview-viewport">
+            <video
+              id="preview-demo-video"
+              class="preview-viewport-media preview-viewport-media--demo"
+              src="./demo-hero.mp4"
+              poster="./demo-poster.jpg"
+              width="960"
+              height="540"
+              muted
+              loop
+              playsinline
+              autoplay
+              preload="metadata"
+              data-i18n-attr="aria-label:heroVideoAriaLabel"
+              aria-label="Animated map route preview"
+            ></video>
+            <div id="preview-empty-state" class="preview-empty-state">
+              <p id="preview-placeholder" class="preview-placeholder" data-i18n="previewPlaceholder">Load a Timeline or try the demo, then tap Preview to see your journey here.</p>
+              <button id="preview-placeholder-cta" class="secondary preview-placeholder-cta hidden" type="button" data-i18n="previewButton">Preview</button>
+            </div>
+            <canvas id="journey-canvas" class="preview-viewport-media hidden" width="480" height="480"></canvas>
+            <video id="result-video" class="preview-viewport-media hidden" controls playsinline></video>
+            <div id="preview-busy-overlay" class="preview-busy-overlay hidden" role="status" aria-live="polite">
+              <p id="preview-busy-label" class="preview-busy-label"></p>
+              <progress id="export-progress" class="preview-busy-progress" value="0" max="1"></progress>
+              <button id="cancel-button" class="secondary preview-busy-cancel hidden" type="button" data-i18n="cancelButton">Cancel video creation</button>
+            </div>
+          </div>
+          <div id="preview-controls" class="preview-controls preview-controls--overlay hidden">
+            <button id="preview-play-button" class="secondary" type="button" data-i18n="previewPlay">Play</button>
+            <button id="preview-pause-button" class="secondary hidden" type="button" data-i18n="previewPause">Pause</button>
+            <button id="preview-replay-button" class="secondary" type="button" data-i18n="previewReplay">Replay</button>
+          </div>
         </div>
+        <div id="result-actions" class="preview-result-actions hidden">
+          <a id="download-link" class="button" download="timeline-journey.mp4" data-i18n="downloadButton">Download MP4</a>
+          <button id="share-button" class="secondary" type="button" data-i18n="shareButton">Share video</button>
+          <button id="back-to-preview-button" class="text-link-button" type="button" data-i18n="backToPreviewButton">Back to preview</button>
+        </div>
+        <p id="error-message" class="error hidden" role="alert"></p>
       </section>
+        </div>
       </div>
       </div>
+      </div>
+
+      <button id="show-landing-button" class="landing-expand-trigger hidden" type="button" data-i18n="landingExpandHelp">Show help and FAQ</button>
 
       <aside class="ad-slot ad-slot--native" aria-label="Advertisement">
         <p class="ad-slot-label" data-i18n="adLabel">Advertisement</p>
         <div id="container-3079ea078c358dd1684ccf17f742e95a"></div>
       </aside>
 
+      <div id="landing-sections">
       <div class="landing-band">
       <div class="landing-content page-container">
         <section id="how-it-works" class="landing-section" aria-labelledby="how-heading">
@@ -469,6 +549,8 @@
           </div>
         </div>
       </div>
+      </div>
+      </div>
 
       <footer class="app-footer page-container">
         <p class="footer-links">
@@ -482,6 +564,10 @@
         <p class="footer-meta" data-i18n="footerMapAttribution">Map data © OpenStreetMap contributors and © CARTO.</p>
       </footer>
     </main>
+    <div id="tool-action-bar" class="tool-action-bar hidden" role="toolbar" aria-label="Video actions">
+      <button id="sticky-preview-button" class="secondary" type="button" data-i18n="previewButton">Preview</button>
+      <button id="sticky-create-button" type="button" disabled data-i18n="createButton">Create MP4</button>
+    </div>
     <dialog id="raw-only-dialog" aria-labelledby="raw-only-heading">
       <form method="dialog" class="dialog-card">
         <h2 id="raw-only-heading" data-i18n="rawOnlyDialogTitle">Only raw location data found</h2>
@@ -515,11 +601,6 @@
         new IntersectionObserver(([entry]) => {
           sticky.classList.toggle('hidden', entry.isIntersecting);
         }, { threshold: 0 }).observe(hero);
-      }
-      const heroVideo = document.querySelector('.hero-demo-video');
-      if (heroVideo && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        heroVideo.removeAttribute('autoplay');
-        heroVideo.pause();
       }
     </script>
   </body>

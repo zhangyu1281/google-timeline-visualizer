@@ -19,8 +19,13 @@ import type {
 } from './types';
 import { AppError } from './errors';
 import { overlayCard, overlayScale } from './overlay';
-
-const TILE_TEMPLATE = 'https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png';
+import {
+  DEFAULT_RENDER_APPEARANCE,
+  mapFallbackBackground,
+  mapTileUrl,
+  routePalette,
+  type RenderAppearance,
+} from './render-theme';
 
 /**
  * The overlay text of one frame, already resolved by the caller.
@@ -125,11 +130,12 @@ function drawMapBackground(
   canvas: HTMLCanvasElement,
   viewport: Viewport,
   tiles: Map<string, HTMLImageElement>,
+  mapTheme: RenderAppearance['mapTheme'],
 ): void {
   const context = canvas.getContext('2d');
   if (!context) throw new AppError('errorCanvasUnavailable', 'Canvas rendering is unavailable.');
   const size: RenderSize = { width: canvas.width, height: canvas.height };
-  context.fillStyle = '#f2edf0';
+  context.fillStyle = mapFallbackBackground(mapTheme);
   context.fillRect(0, 0, size.width, size.height);
 
   const tileCount = 2 ** viewport.zoom;
@@ -155,6 +161,7 @@ function drawMapBackground(
 
 async function loadRequiredTiles(
   coordinates: TileCoordinate[],
+  mapTheme: RenderAppearance['mapTheme'],
   signal?: AbortSignal,
   onProgress?: (completed: number, total: number) => void,
 ): Promise<Map<string, HTMLImageElement>> {
@@ -166,9 +173,7 @@ async function loadRequiredTiles(
       if (signal?.aborted) throw new DOMException('Video creation was cancelled.', 'AbortError');
       const coordinate = coordinates[nextIndex];
       nextIndex += 1;
-      const url = TILE_TEMPLATE.replace('{z}', String(coordinate.zoom))
-        .replace('{x}', String(coordinate.x))
-        .replace('{y}', String(coordinate.y));
+      const url = mapTileUrl(mapTheme, coordinate.zoom, coordinate.x, coordinate.y);
       try {
         tiles.set(tileKey(coordinate), await loadImage(url, signal));
       } catch (error) {
@@ -187,6 +192,7 @@ export async function prepareJourney(
   size: RenderSize = { width: 480, height: 480 },
   cameraMovement: CameraMovement = 'steady',
   durationSeconds = 30,
+  mapTheme: RenderAppearance['mapTheme'] = DEFAULT_RENDER_APPEARANCE.mapTheme,
   signal?: AbortSignal,
   onProgress?: (completed: number, total: number) => void,
 ): Promise<PreparedJourney> {
@@ -222,7 +228,7 @@ export async function prepareJourney(
     const ending = blendViewport(journeyEnd, endingOverview, easeOutCubic(sample / 12), size);
     for (const tile of requiredTiles(ending)) required.set(tileKey(tile), tile);
   }
-  const tiles = await loadRequiredTiles([...required.values()], signal, onProgress);
+  const tiles = await loadRequiredTiles([...required.values()], mapTheme, signal, onProgress);
   return {
     ...journey,
     overviewRouteSegments: overviewSegments,
@@ -230,6 +236,7 @@ export async function prepareJourney(
     cameraTrack,
     overviewViewport: endingOverview,
     tiles,
+    mapTheme,
   };
 }
 
@@ -299,6 +306,7 @@ export function drawFrame(
   journey: PreparedJourney,
   frame: TimelineFrame,
   text: OverlayText,
+  appearance: RenderAppearance = DEFAULT_RENDER_APPEARANCE,
 ): void {
   const context = canvas.getContext('2d');
   if (!context) throw new AppError('errorCanvasUnavailable', 'Canvas rendering is unavailable.');
@@ -325,7 +333,9 @@ export function drawFrame(
       easeOutCubic(frame.outroProgress),
       journey.size,
     );
-  drawMapBackground(canvas, viewport, journey.tiles);
+  drawMapBackground(canvas, viewport, journey.tiles, appearance.mapTheme);
+
+  const colors = routePalette(appearance.routeColor);
 
   const current = pointAtProgress(journey, frame.journeyProgress);
   context.lineCap = 'round';
@@ -334,7 +344,7 @@ export function drawFrame(
   context.save();
   context.globalAlpha = activeAlpha;
   const traveled = journey.worldPoints.slice(0, current.completedIndex + 1);
-  context.strokeStyle = 'rgba(233, 0, 100, 0.34)';
+  context.strokeStyle = colors.trail;
   context.lineWidth = TRAIL_WIDTH * scale;
   strokeRoute(context, traveled, current.point, viewport, size);
 
@@ -344,7 +354,7 @@ export function drawFrame(
     0,
     journey.cumulativeDistanceKm.findIndex((distance) => distance >= recentStartDistance),
   );
-  context.strokeStyle = '#e90064';
+  context.strokeStyle = colors.main;
   context.lineWidth = RECENT_TRAIL_WIDTH * scale;
   strokeRoute(
     context,
@@ -357,12 +367,12 @@ export function drawFrame(
 
   context.shadowColor = 'rgba(36, 25, 29, 0.35)';
   context.shadowBlur = HEAD_SHADOW_BLUR * scale;
-  context.fillStyle = '#24191d';
+  context.fillStyle = colors.headFill;
   context.beginPath();
   context.arc(headX, headY, HEAD_RADIUS * scale, 0, Math.PI * 2);
   context.fill();
   context.shadowBlur = 0;
-  context.strokeStyle = '#e90064';
+  context.strokeStyle = colors.main;
   context.lineWidth = HEAD_RING_WIDTH * scale;
   context.beginPath();
   context.arc(headX, headY, HEAD_RING_RADIUS * scale, 0, Math.PI * 2);
@@ -372,7 +382,7 @@ export function drawFrame(
   if (frame.outroProgress > 0) {
     context.save();
     context.globalAlpha = (190 / 255) * easeInOutCubic(frame.outroProgress);
-    context.strokeStyle = '#e90064';
+    context.strokeStyle = colors.main;
     context.lineWidth = OVERVIEW_TRAIL_WIDTH * scale;
     for (const segment of journey.overviewRouteSegments) {
       strokeRoute(
@@ -387,15 +397,15 @@ export function drawFrame(
   }
 
   const card = overlayCard(size);
-  context.fillStyle = 'rgba(255, 248, 250, 0.86)';
+  context.fillStyle = colors.overlayCardFill;
   context.beginPath();
   context.roundRect(card.left, card.top, card.width, card.bottom - card.top, 24 * scale);
   context.fill();
   context.textAlign = 'center';
-  context.fillStyle = '#24191d';
+  context.fillStyle = colors.overlayTitle;
   context.font = `700 ${34 * scale}px -apple-system, BlinkMacSystemFont, sans-serif`;
   context.fillText(text.title, card.centerX, 72 * scale, card.width - 36 * scale);
-  context.fillStyle = '#5c4b52';
+  context.fillStyle = colors.overlaySubtitle;
   context.font = `${20 * scale}px -apple-system, BlinkMacSystemFont, sans-serif`;
   const distanceLabel = text.formatDistance(currentDistance);
   context.fillText(

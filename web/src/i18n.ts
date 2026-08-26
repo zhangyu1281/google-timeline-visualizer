@@ -173,9 +173,35 @@ export interface Strings extends LandingStrings, PagesStrings {
   privacyPolicyLink: string;
   previewButton: string;
   createButton: string;
+  timelineSummaryLabel: string;
+  /** {count} {start} {end} */
+  timelineSummaryMeta: PluralEntry;
+  changeTimelineButton: string;
+  timelineSummaryPrivacy: string;
+  mapThemeLabel: string;
+  mapThemeLight: string;
+  mapThemeDark: string;
+  routeColorLabel: string;
+  routeColorClassic: string;
+  routeColorNeon: string;
+  routeColorSunset: string;
+  previewPlay: string;
+  previewPause: string;
+  previewReplay: string;
+  previewPlaceholder: string;
+  previewPlaceholderLoaded: string;
+  previewPlaceholderConsent: string;
+  settingsGroupJourney: string;
+  settingsGroupLook: string;
+  settingsGroupExport: string;
+  settingsGroupAdvanced: string;
+  settingsGroupPreferences: string;
+  landingExpandHelp: string;
 
   // --- preview card ---
   previewTitle: string;
+  resultTitle: string;
+  backToPreviewButton: string;
   progressReady: string;
   progressPreparingMap: string;
   /** {completed} {total} */
@@ -271,6 +297,7 @@ export interface Strings extends LandingStrings, PagesStrings {
   /** {width} {height} */
   hintFormatUnsupported: string;
   hintSelectWiderPeriod: string;
+  hintMapConsentRequired: string;
   warnFormatLockedExporting: string;
   warnFormatLockedPreparing: string;
 }

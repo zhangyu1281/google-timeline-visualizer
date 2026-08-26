@@ -127,6 +127,7 @@ function preparedAt(size: RenderSize): PreparedJourney {
     cameraTrack,
     overviewViewport: endingOverview,
     tiles,
+    mapTheme: 'light',
   };
   preparedCache.set(label(size), result);
   return result;

@@ -3,6 +3,7 @@ import { frameAtElapsedSeconds, OUTRO_SECONDS } from './animation';
 import { AppError } from './errors';
 import { drawFrame } from './renderer';
 import type { OverlayText } from './renderer';
+import type { RenderAppearance } from './render-theme';
 import type { PreparedJourney } from './types';
 
 export interface ExportOptions {
@@ -10,6 +11,7 @@ export interface ExportOptions {
   /** Frozen once for the whole export, so every frame carries the same text. */
   overlay: OverlayText;
   format: ResolvedVideoFormat;
+  appearance: RenderAppearance;
   onProgress?: (fraction: number) => void;
   signal?: AbortSignal;
 }
@@ -254,7 +256,7 @@ export async function createJourneyMp4(
           options.durationSeconds - outroFrameCount / fps + (frame - journeyFrameCount) / fps,
           options.durationSeconds,
         );
-      drawFrame(canvas, journey, animationFrame, options.overlay);
+      drawFrame(canvas, journey, animationFrame, options.overlay, options.appearance);
       await source.add(frame * frameDuration, frameDuration, { keyFrame: frame % fps === 0 });
       options.onProgress?.((frame + 1) / frameCount);
     }

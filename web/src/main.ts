@@ -23,6 +23,11 @@ import { filterLocationOutliers } from './outlier';
 import { parsePresetToken, presetIntentUrl } from './preset-link';
 import { formatRawDateRange } from './raw-range';
 import { drawFrame, prepareJourney, previewCanvasSize } from './renderer';
+import {
+  type RenderAppearance,
+  isMapTheme,
+  isRouteColorPreset,
+} from './render-theme';
 import { selectTimelineModePoints } from './selection';
 import {
   availableMonths,
@@ -68,6 +73,7 @@ function element<T extends HTMLElement>(id: string): T {
 
 const fileInput = element<HTMLInputElement>('timeline-file');
 const sampleButton = element<HTMLButtonElement>('sample-button');
+const introCard = element<HTMLElement>('intro-card');
 const fileStatus = element<HTMLParagraphElement>('file-status');
 const compatibilityStatus = element<HTMLParagraphElement>('compatibility-status');
 const languageSelect = element<HTMLSelectElement>('app-language');
@@ -75,6 +81,13 @@ const languageField = element<HTMLElement>('language-field');
 const languageWarning = element<HTMLParagraphElement>('language-warning');
 const distanceUnitSelect = element<HTMLSelectElement>('distance-unit');
 const settingsCard = element<HTMLElement>('settings-card');
+const timelineSummaryCard = element<HTMLElement>('timeline-summary-card');
+const timelineSummarySource = element<HTMLParagraphElement>('timeline-summary-source');
+const timelineSummaryMeta = element<HTMLParagraphElement>('timeline-summary-meta');
+const timelineSummarySelection = element<HTMLParagraphElement>('timeline-summary-selection');
+const timelineSummaryWarnings = element<HTMLParagraphElement>('timeline-summary-warnings');
+const changeTimelineButton = element<HTMLButtonElement>('change-timeline-button');
+const showLandingButton = element<HTMLButtonElement>('show-landing-button');
 const exactDateToggle = element<HTMLInputElement>('exact-date-toggle');
 const periodControls = element<HTMLElement>('period-controls');
 const rawSignalsRow = element<HTMLElement>('raw-signals-row');
@@ -94,6 +107,8 @@ const endDateInput = element<HTMLInputElement>('end-date');
 const titleInput = element<HTMLInputElement>('video-title');
 const durationSelect = element<HTMLSelectElement>('duration');
 const cameraMovementSelect = element<HTMLSelectElement>('camera-movement');
+const mapThemeSelect = element<HTMLSelectElement>('map-theme');
+const routeColorSelect = element<HTMLSelectElement>('route-color');
 const formatSelect = element<HTMLSelectElement>('video-format');
 const frameRateSelect = element<HTMLSelectElement>('frame-rate');
 const formatWarning = element<HTMLParagraphElement>('format-warning');
@@ -101,9 +116,24 @@ const selectionSummary = element<HTMLParagraphElement>('selection-summary');
 const mapConsent = element<HTMLInputElement>('map-consent');
 const settingsError = element<HTMLParagraphElement>('settings-error');
 const previewCard = element<HTMLElement>('preview-card');
+const previewStage = element<HTMLElement>('preview-stage');
+const previewDemoVideo = element<HTMLVideoElement>('preview-demo-video');
 const canvas = element<HTMLCanvasElement>('journey-canvas');
+const previewEmptyState = element<HTMLElement>('preview-empty-state');
+const previewPlaceholder = element<HTMLParagraphElement>('preview-placeholder');
+const previewPlaceholderCta = element<HTMLButtonElement>('preview-placeholder-cta');
+const previewBusyOverlay = element<HTMLElement>('preview-busy-overlay');
+const previewBusyLabel = element<HTMLParagraphElement>('preview-busy-label');
+const previewControls = element<HTMLElement>('preview-controls');
+const previewHeading = element<HTMLHeadingElement>('preview-heading');
+const previewPlayButton = element<HTMLButtonElement>('preview-play-button');
+const previewPauseButton = element<HTMLButtonElement>('preview-pause-button');
+const previewReplayButton = element<HTMLButtonElement>('preview-replay-button');
+const stickyPreviewButton = element<HTMLButtonElement>('sticky-preview-button');
+const stickyCreateButton = element<HTMLButtonElement>('sticky-create-button');
 const previewButton = element<HTMLButtonElement>('preview-button');
 const createButton = element<HTMLButtonElement>('create-button');
+const actionHint = element<HTMLParagraphElement>('action-hint');
 const cancelButton = element<HTMLButtonElement>('cancel-button');
 const progress = element<HTMLProgressElement>('export-progress');
 const progressLabel = element<HTMLSpanElement>('progress-label');
@@ -112,11 +142,13 @@ const resultVideo = element<HTMLVideoElement>('result-video');
 const resultActions = element<HTMLElement>('result-actions');
 const shareButton = element<HTMLButtonElement>('share-button');
 const downloadLink = element<HTMLAnchorElement>('download-link');
+const backToPreviewButton = element<HTMLButtonElement>('back-to-preview-button');
 const rawOnlyDialog = element<HTMLDialogElement>('raw-only-dialog');
 const openGoogleMapsButton = element<HTMLButtonElement>('open-google-maps');
 const continueRawDataButton = element<HTMLButtonElement>('continue-raw-data');
 const presetLinkCard = element<HTMLElement>('preset-link-card');
 const openPresetLink = element<HTMLAnchorElement>('open-preset-link');
+const toolActionBar = element<HTMLElement>('tool-action-bar');
 
 const presetToken = parsePresetToken(window.location.search);
 if (presetToken !== null) {
@@ -202,6 +234,10 @@ let selectedSignature = '';
 let resultUrl: string | null = null;
 let resultFile: File | null = null;
 let previewAnimation = 0;
+let previewLoopActive = false;
+let previewElapsedSeconds = 0;
+let previewSessionJourney: PreparedJourney | null = null;
+let previewJourneyDuration = 8;
 let hasEncoder = false;
 let formatSupport: VideoFormatSupport | null = null;
 let compatibilityChecked = false;
@@ -271,6 +307,13 @@ function sourceLabel(source: TimelineSource): string {
 
 function renderFileStatus(): void {
   const state = fileStatusState;
+  if (state.kind === 'loaded') {
+    fileStatus.classList.add('hidden');
+    renderTimelineSummary();
+    return;
+  }
+  fileStatus.classList.remove('hidden');
+  timelineSummaryCard.classList.add('hidden');
   if (state.kind === 'key') {
     fileStatus.textContent = i18n.t(state.key);
     return;
@@ -279,23 +322,140 @@ function renderFileStatus(): void {
     fileStatus.textContent = i18n.t('fileStatusReading', { name: state.name });
     return;
   }
-  // Whole clauses joined by the catalog separator, never suffix fragments: a language that
-  // orders these differently can reorder the clauses, which a ' · ' suffix cannot express.
-  fileStatus.textContent = i18n.join(
-    i18n.t('fileStatusLoaded', {
-      count: state.count,
-      source: sourceLabel(state.source),
-      firstMonth: monthLabel(state.firstMonthKey),
-      lastMonth: monthLabel(state.lastMonthKey),
-    }),
+}
+
+function renderTimelineSummary(): void {
+  const state = fileStatusState;
+  if (state.kind !== 'loaded') {
+    timelineSummaryCard.classList.add('hidden');
+    return;
+  }
+  timelineSummaryCard.classList.remove('hidden');
+  timelineSummarySource.textContent = sourceLabel(state.source);
+  timelineSummaryMeta.textContent = i18n.t('timelineSummaryMeta', {
+    count: state.count,
+    start: monthLabel(state.firstMonthKey),
+    end: monthLabel(state.lastMonthKey),
+  });
+  const selectionText = selectionSummary.textContent.trim();
+  if (selectionText) {
+    timelineSummarySelection.textContent = selectionText;
+    timelineSummarySelection.classList.remove('hidden');
+  } else {
+    timelineSummarySelection.classList.add('hidden');
+  }
+  const warnings = i18n.join(
     state.rawFallback ? i18n.t('fileStatusRawFallback') : '',
     state.timezoneMissing ? i18n.t('fileStatusTimezoneMissing') : '',
   );
+  if (warnings) {
+    timelineSummaryWarnings.textContent = warnings;
+    timelineSummaryWarnings.classList.remove('hidden');
+  } else {
+    timelineSummaryWarnings.classList.add('hidden');
+  }
+}
+
+function isTimelineLoaded(): boolean {
+  return fileStatusState.kind === 'loaded';
+}
+
+function updateToolWorkflow(): void {
+  const loaded = isTimelineLoaded();
+  document.body.classList.toggle('timeline-loaded', loaded);
+  introCard.classList.toggle('hidden', loaded);
+  showLandingButton.classList.toggle('hidden', !loaded);
+  toolActionBar.classList.toggle('hidden', !loaded || settingsCard.classList.contains('hidden'));
+  if (!loaded) {
+    document.body.classList.remove('landing-expanded');
+  }
+  renderPreviewPlaceholder();
+  syncStickyActionButtons();
+}
+
+type ViewportState = 'demo' | 'ready' | 'live' | 'busy' | 'result';
+
+function hasPreviewFrame(): boolean {
+  return previewSessionJourney !== null || (prepared !== null && lastPreviewFrame !== null);
+}
+
+function currentViewportState(): ViewportState {
+  if (!resultVideo.classList.contains('hidden')) return 'result';
+  if (isExporting || isPreparing) return 'busy';
+  if (hasPreviewFrame()) return 'live';
+  if (isTimelineLoaded()) return 'ready';
+  return 'demo';
+}
+
+function syncDemoVideoPlayback(state: ViewportState): void {
+  if (state !== 'demo') {
+    previewDemoVideo.pause();
+    return;
+  }
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    previewDemoVideo.pause();
+    return;
+  }
+  void previewDemoVideo.play().catch(() => undefined);
+}
+
+function renderPreviewHeading(state: ViewportState): void {
+  previewHeading.textContent = state === 'result' ? i18n.t('resultTitle') : i18n.t('previewTitle');
+  previewHeading.dataset.i18n = state === 'result' ? 'resultTitle' : 'previewTitle';
+}
+
+function renderBusyOverlay(state: ViewportState): void {
+  if (state !== 'busy') return;
+  const prog = progressState;
+  if (prog.kind === 'preparing') {
+    previewBusyLabel.textContent = i18n.t('progressPreparingMapCount', {
+      completed: prog.completed,
+      total: prog.total,
+    });
+    progress.classList.add('hidden');
+  } else if (prog.kind === 'creating') {
+    previewBusyLabel.textContent = i18n.t('progressCreatingPercent', {
+      percent: i18n.formatPercent(prog.fraction),
+    });
+    progress.classList.remove('hidden');
+    progress.value = prog.fraction;
+  } else if (prog.kind === 'key' && prog.key === 'progressCancelling') {
+    previewBusyLabel.textContent = i18n.t('progressCancelling');
+    progress.classList.add('hidden');
+  } else if (isExporting) {
+    previewBusyLabel.textContent = i18n.t('progressCreating');
+    progress.classList.remove('hidden');
+  } else {
+    previewBusyLabel.textContent = i18n.t('progressPreparingMap');
+    progress.classList.add('hidden');
+  }
+  cancelButton.classList.toggle('hidden', !isExporting);
+}
+
+function renderPreviewPlaceholder(): void {
+  const state = currentViewportState();
+  if (state !== 'ready') return;
+  previewPlaceholder.textContent = mapConsent.checked
+    ? i18n.t('previewPlaceholderLoaded')
+    : i18n.t('previewPlaceholderConsent');
+  previewPlaceholderCta.classList.remove('hidden');
+  previewPlaceholderCta.disabled = isExporting || isPreparing;
+}
+
+function syncStickyActionButtons(): void {
+  stickyPreviewButton.disabled = previewButton.disabled;
+  stickyCreateButton.disabled = createButton.disabled;
+  if (createButton.title) {
+    stickyCreateButton.title = createButton.title;
+  } else {
+    stickyCreateButton.removeAttribute('title');
+  }
 }
 
 function setFileStatus(state: FileStatusState): void {
   fileStatusState = state;
   renderFileStatus();
+  updateToolWorkflow();
 }
 
 function renderProgressLabel(): void {
@@ -303,18 +463,18 @@ function renderProgressLabel(): void {
   switch (state.kind) {
     case 'key':
       progressLabel.textContent = i18n.t(state.key);
-      return;
+      break;
     case 'preparing':
       progressLabel.textContent = i18n.t('progressPreparingMapCount', {
         completed: state.completed,
         total: state.total,
       });
-      return;
+      break;
     case 'creating':
       progressLabel.textContent = i18n.t('progressCreatingPercent', {
         percent: i18n.formatPercent(state.fraction),
       });
-      return;
+      break;
     case 'ready':
       progressLabel.textContent = i18n.t('progressVideoReady', {
         size: i18n.formatNumber(state.bytes / 1_000_000, {
@@ -323,6 +483,7 @@ function renderProgressLabel(): void {
         }),
       });
   }
+  if (currentViewportState() === 'busy') renderBusyOverlay('busy');
 }
 
 function setProgress(state: ProgressState): void {
@@ -434,10 +595,74 @@ function renderFrameRateOptions(): void {
   });
 }
 
-function stopPreview(): void {
+function currentAppearance(): RenderAppearance {
+  return {
+    mapTheme: isMapTheme(mapThemeSelect.value) ? mapThemeSelect.value : 'light',
+    routeColor: isRouteColorPreset(routeColorSelect.value) ? routeColorSelect.value : 'classic',
+  };
+}
+
+function drawPreviewFrame(journey: PreparedJourney, frame: TimelineFrame): void {
+  drawFrame(canvas, journey, frame, overlayText(), currentAppearance());
+}
+
+function updatePreviewControlButtons(): void {
+  const canControl = currentViewportState() === 'live';
+  previewPlayButton.classList.toggle('hidden', !canControl || previewLoopActive);
+  previewPauseButton.classList.toggle('hidden', !canControl || !previewLoopActive);
+}
+
+function updatePreviewChrome(): void {
+  const state = currentViewportState();
+  previewStage.dataset.viewport = state;
+  renderPreviewHeading(state);
+
+  previewDemoVideo.classList.toggle('hidden', state !== 'demo');
+  previewEmptyState.classList.toggle('hidden', state !== 'ready');
+  previewBusyOverlay.classList.toggle('hidden', state !== 'busy');
+
+  const showCanvas = state === 'live' || (state === 'busy' && hasPreviewFrame());
+  canvas.classList.toggle('hidden', !showCanvas);
+  resultVideo.classList.toggle('hidden', state !== 'result');
+  previewControls.classList.toggle('hidden', state !== 'live');
+  resultActions.classList.toggle('hidden', state !== 'result');
+
+  if (state === 'busy') renderBusyOverlay(state);
+  syncDemoVideoPlayback(state);
+  updatePreviewControlButtons();
+  renderPreviewPlaceholder();
+}
+
+function backToPreview(): void {
+  resultVideo.pause();
+  resultVideo.classList.add('hidden');
+  resultActions.classList.add('hidden');
+  if (prepared && lastPreviewFrame) {
+    previewSessionJourney = prepared;
+    drawPreviewFrame(prepared, lastPreviewFrame);
+    setProgress({
+      kind: 'key',
+      key: previewLoopActive ? 'progressPreviewing' : 'progressPreviewComplete',
+    });
+  } else {
+    setProgress({ kind: 'key', key: 'progressReady' });
+  }
+  updatePreviewChrome();
+}
+
+function stopPreviewLoop(): void {
   cancelAnimationFrame(previewAnimation);
-  previewAnimation = 0; // rAF ids are positive, so 0 is a safe idle sentinel
+  previewAnimation = 0;
+  previewLoopActive = false;
+  updatePreviewControlButtons();
+}
+
+function stopPreview(): void {
+  stopPreviewLoop();
+  previewElapsedSeconds = 0;
+  previewSessionJourney = null;
   previewSizeDirty = false;
+  updatePreviewChrome();
 }
 
 /** Assigning canvas.width clears the bitmap, so every caller must stop the preview loop first. */
@@ -498,14 +723,13 @@ function onViewportChange(): void {
 function applyPreviewResize(): void {
   resizeTimer = 0;
   if (isExporting || isPreparing) return; // preparing re-measures after its own await
-  if (previewCard.classList.contains('hidden')) return;
-  if (previewAnimation !== 0) {
+  if (previewLoopActive) {
     previewSizeDirty = true; // the next tick resizes and redraws in one rAF callback
     return;
   }
   if (!prepared || !lastPreviewFrame) return;
   if (!applyPreviewCanvasSize()) return;
-  drawFrame(canvas, prepared, lastPreviewFrame, overlayText());
+  drawPreviewFrame(prepared, lastPreviewFrame);
 }
 
 /** devicePixelRatio changes silently when the window moves to another monitor. */
@@ -584,13 +808,41 @@ function selectedDistanceKm(points: GeoPoint[]): number {
   return cumulativeDistances(points).at(-1) ?? 0;
 }
 
+function renderActionHint(hasJourney: boolean, formatSupported: boolean): void {
+  if (isExporting || isPreparing) {
+    actionHint.classList.add('hidden');
+    return;
+  }
+  const format = currentFormat();
+  let message: string | null = null;
+  if (!compatibilityChecked) {
+    message = i18n.t('hintCheckingSupport');
+  } else if (!hasEncoder) {
+    message = i18n.t('hintNoEncoder');
+  } else if (!formatSupported) {
+    message = i18n.t('hintFormatUnsupported', {
+      width: format.width,
+      height: format.height,
+      fps: format.frameRate,
+    });
+  } else if (!hasJourney) {
+    message = i18n.t('hintSelectWiderPeriod');
+  } else if (isTimelineLoaded() && !mapConsent.checked) {
+    message = i18n.t('hintMapConsentRequired');
+  }
+  actionHint.textContent = message ?? '';
+  actionHint.classList.toggle('hidden', message === null);
+}
+
 function refreshActionAvailability(points = currentPoints()): void {
   const hasJourney = points.length >= 2 && selectedDistanceKm(points) > 0;
   const format = currentFormat();
   const formatSupported = isFormatSupported(format);
+  const needsConsent = isTimelineLoaded() && !mapConsent.checked;
   // Preview never depends on encoder support: an unencodable format is still previewable.
-  previewButton.disabled = isExporting || isPreparing || !hasJourney;
-  createButton.disabled = isExporting || isPreparing || !hasJourney || !formatSupported;
+  previewButton.disabled = isExporting || isPreparing || !hasJourney || needsConsent;
+  createButton.disabled = isExporting || isPreparing || !hasJourney || !formatSupported
+    || !compatibilityChecked || !hasEncoder || needsConsent;
   formatSelect.disabled = isExporting || isPreparing;
   frameRateSelect.disabled = isExporting || isPreparing;
   if (!compatibilityChecked) {
@@ -605,11 +857,16 @@ function refreshActionAvailability(points = currentPoints()): void {
     });
   } else if (!hasJourney) {
     createButton.title = i18n.t('hintSelectWiderPeriod');
+  } else if (needsConsent) {
+    createButton.title = i18n.t('hintMapConsentRequired');
   } else {
     createButton.removeAttribute('title');
   }
   updateFormatWarning(format, formatSupported);
   updateLanguageAvailability();
+  syncStickyActionButtons();
+  renderActionHint(hasJourney, formatSupported);
+  if (isTimelineLoaded()) renderPreviewPlaceholder();
 }
 
 /**
@@ -654,6 +911,7 @@ function renderSelection(): void {
     );
   }
   refreshActionAvailability(points);
+  if (isTimelineLoaded()) renderTimelineSummary();
 }
 
 function updateSelection(): void {
@@ -674,7 +932,8 @@ async function getPreparedJourney(signal?: AbortSignal): Promise<PreparedJourney
   const cameraMovement = cameraMovementSelect.value as CameraMovement;
   const durationSeconds = Number(durationSelect.value);
   const format = currentFormat();
-  const signature = `${currentRangeSignature()}:camera:${cameraMovement}:duration:${durationSeconds}`;
+  const mapTheme = currentAppearance().mapTheme;
+  const signature = `${currentRangeSignature()}:camera:${cameraMovement}:duration:${durationSeconds}:map:${mapTheme}`;
   if (prepared && signature === selectedSignature) return prepared;
   if (signal?.aborted) throw new DOMException('Video creation was cancelled.', 'AbortError');
   setProgress({ kind: 'key', key: 'progressPreparingMap' });
@@ -683,6 +942,7 @@ async function getPreparedJourney(signal?: AbortSignal): Promise<PreparedJourney
     { width: format.width, height: format.height },
     cameraMovement,
     durationSeconds,
+    mapTheme,
     signal,
     (completed, total) => {
       setProgress({ kind: 'preparing', completed, total });
@@ -739,6 +999,9 @@ function renderLocalizedText(): void {
   renderErrorMessage();
   renderSettingsError();
   updateLanguageAvailability();
+  renderTimelineSummary();
+  renderPreviewHeading(currentViewportState());
+  updatePreviewChrome();
 }
 
 function renderDistanceUnitOptions(): void {
@@ -756,10 +1019,10 @@ function onDistanceUnitChange(): void {
   if (!isDistanceUnitPreference(value)) return;
   distanceUnitPreference = value;
   writeDistanceUnitPreference(distanceUnitPreference);
-  stopPreview();
+  stopPreviewLoop();
   if (!settingsCard.classList.contains('hidden')) renderSelection();
-  if (prepared && lastPreviewFrame && !previewCard.classList.contains('hidden')) {
-    drawFrame(canvas, prepared, lastPreviewFrame, overlayText());
+  if (prepared && lastPreviewFrame) {
+    drawPreviewFrame(prepared, lastPreviewFrame);
   }
 }
 
@@ -778,7 +1041,7 @@ function onLanguageChange(): void {
   renderLocalizedText();
   // A running preview would draw consecutive frames in two languages. The last frame is
   // repainted once in the new language instead; restarting the animation was never asked for.
-  stopPreview();
+  stopPreviewLoop();
   if (months.length > 0) {
     // Month keys are locale independent 'YYYY-MM', so restoring the selection is exact.
     const start = startSelect.value;
@@ -791,8 +1054,8 @@ function onLanguageChange(): void {
     renderFileStatus(); // the month labels inside it have just changed
   }
   if (!settingsCard.classList.contains('hidden')) renderSelection();
-  if (prepared && lastPreviewFrame && !previewCard.classList.contains('hidden')) {
-    drawFrame(canvas, prepared, lastPreviewFrame, overlayText());
+  if (prepared && lastPreviewFrame) {
+    drawPreviewFrame(prepared, lastPreviewFrame);
   }
 }
 
@@ -838,7 +1101,6 @@ function applyTimeline(data: unknown, source: TimelineSource, useRawOnly = false
   exactDateFields.classList.add('hidden');
   mapConsent.checked = false;
   settingsCard.classList.remove('hidden');
-  previewCard.classList.add('hidden');
   setFileStatus({
     kind: 'loaded',
     source,
@@ -848,7 +1110,32 @@ function applyTimeline(data: unknown, source: TimelineSource, useRawOnly = false
     rawFallback: useRawOnly,
     timezoneMissing: allPoints.some((point) => point.timeZoneMissing),
   });
-  updateSelection();
+  renderTimelineSummary();
+  updatePreviewChrome();
+}
+
+function resetTimeline(): void {
+  stopPreview();
+  fileInput.value = '';
+  allPoints = [];
+  semanticPoints = [];
+  filteredPoints = [];
+  rawSignalPoints = [];
+  rawSignalProcessing = null;
+  months = [];
+  prepared = null;
+  lastPreviewFrame = null;
+  selectedSignature = '';
+  pendingRawOnlyImport = null;
+  settingsCard.classList.add('hidden');
+  timelineSummaryCard.classList.add('hidden');
+  resultActions.classList.add('hidden');
+  resultVideo.classList.add('hidden');
+  setError(null);
+  setSettingsError(null);
+  setFileStatus({ kind: 'key', key: 'fileStatusEmpty' });
+  updatePreviewChrome();
+  updateToolWorkflow();
 }
 
 async function loadTimeline(file: File): Promise<void> {
@@ -937,6 +1224,12 @@ startDateInput.addEventListener('change', updateSelection);
 endDateInput.addEventListener('change', updateSelection);
 durationSelect.addEventListener('change', updateSelection);
 cameraMovementSelect.addEventListener('change', updateSelection);
+mapThemeSelect.addEventListener('change', updateSelection);
+routeColorSelect.addEventListener('change', () => {
+  if (prepared && lastPreviewFrame) {
+    drawPreviewFrame(prepared, lastPreviewFrame);
+  }
+});
 languageSelect.addEventListener('change', onLanguageChange);
 distanceUnitSelect.addEventListener('change', onDistanceUnitChange);
 formatSelect.addEventListener('change', () => {
@@ -968,6 +1261,101 @@ locationFilterSelect.addEventListener('change', () => {
 });
 mapConsent.addEventListener('change', () => {
   if (mapConsent.checked) setSettingsError(null);
+  renderPreviewPlaceholder();
+  refreshActionAvailability();
+});
+
+changeTimelineButton.addEventListener('click', resetTimeline);
+
+showLandingButton.addEventListener('click', () => {
+  document.body.classList.add('landing-expanded');
+  document.getElementById('landing-sections')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+stickyPreviewButton.addEventListener('click', () => previewButton.click());
+stickyCreateButton.addEventListener('click', () => createButton.click());
+previewPlaceholderCta.addEventListener('click', () => previewButton.click());
+backToPreviewButton.addEventListener('click', backToPreview);
+
+function runPreviewTick(
+  now: number,
+  startedAt: number,
+  journey: PreparedJourney,
+  previewDuration: number,
+): void {
+  if (previewSizeDirty) {
+    previewSizeDirty = false;
+    applyPreviewCanvasSize();
+  }
+  const elapsedSeconds = Math.min(previewDuration, (now - startedAt) / 1000);
+  previewElapsedSeconds = elapsedSeconds;
+  const fraction = elapsedSeconds / previewDuration;
+  const animationFrame = frameAtElapsedSeconds(elapsedSeconds, previewJourneyDuration);
+  lastPreviewFrame = animationFrame;
+  drawPreviewFrame(journey, animationFrame);
+  setProgress({
+    kind: 'key',
+    key: fraction < 1 ? 'progressPreviewing' : 'progressPreviewComplete',
+  });
+  if (fraction < 1 && previewLoopActive) {
+    previewAnimation = requestAnimationFrame((t) => runPreviewTick(t, startedAt, journey, previewDuration));
+  } else {
+    previewAnimation = 0;
+    previewLoopActive = false;
+    updatePreviewControlButtons();
+  }
+}
+
+function startPreviewLoop(journey: PreparedJourney, fromElapsed = 0): void {
+  previewSessionJourney = journey;
+  previewJourneyDuration = Math.min(8, Number(durationSelect.value));
+  const previewDuration = totalDurationSeconds(previewJourneyDuration);
+  stopPreviewLoop();
+  previewSessionJourney = journey;
+  previewLoopActive = true;
+  previewElapsedSeconds = fromElapsed;
+  const startedAt = performance.now() - fromElapsed * 1000;
+  previewControls.classList.remove('hidden');
+  updatePreviewControlButtons();
+  previewAnimation = requestAnimationFrame((now) => runPreviewTick(now, startedAt, journey, previewDuration));
+}
+
+function pausePreviewLoop(): void {
+  if (!previewLoopActive) return;
+  stopPreviewLoop();
+}
+
+function resumePreviewLoop(): void {
+  const journey = previewSessionJourney;
+  if (!journey || previewLoopActive) return;
+  const previewDuration = totalDurationSeconds(previewJourneyDuration);
+  previewLoopActive = true;
+  const startedAt = performance.now() - previewElapsedSeconds * 1000;
+  updatePreviewControlButtons();
+  previewAnimation = requestAnimationFrame((now) => runPreviewTick(
+    now,
+    startedAt,
+    journey,
+    previewDuration,
+  ));
+}
+
+previewPlayButton.addEventListener('click', () => {
+  if (!previewSessionJourney) return;
+  const previewDuration = totalDurationSeconds(previewJourneyDuration);
+  if (previewElapsedSeconds >= previewDuration) {
+    startPreviewLoop(previewSessionJourney, 0);
+    return;
+  }
+  resumePreviewLoop();
+});
+
+previewPauseButton.addEventListener('click', pausePreviewLoop);
+
+previewReplayButton.addEventListener('click', () => {
+  const journey = previewSessionJourney ?? prepared;
+  if (!journey) return;
+  startPreviewLoop(journey, 0);
 });
 
 openGoogleMapsButton.addEventListener('click', () => {
@@ -1001,49 +1389,29 @@ rawOnlyDialog.addEventListener('cancel', () => {
 
 previewButton.addEventListener('click', async () => {
   if (!requireMapConsent()) return;
-  stopPreview();
-  // Only the CSS box, not the backing store: the preview size is measured after the await,
-  // so bouncing the canvas back to the format size here would clear the bitmap for nothing.
+  stopPreviewLoop();
+  previewSessionJourney = null;
   applyPreviewAspect();
   setError(null);
   resultActions.classList.add('hidden');
   resultVideo.classList.add('hidden');
-  previewCard.classList.remove('hidden');
-  previewCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  updatePreviewChrome();
   isPreparing = true;
   refreshActionAvailability();
+  updatePreviewChrome();
   try {
     const journey = await getPreparedJourney();
-    // Measured here because the card is laid out, nothing has been drawn yet, and preparing
-    // the map takes long enough that the device may have been rotated in the meantime.
     applyPreviewCanvasSize();
     previewSizeDirty = false;
-    const started = performance.now();
-    const previewJourneyDuration = Math.min(8, Number(durationSelect.value));
-    const previewDuration = totalDurationSeconds(previewJourneyDuration);
-    const tick = (now: number): void => {
-      if (previewSizeDirty) {
-        // Clearing and redrawing inside one rAF callback is never composited in between.
-        previewSizeDirty = false;
-        applyPreviewCanvasSize();
-      }
-      const elapsedSeconds = Math.min(previewDuration, (now - started) / 1000);
-      const fraction = elapsedSeconds / previewDuration;
-      const animationFrame = frameAtElapsedSeconds(elapsedSeconds, previewJourneyDuration);
-      lastPreviewFrame = animationFrame;
-      drawFrame(canvas, journey, animationFrame, overlayText());
-      setProgress({
-        kind: 'key',
-        key: fraction < 1 ? 'progressPreviewing' : 'progressPreviewComplete',
-      });
-      previewAnimation = fraction < 1 ? requestAnimationFrame(tick) : 0;
-    };
-    previewAnimation = requestAnimationFrame(tick);
+    startPreviewLoop(journey, 0);
+    updatePreviewChrome();
   } catch (error) {
     setError(describeError(error, 'errorPreviewFailed'));
+    updatePreviewChrome();
   } finally {
     isPreparing = false;
     refreshActionAvailability();
+    updatePreviewChrome();
   }
 });
 
@@ -1077,23 +1445,22 @@ createButton.addEventListener('click', async () => {
   setError(null);
   resultActions.classList.add('hidden');
   resultVideo.classList.add('hidden');
-  previewCard.classList.remove('hidden');
-  progress.classList.remove('hidden');
-  cancelButton.classList.remove('hidden');
+  updatePreviewChrome();
   cancelButton.disabled = false;
   progress.value = 0;
   isExporting = true;
   refreshActionAvailability();
-  previewCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  updatePreviewChrome();
   exportController = new AbortController();
+  const exportAppearance = currentAppearance();
   const wakeLock = await requestWakeLock();
   try {
     const journey = await getPreparedJourney(exportController.signal);
     setProgress({ kind: 'key', key: 'progressCreating' });
     const blob = await createJourneyMp4(canvas, journey, {
       durationSeconds: Number(durationSelect.value),
-      // Frozen here, so the whole video carries one language even if the select were unlocked.
       overlay: overlayText(),
+      appearance: exportAppearance,
       format,
       signal: exportController.signal,
       onProgress: (fraction) => {
@@ -1109,6 +1476,7 @@ createButton.addEventListener('click', async () => {
     resultVideo.style.setProperty('--preview-aspect', String(format.width / format.height));
     resultVideo.classList.remove('hidden');
     resultActions.classList.remove('hidden');
+    updatePreviewChrome();
     setProgress({ kind: 'ready', bytes: blob.size });
     const shareData = { files: [resultFile] };
     const canShare = typeof navigator.share === 'function'
@@ -1126,8 +1494,9 @@ createButton.addEventListener('click', async () => {
     await wakeLock?.release().catch(() => undefined);
     exportController = null;
     isExporting = false;
-    cancelButton.classList.add('hidden');
+    cancelButton.disabled = true;
     refreshActionAvailability();
+    updatePreviewChrome();
   }
 });
 
@@ -1168,6 +1537,12 @@ initHeaderLanguageSwitch();
 // Safari restores form control values on reload and on bfcache restore without firing
 // change, so the canvas has to be synced to the selected format before anything is drawn.
 applyVideoFormat();
+updatePreviewChrome();
+updateToolWorkflow();
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  previewDemoVideo.removeAttribute('autoplay');
+  previewDemoVideo.pause();
+}
 // Single page, no unmount: the resize listener lives as long as the document, and the pixel
 // ratio query re-arms itself so at most one is ever registered.
 window.addEventListener('resize', onViewportChange);

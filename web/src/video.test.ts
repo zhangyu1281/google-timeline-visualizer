@@ -12,6 +12,7 @@ import {
   videoFormatByKey,
   videoFormatSupportKey,
 } from './video';
+import { DEFAULT_RENDER_APPEARANCE } from './render-theme';
 import type { ResolvedVideoFormat, VideoFormat, VideoFrameRate } from './video';
 import type { PreparedJourney } from './types';
 
@@ -281,6 +282,7 @@ describe('createJourneyMp4', () => {
       separator: ' · ',
       formatDistance: (kilometers: number) => `${Math.round(kilometers)} km`,
     },
+    appearance: DEFAULT_RENDER_APPEARANCE,
     format,
   };
 
