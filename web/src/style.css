@@ -1132,6 +1132,20 @@ dialog::backdrop { background: rgba(15, 23, 42, 0.4); }
 
 .footer-links a:hover { color: var(--primary); }
 
+.footer-contact {
+  margin: 0 0 12px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.footer-contact a {
+  color: var(--text);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.footer-contact a:hover { color: var(--primary); }
+
 .footer-disclaimer, .footer-meta {
   margin: 4px 0;
   font-size: 12px;

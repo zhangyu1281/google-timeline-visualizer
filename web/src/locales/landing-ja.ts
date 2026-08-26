@@ -87,4 +87,5 @@ export const landingJa = {
   footerTerms: '利用規約',
   footerAbout: 'このサイトについて',
   footerOpenSource: 'オープンソース',
+  footerSupport: 'サポート',
 } as const satisfies import('./landing-en.ts').LandingStrings;

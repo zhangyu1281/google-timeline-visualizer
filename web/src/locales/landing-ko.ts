@@ -87,4 +87,5 @@ export const landingKo = {
   footerTerms: '약관',
   footerAbout: '소개',
   footerOpenSource: '오픈 소스',
+  footerSupport: '고객 지원',
 } as const satisfies import('./landing-en.ts').LandingStrings;

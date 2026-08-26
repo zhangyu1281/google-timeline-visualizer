@@ -148,6 +148,7 @@ export const pagesEn = {
     'Google moved Timeline data to on-device storage and removed the web viewer. Millions of users still want to visualize and share their travel history — Timeline Visualizer fills that gap with a simple, private web tool.',
 
   footerTerms: 'Terms',
+  footerSupport: 'Support',
 
   termsPageTitle: 'Terms of Service — Timeline Visualizer',
   termsMetaDescription:
@@ -186,10 +187,10 @@ export const pagesEn = {
   termsRefundList2: 'Failed delivery: if payment succeeded but unlock never worked and we cannot fix it within 5 business days, contact us for a refund or credit.',
   termsRefundList3: 'Statutory rights: if applicable law grants withdrawal or refund rights (e.g., EU/UK consumer rules), those rights are preserved.',
   termsRefundBody2:
-    'To request a refund, email mahlerlabdiy@gmail.com with your checkout email, transaction or order reference, and reason. We respond within 2 business days and process eligible refunds within 5–10 business days.',
+    'To request a refund, email xevpass@gmail.com with your checkout email, transaction or order reference, and reason. We respond within 2 business days and process eligible refunds within 5–10 business days.',
   termsDisputesTitle: '8. Billing disputes',
   termsDisputesBody:
-    'If you believe a charge is incorrect, contact mahlerlabdiy@gmail.com before opening a bank dispute. We aim to respond within 2 business days and resolve confirmed billing errors within 5 business days.',
+    'If you believe a charge is incorrect, contact xevpass@gmail.com before opening a bank dispute. We aim to respond within 2 business days and resolve confirmed billing errors within 5 business days.',
   termsIpTitle: '9. Intellectual property',
   termsIpBody:
     'You retain ownership of your Timeline data and the MP4 videos you generate. MahlerLab owns the Service, software, branding, and site content. Map tiles and attribution remain subject to third-party licenses (OpenStreetMap, CARTO).',
@@ -216,7 +217,7 @@ export const pagesEn = {
     'We may update these Terms. Material changes will be posted on this page with an updated date at least 14 days before they take effect where practicable. Continued use after the effective date constitutes acceptance. If any provision is unenforceable, the remainder stays in effect.',
   termsContactTitle: '16. Contact',
   termsContactBody:
-    'General support & billing: mahlerlabdiy@gmail.com · Privacy: mahlerlabdiy@gmail.com · Website: https://www.timelinevisualizer.app',
+    'General support & billing: xevpass@gmail.com · Privacy: xevpass@gmail.com · Website: https://www.timelinevisualizer.app',
 
   privacyPageTitle: 'Privacy Policy — Timeline Visualizer',
   privacyMetaDescription:
@@ -230,7 +231,7 @@ export const pagesEn = {
     'MahlerLab ("we", "us") respects your privacy. This Privacy Policy explains how we collect, use, store, and share information when you use Timeline Visualizer at https://www.timelinevisualizer.app (the "Service"). By using the Service, you agree to this policy.',
   privacyControllerTitle: '1. Data controller',
   privacyControllerBody:
-    'MahlerLab operates Timeline Visualizer. Privacy contact: mahlerlabdiy@gmail.com · Support: mahlerlabdiy@gmail.com · Website: https://www.timelinevisualizer.app · Data protection officer: Not applicable.',
+    'MahlerLab operates Timeline Visualizer. Privacy contact: xevpass@gmail.com · Support: xevpass@gmail.com · Website: https://www.timelinevisualizer.app · Data protection officer: Not applicable.',
   privacyCollectTitle: '2. Information we collect',
   privacyCollectBody:
     '2.1 Information you provide: If you contact support or complete checkout, we may receive your email address, message content, transaction amount, payment status, and order reference. We do not store full payment card numbers — card data is handled by Waffo Pancake (see Section 5).',
@@ -255,7 +256,7 @@ export const pagesEn = {
     'Timeline data and videos remain in your browser until you close or reload the page (unless stored locally by your browser). Payment records are retained by Waffo Pancake per their policies. Support emails are kept up to 2 years. Analytics data is retained per each provider’s schedule (typically 14–26 months).',
   privacyRightsTitle: '8. Your rights',
   privacyRightsBody:
-    'Depending on your location, you may have rights to access, correct, delete, restrict, or port personal data, and to object to certain processing. Email mahlerlabdiy@gmail.com — we respond within 30 calendar days. You may also complain to your local data protection authority.',
+    'Depending on your location, you may have rights to access, correct, delete, restrict, or port personal data, and to object to certain processing. Email xevpass@gmail.com — we respond within 30 calendar days. You may also complain to your local data protection authority.',
   privacyMarketingTitle: '9. Marketing',
   privacyMarketingBody:
     'We do not send marketing emails unless you opt in. Checkout and payment receipts are sent by Waffo Pancake as Merchant of Record.',
@@ -273,7 +274,7 @@ export const pagesEn = {
     'We may update this policy. Material changes will be posted here with a new "Last updated" date at least 15 days before they take effect where practicable.',
   privacyContactTitle: '14. Contact',
   privacyContactBody:
-    'Privacy & support: mahlerlabdiy@gmail.com · Website: https://www.timelinevisualizer.app',
+    'Privacy & support: xevpass@gmail.com · Website: https://www.timelinevisualizer.app',
 } as const;
 
 export type PagesStrings = { readonly [K in keyof typeof pagesEn]: string };

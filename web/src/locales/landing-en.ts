@@ -87,6 +87,7 @@ export const landingEn = {
   footerTerms: 'Terms',
   footerAbout: 'About',
   footerOpenSource: 'Open source',
+  footerSupport: 'Support',
 } as const;
 
 export type LandingStrings = { readonly [K in keyof typeof landingEn]: string };
