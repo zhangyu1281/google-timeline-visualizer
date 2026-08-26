@@ -24,7 +24,9 @@ import {
   mapFallbackBackground,
   mapTileUrl,
   routePalette,
+  type MarkerPreset,
   type RenderAppearance,
+  type RoutePalette,
 } from './render-theme';
 
 /**
@@ -62,6 +64,69 @@ const HEAD_RADIUS = 15;            // 10 px at 480
 const HEAD_RING_RADIUS = 24;       // 16 px at 480
 const HEAD_RING_WIDTH = 7.5;       // 5 px at 480
 const HEAD_SHADOW_BLUR = 15;       // 10 px at 480
+const MINIMAL_HEAD_RADIUS = 9;     // 6 px at 480
+const PIN_LENGTH = 30;             // 20 px at 480
+const PIN_WIDTH = 18;              // 12 px at 480
+
+function markerHeading(journey: PreparedJourney, completedIndex: number, head: WorldPoint): number {
+  const index = Math.max(0, Math.min(completedIndex, journey.worldPoints.length - 1));
+  const previous = index > 0 ? journey.worldPoints[index - 1] : journey.worldPoints[index];
+  const dx = head.x - previous.x;
+  const dy = head.y - previous.y;
+  if (Math.abs(dx) < 1e-9 && Math.abs(dy) < 1e-9) return -Math.PI / 2;
+  return Math.atan2(dy, dx);
+}
+
+function drawRouteHead(
+  context: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  scale: number,
+  colors: RoutePalette,
+  preset: MarkerPreset,
+  heading: number,
+): void {
+  if (preset === 'pin') {
+    context.save();
+    context.translate(x, y);
+    context.rotate(heading + Math.PI / 2);
+    context.shadowColor = 'rgba(36, 25, 29, 0.35)';
+    context.shadowBlur = HEAD_SHADOW_BLUR * scale;
+    const length = PIN_LENGTH * scale;
+    const width = PIN_WIDTH * scale;
+    context.fillStyle = colors.headFill;
+    context.beginPath();
+    context.moveTo(0, -length * 0.55);
+    context.lineTo(width * 0.45, length * 0.35);
+    context.lineTo(0, length * 0.12);
+    context.lineTo(-width * 0.45, length * 0.35);
+    context.closePath();
+    context.fill();
+    context.shadowBlur = 0;
+    context.strokeStyle = colors.main;
+    context.lineWidth = HEAD_RING_WIDTH * 0.65 * scale;
+    context.stroke();
+    context.restore();
+    return;
+  }
+
+  context.shadowColor = 'rgba(36, 25, 29, 0.35)';
+  context.shadowBlur = (preset === 'minimal' ? 8 : HEAD_SHADOW_BLUR) * scale;
+  const radius = (preset === 'minimal' ? MINIMAL_HEAD_RADIUS : HEAD_RADIUS) * scale;
+  context.fillStyle = colors.headFill;
+  context.beginPath();
+  context.arc(x, y, radius, 0, Math.PI * 2);
+  context.fill();
+  context.shadowBlur = 0;
+
+  if (preset !== 'minimal') {
+    context.strokeStyle = colors.main;
+    context.lineWidth = HEAD_RING_WIDTH * scale;
+    context.beginPath();
+    context.arc(x, y, HEAD_RING_RADIUS * scale, 0, Math.PI * 2);
+    context.stroke();
+  }
+}
 
 function worldToCanvas(point: WorldPoint, viewport: Viewport, size: RenderSize): [number, number] {
   return [
@@ -364,19 +429,15 @@ export function drawFrame(
     size,
   );
   const [headX, headY] = worldToCanvas(current.point, viewport, size);
-
-  context.shadowColor = 'rgba(36, 25, 29, 0.35)';
-  context.shadowBlur = HEAD_SHADOW_BLUR * scale;
-  context.fillStyle = colors.headFill;
-  context.beginPath();
-  context.arc(headX, headY, HEAD_RADIUS * scale, 0, Math.PI * 2);
-  context.fill();
-  context.shadowBlur = 0;
-  context.strokeStyle = colors.main;
-  context.lineWidth = HEAD_RING_WIDTH * scale;
-  context.beginPath();
-  context.arc(headX, headY, HEAD_RING_RADIUS * scale, 0, Math.PI * 2);
-  context.stroke();
+  drawRouteHead(
+    context,
+    headX,
+    headY,
+    scale,
+    colors,
+    appearance.markerStyle,
+    markerHeading(journey, current.completedIndex, current.point),
+  );
   context.restore();
 
   if (frame.outroProgress > 0) {

@@ -1,0 +1,2557 @@
+{
+  "semanticSegments": [
+    {
+      "startTime": "2019-01-06T01:30:00Z",
+      "endTime": "2019-01-06T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 0
+        }
+      ],
+      "activity": {
+        "start": "31.2304,121.4737",
+        "end": "31.2304,121.4737"
+      }
+    },
+    {
+      "startTime": "2019-01-07T01:30:00Z",
+      "endTime": "2019-01-07T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2384,121.4681",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2324,121.4749",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2284,121.4777",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2019-01-08T01:30:00Z",
+      "endTime": "2019-01-08T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2464,121.4625",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2344,121.4761",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2224,121.4897",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2019-01-09T01:30:00Z",
+      "endTime": "2019-01-09T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2544,121.4569",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2364,121.4773",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2184,121.4977",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2244,121.4857",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ],
+      "activity": {
+        "start": "31.2544,121.4569",
+        "end": "31.2304,121.4737"
+      }
+    },
+    {
+      "startTime": "2019-01-10T01:30:00Z",
+      "endTime": "2019-01-10T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2624,121.4513",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2384,121.4785",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2144,121.5057",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2224,121.4897",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2019-01-11T01:30:00Z",
+      "endTime": "2019-01-11T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 0
+        }
+      ]
+    },
+    {
+      "startTime": "2019-01-12T01:30:00Z",
+      "endTime": "2019-01-12T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2384,121.4681",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2324,121.4749",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2284,121.4777",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ],
+      "activity": {
+        "start": "31.2384,121.4681",
+        "end": "31.2304,121.4737"
+      }
+    },
+    {
+      "startTime": "2019-01-13T01:30:00Z",
+      "endTime": "2019-01-13T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2464,121.4625",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2344,121.4761",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2224,121.4897",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2019-02-10T06:00:00Z",
+      "endTime": "2019-02-10T20:00:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2300,121.4700",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "33.4550,130.5800",
+          "durationMinutesOffsetFromStartTime": 140
+        },
+        {
+          "point": "35.6800,139.6900",
+          "durationMinutesOffsetFromStartTime": 280
+        },
+        {
+          "point": "35.1850,137.5950",
+          "durationMinutesOffsetFromStartTime": 420
+        },
+        {
+          "point": "34.6900,135.5000",
+          "durationMinutesOffsetFromStartTime": 560
+        },
+        {
+          "point": "34.8500,135.6350",
+          "durationMinutesOffsetFromStartTime": 700
+        },
+        {
+          "point": "35.0100,135.7700",
+          "durationMinutesOffsetFromStartTime": 840
+        }
+      ],
+      "activity": {
+        "start": "31.2300,121.4700",
+        "end": "35.0100,135.7700"
+      }
+    },
+    {
+      "startTime": "2019-05-18T08:00:00Z",
+      "endTime": "2019-05-19T02:00:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2300,121.4700",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "40.0450,61.9100",
+          "durationMinutesOffsetFromStartTime": 108
+        },
+        {
+          "point": "48.8600,2.3500",
+          "durationMinutesOffsetFromStartTime": 216
+        },
+        {
+          "point": "48.8600,2.3500",
+          "durationMinutesOffsetFromStartTime": 324
+        },
+        {
+          "point": "50.1850,1.1100",
+          "durationMinutesOffsetFromStartTime": 432
+        },
+        {
+          "point": "51.5100,-0.1300",
+          "durationMinutesOffsetFromStartTime": 540
+        },
+        {
+          "point": "51.5100,-0.1300",
+          "durationMinutesOffsetFromStartTime": 648
+        },
+        {
+          "point": "51.9400,2.3850",
+          "durationMinutesOffsetFromStartTime": 756
+        },
+        {
+          "point": "52.3700,4.9000",
+          "durationMinutesOffsetFromStartTime": 864
+        },
+        {
+          "point": "51.2400,6.7900",
+          "durationMinutesOffsetFromStartTime": 972
+        },
+        {
+          "point": "50.1100,8.6800",
+          "durationMinutesOffsetFromStartTime": 1080
+        }
+      ],
+      "visit": {
+        "topCandidate": {
+          "placeLocation": "50.1100,8.6800"
+        }
+      }
+    },
+    {
+      "startTime": "2019-09-03T04:00:00Z",
+      "endTime": "2019-09-03T20:00:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2300,121.4700",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "22.4900,110.9850",
+          "durationMinutesOffsetFromStartTime": 137
+        },
+        {
+          "point": "13.7500,100.5000",
+          "durationMinutesOffsetFromStartTime": 274
+        },
+        {
+          "point": "7.5500,102.1600",
+          "durationMinutesOffsetFromStartTime": 411
+        },
+        {
+          "point": "1.3500,103.8200",
+          "durationMinutesOffsetFromStartTime": 548
+        },
+        {
+          "point": "1.3500,103.8200",
+          "durationMinutesOffsetFromStartTime": 685
+        },
+        {
+          "point": "-3.6500,109.5200",
+          "durationMinutesOffsetFromStartTime": 822
+        },
+        {
+          "point": "-8.6500,115.2200",
+          "durationMinutesOffsetFromStartTime": 959
+        }
+      ]
+    },
+    {
+      "startTime": "2020-01-12T07:00:00Z",
+      "endTime": "2020-01-12T19:00:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2300,121.4700",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "26.7750,117.8200",
+          "durationMinutesOffsetFromStartTime": 120
+        },
+        {
+          "point": "22.3200,114.1700",
+          "durationMinutesOffsetFromStartTime": 240
+        },
+        {
+          "point": "22.7250,113.7150",
+          "durationMinutesOffsetFromStartTime": 360
+        },
+        {
+          "point": "23.1300,113.2600",
+          "durationMinutesOffsetFromStartTime": 480
+        },
+        {
+          "point": "31.5150,114.8300",
+          "durationMinutesOffsetFromStartTime": 600
+        },
+        {
+          "point": "39.9000,116.4000",
+          "durationMinutesOffsetFromStartTime": 720
+        }
+      ],
+      "activity": {
+        "start": "31.2300,121.4700",
+        "end": "39.9000,116.4000"
+      }
+    },
+    {
+      "startTime": "2020-03-01T01:30:00Z",
+      "endTime": "2020-03-01T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 0
+        }
+      ],
+      "activity": {
+        "start": "31.2304,121.4737",
+        "end": "31.2304,121.4737"
+      }
+    },
+    {
+      "startTime": "2020-03-02T01:30:00Z",
+      "endTime": "2020-03-02T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2384,121.4681",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2324,121.4749",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2284,121.4777",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2020-03-03T01:30:00Z",
+      "endTime": "2020-03-03T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2464,121.4625",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2344,121.4761",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2224,121.4897",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2020-03-04T01:30:00Z",
+      "endTime": "2020-03-04T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2544,121.4569",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2364,121.4773",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2184,121.4977",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2244,121.4857",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ],
+      "activity": {
+        "start": "31.2544,121.4569",
+        "end": "31.2304,121.4737"
+      }
+    },
+    {
+      "startTime": "2020-03-05T01:30:00Z",
+      "endTime": "2020-03-05T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2624,121.4513",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2384,121.4785",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2144,121.5057",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2224,121.4897",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2020-03-06T01:30:00Z",
+      "endTime": "2020-03-06T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 0
+        }
+      ]
+    },
+    {
+      "startTime": "2020-03-07T01:30:00Z",
+      "endTime": "2020-03-07T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2384,121.4681",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2324,121.4749",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2284,121.4777",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ],
+      "activity": {
+        "start": "31.2384,121.4681",
+        "end": "31.2304,121.4737"
+      }
+    },
+    {
+      "startTime": "2020-03-08T01:30:00Z",
+      "endTime": "2020-03-08T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2464,121.4625",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2344,121.4761",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2224,121.4897",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2020-03-09T01:30:00Z",
+      "endTime": "2020-03-09T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2544,121.4569",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2364,121.4773",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2184,121.4977",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2244,121.4857",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2020-03-10T01:30:00Z",
+      "endTime": "2020-03-10T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2624,121.4513",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2384,121.4785",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2144,121.5057",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2224,121.4897",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ],
+      "activity": {
+        "start": "31.2624,121.4513",
+        "end": "31.2304,121.4737"
+      }
+    },
+    {
+      "startTime": "2020-07-22T09:00:00Z",
+      "endTime": "2020-07-22T19:00:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2300,121.4700",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "30.7500,120.8100",
+          "durationMinutesOffsetFromStartTime": 100
+        },
+        {
+          "point": "30.2700,120.1500",
+          "durationMinutesOffsetFromStartTime": 200
+        },
+        {
+          "point": "29.9150,113.3500",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "29.5600,106.5500",
+          "durationMinutesOffsetFromStartTime": 400
+        },
+        {
+          "point": "27.3000,114.0550",
+          "durationMinutesOffsetFromStartTime": 500
+        },
+        {
+          "point": "25.0400,121.5600",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2021-01-10T01:30:00Z",
+      "endTime": "2021-01-10T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 0
+        }
+      ],
+      "activity": {
+        "start": "31.2304,121.4737",
+        "end": "31.2304,121.4737"
+      }
+    },
+    {
+      "startTime": "2021-01-11T01:30:00Z",
+      "endTime": "2021-01-11T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2384,121.4681",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2324,121.4749",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2284,121.4777",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2021-01-12T01:30:00Z",
+      "endTime": "2021-01-12T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2464,121.4625",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2344,121.4761",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2224,121.4897",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2021-01-13T01:30:00Z",
+      "endTime": "2021-01-13T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2544,121.4569",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2364,121.4773",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2184,121.4977",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2244,121.4857",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ],
+      "activity": {
+        "start": "31.2544,121.4569",
+        "end": "31.2304,121.4737"
+      }
+    },
+    {
+      "startTime": "2021-01-14T01:30:00Z",
+      "endTime": "2021-01-14T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2624,121.4513",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2384,121.4785",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2144,121.5057",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2224,121.4897",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2021-01-15T01:30:00Z",
+      "endTime": "2021-01-15T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 0
+        }
+      ]
+    },
+    {
+      "startTime": "2021-01-16T01:30:00Z",
+      "endTime": "2021-01-16T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2384,121.4681",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2324,121.4749",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2284,121.4777",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ],
+      "activity": {
+        "start": "31.2384,121.4681",
+        "end": "31.2304,121.4737"
+      }
+    },
+    {
+      "startTime": "2021-01-17T01:30:00Z",
+      "endTime": "2021-01-17T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2464,121.4625",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2344,121.4761",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2224,121.4897",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2021-01-18T01:30:00Z",
+      "endTime": "2021-01-18T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2544,121.4569",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2364,121.4773",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2184,121.4977",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2244,121.4857",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2021-01-19T01:30:00Z",
+      "endTime": "2021-01-19T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2624,121.4513",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2384,121.4785",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2144,121.5057",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2224,121.4897",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ],
+      "activity": {
+        "start": "31.2624,121.4513",
+        "end": "31.2304,121.4737"
+      }
+    },
+    {
+      "startTime": "2021-01-20T01:30:00Z",
+      "endTime": "2021-01-20T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 0
+        }
+      ]
+    },
+    {
+      "startTime": "2021-01-21T01:30:00Z",
+      "endTime": "2021-01-21T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2384,121.4681",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2324,121.4749",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2284,121.4777",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2021-04-05T05:00:00Z",
+      "endTime": "2021-04-06T01:00:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2300,121.4700",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "34.5000,-0.4750",
+          "durationMinutesOffsetFromStartTime": 133
+        },
+        {
+          "point": "37.7700,-122.4200",
+          "durationMinutesOffsetFromStartTime": 266
+        },
+        {
+          "point": "37.7700,-122.4200",
+          "durationMinutesOffsetFromStartTime": 399
+        },
+        {
+          "point": "35.9100,-120.3300",
+          "durationMinutesOffsetFromStartTime": 532
+        },
+        {
+          "point": "34.0500,-118.2400",
+          "durationMinutesOffsetFromStartTime": 665
+        },
+        {
+          "point": "35.1100,-116.6900",
+          "durationMinutesOffsetFromStartTime": 798
+        },
+        {
+          "point": "36.1700,-115.1400",
+          "durationMinutesOffsetFromStartTime": 931
+        },
+        {
+          "point": "38.4400,-94.5750",
+          "durationMinutesOffsetFromStartTime": 1064
+        },
+        {
+          "point": "40.7100,-74.0100",
+          "durationMinutesOffsetFromStartTime": 1197
+        }
+      ],
+      "visit": {
+        "topCandidate": {
+          "placeLocation": "40.7100,-74.0100"
+        }
+      }
+    },
+    {
+      "startTime": "2021-11-20T03:00:00Z",
+      "endTime": "2021-11-20T18:00:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2300,121.4700",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "25.1550,97.1750",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "19.0800,72.8800",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "22.1400,64.0750",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "25.2000,55.2700",
+          "durationMinutesOffsetFromStartTime": 600
+        },
+        {
+          "point": "33.1050,42.1250",
+          "durationMinutesOffsetFromStartTime": 750
+        },
+        {
+          "point": "41.0100,28.9800",
+          "durationMinutesOffsetFromStartTime": 900
+        }
+      ]
+    },
+    {
+      "startTime": "2022-01-08T01:30:00Z",
+      "endTime": "2022-01-08T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 0
+        }
+      ],
+      "activity": {
+        "start": "31.2304,121.4737",
+        "end": "31.2304,121.4737"
+      }
+    },
+    {
+      "startTime": "2022-01-09T01:30:00Z",
+      "endTime": "2022-01-09T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2384,121.4681",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2324,121.4749",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2284,121.4777",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2022-01-10T01:30:00Z",
+      "endTime": "2022-01-10T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2464,121.4625",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2344,121.4761",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2224,121.4897",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2022-01-11T01:30:00Z",
+      "endTime": "2022-01-11T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2544,121.4569",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2364,121.4773",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2184,121.4977",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2244,121.4857",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ],
+      "activity": {
+        "start": "31.2544,121.4569",
+        "end": "31.2304,121.4737"
+      }
+    },
+    {
+      "startTime": "2022-01-12T01:30:00Z",
+      "endTime": "2022-01-12T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2624,121.4513",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2384,121.4785",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2144,121.5057",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2224,121.4897",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2022-01-13T01:30:00Z",
+      "endTime": "2022-01-13T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 0
+        }
+      ]
+    },
+    {
+      "startTime": "2022-01-14T01:30:00Z",
+      "endTime": "2022-01-14T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2384,121.4681",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2324,121.4749",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2284,121.4777",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ],
+      "activity": {
+        "start": "31.2384,121.4681",
+        "end": "31.2304,121.4737"
+      }
+    },
+    {
+      "startTime": "2022-01-15T01:30:00Z",
+      "endTime": "2022-01-15T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2464,121.4625",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2344,121.4761",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2224,121.4897",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2022-01-16T01:30:00Z",
+      "endTime": "2022-01-16T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2544,121.4569",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2364,121.4773",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2184,121.4977",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2244,121.4857",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2022-01-17T01:30:00Z",
+      "endTime": "2022-01-17T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2624,121.4513",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2384,121.4785",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2144,121.5057",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2224,121.4897",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ],
+      "activity": {
+        "start": "31.2624,121.4513",
+        "end": "31.2304,121.4737"
+      }
+    },
+    {
+      "startTime": "2022-03-14T06:00:00Z",
+      "endTime": "2022-03-14T20:00:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2300,121.4700",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "-1.3200,136.3400",
+          "durationMinutesOffsetFromStartTime": 120
+        },
+        {
+          "point": "-33.8700,151.2100",
+          "durationMinutesOffsetFromStartTime": 240
+        },
+        {
+          "point": "-33.8700,151.2100",
+          "durationMinutesOffsetFromStartTime": 360
+        },
+        {
+          "point": "-35.8400,148.0850",
+          "durationMinutesOffsetFromStartTime": 480
+        },
+        {
+          "point": "-37.8100,144.9600",
+          "durationMinutesOffsetFromStartTime": 600
+        },
+        {
+          "point": "-32.6400,148.9950",
+          "durationMinutesOffsetFromStartTime": 720
+        },
+        {
+          "point": "-27.4700,153.0300",
+          "durationMinutesOffsetFromStartTime": 840
+        }
+      ],
+      "activity": {
+        "start": "31.2300,121.4700",
+        "end": "-27.4700,153.0300"
+      }
+    },
+    {
+      "startTime": "2022-08-01T08:00:00Z",
+      "endTime": "2022-08-02T00:00:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2300,121.4700",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "43.4950,79.5450",
+          "durationMinutesOffsetFromStartTime": 137
+        },
+        {
+          "point": "55.7600,37.6200",
+          "durationMinutesOffsetFromStartTime": 274
+        },
+        {
+          "point": "55.7600,37.6200",
+          "durationMinutesOffsetFromStartTime": 411
+        },
+        {
+          "point": "57.8450,33.9800",
+          "durationMinutesOffsetFromStartTime": 548
+        },
+        {
+          "point": "59.9300,30.3400",
+          "durationMinutesOffsetFromStartTime": 685
+        },
+        {
+          "point": "60.0500,27.6400",
+          "durationMinutesOffsetFromStartTime": 822
+        },
+        {
+          "point": "60.1700,24.9400",
+          "durationMinutesOffsetFromStartTime": 959
+        }
+      ]
+    },
+    {
+      "startTime": "2023-01-05T01:30:00Z",
+      "endTime": "2023-01-05T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 0
+        }
+      ],
+      "activity": {
+        "start": "31.2304,121.4737",
+        "end": "31.2304,121.4737"
+      }
+    },
+    {
+      "startTime": "2023-01-06T01:30:00Z",
+      "endTime": "2023-01-06T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2384,121.4681",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2324,121.4749",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2284,121.4777",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2023-01-07T01:30:00Z",
+      "endTime": "2023-01-07T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2464,121.4625",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2344,121.4761",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2224,121.4897",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2023-01-08T01:30:00Z",
+      "endTime": "2023-01-08T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2544,121.4569",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2364,121.4773",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2184,121.4977",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2244,121.4857",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ],
+      "activity": {
+        "start": "31.2544,121.4569",
+        "end": "31.2304,121.4737"
+      }
+    },
+    {
+      "startTime": "2023-01-09T01:30:00Z",
+      "endTime": "2023-01-09T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2624,121.4513",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2384,121.4785",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2144,121.5057",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2224,121.4897",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2023-01-10T01:30:00Z",
+      "endTime": "2023-01-10T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 0
+        }
+      ]
+    },
+    {
+      "startTime": "2023-01-11T01:30:00Z",
+      "endTime": "2023-01-11T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2384,121.4681",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2324,121.4749",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2284,121.4777",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ],
+      "activity": {
+        "start": "31.2384,121.4681",
+        "end": "31.2304,121.4737"
+      }
+    },
+    {
+      "startTime": "2023-01-12T01:30:00Z",
+      "endTime": "2023-01-12T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2464,121.4625",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2344,121.4761",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2224,121.4897",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2023-01-13T01:30:00Z",
+      "endTime": "2023-01-13T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2544,121.4569",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2364,121.4773",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2184,121.4977",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2244,121.4857",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2023-01-14T01:30:00Z",
+      "endTime": "2023-01-14T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2624,121.4513",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2384,121.4785",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2144,121.5057",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2224,121.4897",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ],
+      "activity": {
+        "start": "31.2624,121.4513",
+        "end": "31.2304,121.4737"
+      }
+    },
+    {
+      "startTime": "2023-01-15T01:30:00Z",
+      "endTime": "2023-01-15T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 0
+        }
+      ]
+    },
+    {
+      "startTime": "2023-01-16T01:30:00Z",
+      "endTime": "2023-01-16T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2384,121.4681",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2324,121.4749",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2284,121.4777",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2023-01-17T01:30:00Z",
+      "endTime": "2023-01-17T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2464,121.4625",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2344,121.4761",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2224,121.4897",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ],
+      "activity": {
+        "start": "31.2464,121.4625",
+        "end": "31.2304,121.4737"
+      }
+    },
+    {
+      "startTime": "2023-01-18T01:30:00Z",
+      "endTime": "2023-01-18T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2544,121.4569",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2364,121.4773",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2184,121.4977",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2244,121.4857",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2023-02-18T04:00:00Z",
+      "endTime": "2023-02-18T22:00:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2300,121.4700",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "3.8400,37.4200",
+          "durationMinutesOffsetFromStartTime": 154
+        },
+        {
+          "point": "-23.5500,-46.6300",
+          "durationMinutesOffsetFromStartTime": 308
+        },
+        {
+          "point": "-23.5500,-46.6300",
+          "durationMinutesOffsetFromStartTime": 462
+        },
+        {
+          "point": "-23.2300,-44.9000",
+          "durationMinutesOffsetFromStartTime": 616
+        },
+        {
+          "point": "-22.9100,-43.1700",
+          "durationMinutesOffsetFromStartTime": 770
+        },
+        {
+          "point": "-28.7550,-50.7750",
+          "durationMinutesOffsetFromStartTime": 924
+        },
+        {
+          "point": "-34.6000,-58.3800",
+          "durationMinutesOffsetFromStartTime": 1078
+        }
+      ],
+      "visit": {
+        "topCandidate": {
+          "placeLocation": "-34.6000,-58.3800"
+        }
+      }
+    },
+    {
+      "startTime": "2023-06-09T07:00:00Z",
+      "endTime": "2023-06-09T19:00:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2300,121.4700",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "37.4400,64.3650",
+          "durationMinutesOffsetFromStartTime": 102
+        },
+        {
+          "point": "43.6500,7.2600",
+          "durationMinutesOffsetFromStartTime": 204
+        },
+        {
+          "point": "43.6500,7.2600",
+          "durationMinutesOffsetFromStartTime": 306
+        },
+        {
+          "point": "42.5200,4.7150",
+          "durationMinutesOffsetFromStartTime": 408
+        },
+        {
+          "point": "41.3900,2.1700",
+          "durationMinutesOffsetFromStartTime": 510
+        },
+        {
+          "point": "40.9050,-0.7650",
+          "durationMinutesOffsetFromStartTime": 612
+        },
+        {
+          "point": "40.4200,-3.7000",
+          "durationMinutesOffsetFromStartTime": 714
+        }
+      ]
+    },
+    {
+      "startTime": "2023-10-25T05:00:00Z",
+      "endTime": "2023-10-25T20:00:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2300,121.4700",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "47.6900,49.7600",
+          "durationMinutesOffsetFromStartTime": 112
+        },
+        {
+          "point": "64.1500,-21.9500",
+          "durationMinutesOffsetFromStartTime": 224
+        },
+        {
+          "point": "64.1500,-21.9500",
+          "durationMinutesOffsetFromStartTime": 336
+        },
+        {
+          "point": "57.8300,-11.0400",
+          "durationMinutesOffsetFromStartTime": 448
+        },
+        {
+          "point": "51.5100,-0.1300",
+          "durationMinutesOffsetFromStartTime": 560
+        },
+        {
+          "point": "51.5100,-0.1300",
+          "durationMinutesOffsetFromStartTime": 672
+        },
+        {
+          "point": "53.7300,-1.6600",
+          "durationMinutesOffsetFromStartTime": 784
+        },
+        {
+          "point": "55.9500,-3.1900",
+          "durationMinutesOffsetFromStartTime": 896
+        }
+      ],
+      "activity": {
+        "start": "31.2300,121.4700",
+        "end": "55.9500,-3.1900"
+      }
+    },
+    {
+      "startTime": "2024-01-04T01:30:00Z",
+      "endTime": "2024-01-04T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 0
+        }
+      ],
+      "activity": {
+        "start": "31.2304,121.4737",
+        "end": "31.2304,121.4737"
+      }
+    },
+    {
+      "startTime": "2024-01-05T01:30:00Z",
+      "endTime": "2024-01-05T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2384,121.4681",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2324,121.4749",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2284,121.4777",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2024-01-06T01:30:00Z",
+      "endTime": "2024-01-06T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2464,121.4625",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2344,121.4761",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2224,121.4897",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2024-01-07T01:30:00Z",
+      "endTime": "2024-01-07T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2544,121.4569",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2364,121.4773",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2184,121.4977",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2244,121.4857",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ],
+      "activity": {
+        "start": "31.2544,121.4569",
+        "end": "31.2304,121.4737"
+      }
+    },
+    {
+      "startTime": "2024-01-08T01:30:00Z",
+      "endTime": "2024-01-08T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2624,121.4513",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2384,121.4785",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2144,121.5057",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2224,121.4897",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2024-01-08T02:00:00Z",
+      "endTime": "2024-01-08T16:00:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2300,121.4700",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "28.1300,121.5200",
+          "durationMinutesOffsetFromStartTime": 140
+        },
+        {
+          "point": "25.0300,121.5700",
+          "durationMinutesOffsetFromStartTime": 280
+        },
+        {
+          "point": "23.8300,120.9350",
+          "durationMinutesOffsetFromStartTime": 420
+        },
+        {
+          "point": "22.6300,120.3000",
+          "durationMinutesOffsetFromStartTime": 560
+        },
+        {
+          "point": "23.3050,120.9500",
+          "durationMinutesOffsetFromStartTime": 700
+        },
+        {
+          "point": "23.9800,121.6000",
+          "durationMinutesOffsetFromStartTime": 840
+        }
+      ]
+    },
+    {
+      "startTime": "2024-01-09T01:30:00Z",
+      "endTime": "2024-01-09T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 0
+        }
+      ]
+    },
+    {
+      "startTime": "2024-01-10T01:30:00Z",
+      "endTime": "2024-01-10T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2384,121.4681",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2324,121.4749",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2284,121.4777",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ],
+      "activity": {
+        "start": "31.2384,121.4681",
+        "end": "31.2304,121.4737"
+      }
+    },
+    {
+      "startTime": "2024-01-11T01:30:00Z",
+      "endTime": "2024-01-11T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2464,121.4625",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2344,121.4761",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2224,121.4897",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2024-01-12T01:30:00Z",
+      "endTime": "2024-01-12T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2544,121.4569",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2364,121.4773",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2184,121.4977",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2244,121.4857",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2024-01-13T01:30:00Z",
+      "endTime": "2024-01-13T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2624,121.4513",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2384,121.4785",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2144,121.5057",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2224,121.4897",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ],
+      "activity": {
+        "start": "31.2624,121.4513",
+        "end": "31.2304,121.4737"
+      }
+    },
+    {
+      "startTime": "2024-01-14T01:30:00Z",
+      "endTime": "2024-01-14T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 0
+        }
+      ]
+    },
+    {
+      "startTime": "2024-01-15T01:30:00Z",
+      "endTime": "2024-01-15T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2384,121.4681",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2324,121.4749",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2284,121.4777",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2024-05-30T06:00:00Z",
+      "endTime": "2024-05-31T02:00:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2300,121.4700",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "40.2550,-0.8250",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "49.2800,-123.1200",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "48.4450,-122.7250",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "47.6100,-122.3300",
+          "durationMinutesOffsetFromStartTime": 600
+        },
+        {
+          "point": "46.5650,-122.5050",
+          "durationMinutesOffsetFromStartTime": 750
+        },
+        {
+          "point": "45.5200,-122.6800",
+          "durationMinutesOffsetFromStartTime": 900
+        },
+        {
+          "point": "41.6450,-122.5500",
+          "durationMinutesOffsetFromStartTime": 1050
+        },
+        {
+          "point": "37.7700,-122.4200",
+          "durationMinutesOffsetFromStartTime": 1200
+        }
+      ],
+      "visit": {
+        "topCandidate": {
+          "placeLocation": "37.7700,-122.4200"
+        }
+      }
+    },
+    {
+      "startTime": "2024-09-15T09:00:00Z",
+      "endTime": "2024-09-16T01:00:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2300,121.4700",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "29.9200,99.3400",
+          "durationMinutesOffsetFromStartTime": 160
+        },
+        {
+          "point": "28.6100,77.2100",
+          "durationMinutesOffsetFromStartTime": 320
+        },
+        {
+          "point": "23.8450,75.0450",
+          "durationMinutesOffsetFromStartTime": 480
+        },
+        {
+          "point": "19.0800,72.8800",
+          "durationMinutesOffsetFromStartTime": 640
+        },
+        {
+          "point": "16.0250,75.2350",
+          "durationMinutesOffsetFromStartTime": 800
+        },
+        {
+          "point": "12.9700,77.5900",
+          "durationMinutesOffsetFromStartTime": 960
+        }
+      ],
+      "activity": {
+        "start": "31.2300,121.4700",
+        "end": "12.9700,77.5900"
+      }
+    },
+    {
+      "startTime": "2025-01-03T01:30:00Z",
+      "endTime": "2025-01-03T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 0
+        }
+      ],
+      "activity": {
+        "start": "31.2304,121.4737",
+        "end": "31.2304,121.4737"
+      }
+    },
+    {
+      "startTime": "2025-01-04T01:30:00Z",
+      "endTime": "2025-01-04T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2384,121.4681",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2324,121.4749",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2284,121.4777",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2025-01-05T01:30:00Z",
+      "endTime": "2025-01-05T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2464,121.4625",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2344,121.4761",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2224,121.4897",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2025-01-06T01:30:00Z",
+      "endTime": "2025-01-06T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2544,121.4569",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2364,121.4773",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2184,121.4977",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2244,121.4857",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ],
+      "activity": {
+        "start": "31.2544,121.4569",
+        "end": "31.2304,121.4737"
+      }
+    },
+    {
+      "startTime": "2025-01-07T01:30:00Z",
+      "endTime": "2025-01-07T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2624,121.4513",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2384,121.4785",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2144,121.5057",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2224,121.4897",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2025-01-08T01:30:00Z",
+      "endTime": "2025-01-08T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 0
+        }
+      ]
+    },
+    {
+      "startTime": "2025-01-09T01:30:00Z",
+      "endTime": "2025-01-09T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2384,121.4681",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2324,121.4749",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2284,121.4777",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ],
+      "activity": {
+        "start": "31.2384,121.4681",
+        "end": "31.2304,121.4737"
+      }
+    },
+    {
+      "startTime": "2025-01-10T01:30:00Z",
+      "endTime": "2025-01-10T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2464,121.4625",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2344,121.4761",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2224,121.4897",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2264,121.4817",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2025-01-11T01:30:00Z",
+      "endTime": "2025-01-11T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2544,121.4569",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2364,121.4773",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2184,121.4977",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2244,121.4857",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ]
+    },
+    {
+      "startTime": "2025-01-12T01:30:00Z",
+      "endTime": "2025-01-12T11:30:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2624,121.4513",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "31.2384,121.4785",
+          "durationMinutesOffsetFromStartTime": 150
+        },
+        {
+          "point": "31.2144,121.5057",
+          "durationMinutesOffsetFromStartTime": 300
+        },
+        {
+          "point": "31.2224,121.4897",
+          "durationMinutesOffsetFromStartTime": 450
+        },
+        {
+          "point": "31.2304,121.4737",
+          "durationMinutesOffsetFromStartTime": 600
+        }
+      ],
+      "activity": {
+        "start": "31.2624,121.4513",
+        "end": "31.2304,121.4737"
+      }
+    },
+    {
+      "startTime": "2025-01-20T03:00:00Z",
+      "endTime": "2025-01-20T15:00:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2300,121.4700",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "33.4550,130.5800",
+          "durationMinutesOffsetFromStartTime": 120
+        },
+        {
+          "point": "35.6800,139.6900",
+          "durationMinutesOffsetFromStartTime": 240
+        },
+        {
+          "point": "35.1850,137.5950",
+          "durationMinutesOffsetFromStartTime": 360
+        },
+        {
+          "point": "34.6900,135.5000",
+          "durationMinutesOffsetFromStartTime": 480
+        },
+        {
+          "point": "35.1850,137.5950",
+          "durationMinutesOffsetFromStartTime": 600
+        },
+        {
+          "point": "35.6800,139.6900",
+          "durationMinutesOffsetFromStartTime": 720
+        }
+      ]
+    },
+    {
+      "startTime": "2025-04-11T05:00:00Z",
+      "endTime": "2025-04-11T23:00:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2300,121.4700",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "36.5650,66.9850",
+          "durationMinutesOffsetFromStartTime": 135
+        },
+        {
+          "point": "41.9000,12.5000",
+          "durationMinutesOffsetFromStartTime": 270
+        },
+        {
+          "point": "43.6800,10.8450",
+          "durationMinutesOffsetFromStartTime": 405
+        },
+        {
+          "point": "45.4600,9.1900",
+          "durationMinutesOffsetFromStartTime": 540
+        },
+        {
+          "point": "46.4200,8.8650",
+          "durationMinutesOffsetFromStartTime": 675
+        },
+        {
+          "point": "47.3800,8.5400",
+          "durationMinutesOffsetFromStartTime": 810
+        },
+        {
+          "point": "48.1200,5.4450",
+          "durationMinutesOffsetFromStartTime": 945
+        },
+        {
+          "point": "48.8600,2.3500",
+          "durationMinutesOffsetFromStartTime": 1080
+        }
+      ],
+      "visit": {
+        "topCandidate": {
+          "placeLocation": "48.8600,2.3500"
+        }
+      }
+    },
+    {
+      "startTime": "2025-08-02T07:00:00Z",
+      "endTime": "2025-08-02T21:00:00Z",
+      "timelinePath": [
+        {
+          "point": "31.2300,121.4700",
+          "durationMinutesOffsetFromStartTime": 0
+        },
+        {
+          "point": "16.2600,112.6600",
+          "durationMinutesOffsetFromStartTime": 120
+        },
+        {
+          "point": "1.2900,103.8500",
+          "durationMinutesOffsetFromStartTime": 240
+        },
+        {
+          "point": "1.2900,103.8500",
+          "durationMinutesOffsetFromStartTime": 360
+        },
+        {
+          "point": "2.2150,102.7700",
+          "durationMinutesOffsetFromStartTime": 480
+        },
+        {
+          "point": "3.1400,101.6900",
+          "durationMinutesOffsetFromStartTime": 600
+        },
+        {
+          "point": "8.4450,101.0950",
+          "durationMinutesOffsetFromStartTime": 720
+        },
+        {
+          "point": "13.7500,100.5000",
+          "durationMinutesOffsetFromStartTime": 840
+        }
+      ],
+      "activity": {
+        "start": "31.2300,121.4700",
+        "end": "13.7500,100.5000"
+      }
+    }
+  ]
+}

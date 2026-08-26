@@ -17,6 +17,25 @@ export interface ExportOptions {
 }
 
 export type VideoFormatKey = 'standard' | 'high' | 'ultra' | 'portrait' | 'landscape';
+export type AspectRatioPreset = 'portrait' | 'square' | 'landscape';
+
+const SQUARE_FORMAT_KEYS: readonly VideoFormatKey[] = ['standard', 'high', 'ultra'];
+
+export function aspectRatioOfFormatKey(key: VideoFormatKey): AspectRatioPreset {
+  if (key === 'portrait') return 'portrait';
+  if (key === 'landscape') return 'landscape';
+  return 'square';
+}
+
+export function formatKeyForAspect(
+  aspect: AspectRatioPreset,
+  squareKey: VideoFormatKey = 'high',
+): VideoFormatKey {
+  if (aspect === 'portrait') return 'portrait';
+  if (aspect === 'landscape') return 'landscape';
+  return SQUARE_FORMAT_KEYS.includes(squareKey) ? squareKey : 'high';
+}
+
 export const VIDEO_FRAME_RATES = [24, 30, 60] as const;
 export type VideoFrameRate = (typeof VIDEO_FRAME_RATES)[number];
 

@@ -26,6 +26,7 @@ import { drawFrame, prepareJourney, previewCanvasSize } from './renderer';
 import {
   type RenderAppearance,
   isMapTheme,
+  isMarkerPreset,
   isRouteColorPreset,
 } from './render-theme';
 import { selectTimelineModePoints } from './selection';
@@ -51,10 +52,12 @@ import type {
   RenderSize,
   TimelineFrame,
 } from './types';
-import type { VideoFormat, VideoFormatSupport, VideoFrameRate } from './video';
+import type { VideoFormat, VideoFormatSupport, VideoFrameRate, AspectRatioPreset, VideoFormatKey } from './video';
 import {
   ALL_VIDEO_FORMATS,
+  aspectRatioOfFormatKey,
   createJourneyMp4,
+  formatKeyForAspect,
   hasVideoEncoder,
   probeVideoFormats,
   resolveVideoFormat,
@@ -109,7 +112,13 @@ const durationSelect = element<HTMLSelectElement>('duration');
 const cameraMovementSelect = element<HTMLSelectElement>('camera-movement');
 const mapThemeSelect = element<HTMLSelectElement>('map-theme');
 const routeColorSelect = element<HTMLSelectElement>('route-color');
+const markerStyleSelect = element<HTMLSelectElement>('marker-style');
 const formatSelect = element<HTMLSelectElement>('video-format');
+const squareResolutionSelect = element<HTMLSelectElement>('square-resolution');
+const squareResolutionField = element<HTMLElement>('square-resolution-field');
+const aspectChipButtons = () => Array.from(
+  document.querySelectorAll<HTMLButtonElement>('.aspect-chip[data-aspect]'),
+);
 const frameRateSelect = element<HTMLSelectElement>('frame-rate');
 const formatWarning = element<HTMLParagraphElement>('format-warning');
 const selectionSummary = element<HTMLParagraphElement>('selection-summary');
@@ -129,6 +138,7 @@ const previewHeading = element<HTMLHeadingElement>('preview-heading');
 const previewPlayButton = element<HTMLButtonElement>('preview-play-button');
 const previewPauseButton = element<HTMLButtonElement>('preview-pause-button');
 const previewReplayButton = element<HTMLButtonElement>('preview-replay-button');
+const previewScrubber = element<HTMLInputElement>('preview-scrubber');
 const stickyPreviewButton = element<HTMLButtonElement>('sticky-preview-button');
 const stickyCreateButton = element<HTMLButtonElement>('sticky-create-button');
 const previewButton = element<HTMLButtonElement>('preview-button');
@@ -236,6 +246,8 @@ let resultFile: File | null = null;
 let previewAnimation = 0;
 let previewLoopActive = false;
 let previewElapsedSeconds = 0;
+let previewScrubbing = false;
+const PREVIEW_SCRUBBER_STEPS = 1000;
 let previewSessionJourney: PreparedJourney | null = null;
 let previewJourneyDuration = 8;
 let hasEncoder = false;
@@ -599,7 +611,72 @@ function currentAppearance(): RenderAppearance {
   return {
     mapTheme: isMapTheme(mapThemeSelect.value) ? mapThemeSelect.value : 'light',
     routeColor: isRouteColorPreset(routeColorSelect.value) ? routeColorSelect.value : 'classic',
+    markerStyle: isMarkerPreset(markerStyleSelect.value) ? markerStyleSelect.value : 'classic',
   };
+}
+
+function selectedAspectRatio(): AspectRatioPreset {
+  const pressed = aspectChipButtons().find((button) => button.getAttribute('aria-pressed') === 'true');
+  const aspect = pressed?.dataset.aspect;
+  return aspect === 'square' || aspect === 'landscape' ? aspect : 'portrait';
+}
+
+function selectedSquareFormatKey(): VideoFormatKey {
+  const key = squareResolutionSelect.value;
+  return key === 'standard' || key === 'ultra' ? key : 'high';
+}
+
+function updateSquareResolutionVisibility(aspect = selectedAspectRatio()): void {
+  squareResolutionField.classList.toggle('hidden', aspect !== 'square');
+}
+
+function syncAspectControlsFromFormat(): void {
+  const key = baseFormat().key;
+  const aspect = aspectRatioOfFormatKey(key);
+  aspectChipButtons().forEach((button) => {
+    const pressed = button.dataset.aspect === aspect;
+    button.setAttribute('aria-pressed', pressed ? 'true' : 'false');
+  });
+  if (aspect === 'square') squareResolutionSelect.value = key;
+  updateSquareResolutionVisibility(aspect);
+}
+
+function applyAspectSelection(aspect: AspectRatioPreset): void {
+  aspectChipButtons().forEach((button) => {
+    button.setAttribute('aria-pressed', button.dataset.aspect === aspect ? 'true' : 'false');
+  });
+  updateSquareResolutionVisibility(aspect);
+  const nextKey = formatKeyForAspect(aspect, selectedSquareFormatKey());
+  if (formatSelect.value !== nextKey) formatSelect.value = nextKey;
+}
+
+function previewDurationSeconds(): number {
+  return totalDurationSeconds(previewJourneyDuration);
+}
+
+function updatePreviewScrubber(elapsedSeconds: number, previewDuration = previewDurationSeconds()): void {
+  if (previewScrubbing || previewDuration <= 0) return;
+  const fraction = Math.max(0, Math.min(1, elapsedSeconds / previewDuration));
+  previewScrubber.value = String(Math.round(fraction * PREVIEW_SCRUBBER_STEPS));
+  previewScrubber.setAttribute('aria-valuenow', previewScrubber.value);
+  previewScrubber.setAttribute('aria-valuemax', String(PREVIEW_SCRUBBER_STEPS));
+}
+
+function seekPreviewTo(elapsedSeconds: number): void {
+  const journey = previewSessionJourney ?? prepared;
+  if (!journey) return;
+  const previewDuration = previewDurationSeconds();
+  const clamped = Math.max(0, Math.min(previewDuration, elapsedSeconds));
+  previewElapsedSeconds = clamped;
+  const animationFrame = frameAtElapsedSeconds(clamped, previewJourneyDuration);
+  lastPreviewFrame = animationFrame;
+  drawPreviewFrame(journey, animationFrame);
+  updatePreviewScrubber(clamped, previewDuration);
+  setProgress({
+    kind: 'key',
+    key: clamped >= previewDuration ? 'progressPreviewComplete' : 'progressPreviewing',
+  });
+  updatePreviewControlButtons();
 }
 
 function drawPreviewFrame(journey: PreparedJourney, frame: TimelineFrame): void {
@@ -660,8 +737,11 @@ function stopPreviewLoop(): void {
 function stopPreview(): void {
   stopPreviewLoop();
   previewElapsedSeconds = 0;
+  previewScrubbing = false;
   previewSessionJourney = null;
   previewSizeDirty = false;
+  previewScrubber.value = '0';
+  previewScrubber.setAttribute('aria-valuenow', '0');
   updatePreviewChrome();
 }
 
@@ -845,6 +925,10 @@ function refreshActionAvailability(points = currentPoints()): void {
     || !compatibilityChecked || !hasEncoder || needsConsent;
   formatSelect.disabled = isExporting || isPreparing;
   frameRateSelect.disabled = isExporting || isPreparing;
+  squareResolutionSelect.disabled = isExporting || isPreparing;
+  aspectChipButtons().forEach((button) => {
+    button.disabled = isExporting || isPreparing;
+  });
   if (!compatibilityChecked) {
     createButton.title = i18n.t('hintCheckingSupport');
   } else if (!hasEncoder) {
@@ -1230,10 +1314,36 @@ routeColorSelect.addEventListener('change', () => {
     drawPreviewFrame(prepared, lastPreviewFrame);
   }
 });
+markerStyleSelect.addEventListener('change', () => {
+  if (prepared && lastPreviewFrame) {
+    drawPreviewFrame(prepared, lastPreviewFrame);
+  }
+});
 languageSelect.addEventListener('change', onLanguageChange);
 distanceUnitSelect.addEventListener('change', onDistanceUnitChange);
+for (const button of aspectChipButtons()) {
+  button.addEventListener('click', () => {
+    const aspect = button.dataset.aspect;
+    if (aspect !== 'portrait' && aspect !== 'square' && aspect !== 'landscape') return;
+    if (selectedAspectRatio() === aspect) return;
+    stopPreview();
+    applyAspectSelection(aspect);
+    renderFrameRateOptions();
+    applyVideoFormat();
+    updateSelection();
+  });
+}
+squareResolutionSelect.addEventListener('change', () => {
+  if (selectedAspectRatio() !== 'square') return;
+  stopPreview();
+  formatSelect.value = selectedSquareFormatKey();
+  renderFrameRateOptions();
+  applyVideoFormat();
+  updateSelection();
+});
 formatSelect.addEventListener('change', () => {
   stopPreview();
+  syncAspectControlsFromFormat();
   renderFrameRateOptions();
   applyVideoFormat();
   updateSelection();
@@ -1293,6 +1403,7 @@ function runPreviewTick(
   const animationFrame = frameAtElapsedSeconds(elapsedSeconds, previewJourneyDuration);
   lastPreviewFrame = animationFrame;
   drawPreviewFrame(journey, animationFrame);
+  updatePreviewScrubber(elapsedSeconds, previewDuration);
   setProgress({
     kind: 'key',
     key: fraction < 1 ? 'progressPreviewing' : 'progressPreviewComplete',
@@ -1317,6 +1428,7 @@ function startPreviewLoop(journey: PreparedJourney, fromElapsed = 0): void {
   const startedAt = performance.now() - fromElapsed * 1000;
   previewControls.classList.remove('hidden');
   updatePreviewControlButtons();
+  updatePreviewScrubber(fromElapsed, previewDuration);
   previewAnimation = requestAnimationFrame((now) => runPreviewTick(now, startedAt, journey, previewDuration));
 }
 
@@ -1356,6 +1468,25 @@ previewReplayButton.addEventListener('click', () => {
   const journey = previewSessionJourney ?? prepared;
   if (!journey) return;
   startPreviewLoop(journey, 0);
+});
+
+previewScrubber.addEventListener('pointerdown', () => {
+  previewScrubbing = true;
+  pausePreviewLoop();
+});
+
+previewScrubber.addEventListener('input', () => {
+  const previewDuration = previewDurationSeconds();
+  const fraction = Number(previewScrubber.value) / PREVIEW_SCRUBBER_STEPS;
+  seekPreviewTo(fraction * previewDuration);
+});
+
+previewScrubber.addEventListener('pointerup', () => {
+  previewScrubbing = false;
+});
+
+previewScrubber.addEventListener('change', () => {
+  previewScrubbing = false;
 });
 
 openGoogleMapsButton.addEventListener('click', () => {
@@ -1536,6 +1667,7 @@ renderLocalizedText();
 initHeaderLanguageSwitch();
 // Safari restores form control values on reload and on bfcache restore without firing
 // change, so the canvas has to be synced to the selected format before anything is drawn.
+syncAspectControlsFromFormat();
 applyVideoFormat();
 updatePreviewChrome();
 updateToolWorkflow();

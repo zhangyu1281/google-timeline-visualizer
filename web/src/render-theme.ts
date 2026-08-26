@@ -1,33 +1,55 @@
-export type MapTheme = 'light' | 'dark';
+export type MapTheme = 'light' | 'dark' | 'night';
 export type RouteColorPreset = 'classic' | 'neon' | 'sunset';
+export type MarkerPreset = 'classic' | 'pin' | 'minimal';
 
 export interface RenderAppearance {
   mapTheme: MapTheme;
   routeColor: RouteColorPreset;
+  markerStyle: MarkerPreset;
 }
 
 export const DEFAULT_RENDER_APPEARANCE: RenderAppearance = {
   mapTheme: 'light',
   routeColor: 'classic',
+  markerStyle: 'classic',
 };
 
 export function isMapTheme(value: string): value is MapTheme {
-  return value === 'light' || value === 'dark';
+  return value === 'light' || value === 'dark' || value === 'night';
 }
 
 export function isRouteColorPreset(value: string): value is RouteColorPreset {
   return value === 'classic' || value === 'neon' || value === 'sunset';
 }
 
+export function isMarkerPreset(value: string): value is MarkerPreset {
+  return value === 'classic' || value === 'pin' || value === 'minimal';
+}
+
+function mapTileBase(theme: MapTheme): string {
+  switch (theme) {
+    case 'dark':
+      return 'https://a.basemaps.cartocdn.com/dark_all';
+    case 'night':
+      return 'https://a.basemaps.cartocdn.com/dark_nolabels';
+    default:
+      return 'https://a.basemaps.cartocdn.com/light_all';
+  }
+}
+
 export function mapTileUrl(theme: MapTheme, z: number, x: number, y: number): string {
-  const base = theme === 'dark'
-    ? 'https://a.basemaps.cartocdn.com/dark_all'
-    : 'https://a.basemaps.cartocdn.com/light_all';
-  return `${base}/${z}/${x}/${y}.png`;
+  return `${mapTileBase(theme)}/${z}/${x}/${y}.png`;
 }
 
 export function mapFallbackBackground(theme: MapTheme): string {
-  return theme === 'dark' ? '#1a1a2e' : '#f2edf0';
+  switch (theme) {
+    case 'dark':
+      return '#1a1a2e';
+    case 'night':
+      return '#060b14';
+    default:
+      return '#f2edf0';
+  }
 }
 
 export interface RoutePalette {

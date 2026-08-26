@@ -1,7 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   ALL_VIDEO_FORMATS,
+  aspectRatioOfFormatKey,
   createJourneyMp4,
+  formatKeyForAspect,
   DEFAULT_VIDEO_FORMAT_KEY,
   isMp4,
   probeVideoFormats,
@@ -158,6 +160,22 @@ describe('video format table', () => {
       expect(level.maxMbps).toBeGreaterThanOrEqual(macroblocks(format) * format.frameRate);
       expect(level.maxBr).toBeGreaterThanOrEqual(format.bitrate);
     });
+  });
+});
+
+describe('aspect ratio presets', () => {
+  it('maps format keys to portrait, square and landscape', () => {
+    expect(aspectRatioOfFormatKey('portrait')).toBe('portrait');
+    expect(aspectRatioOfFormatKey('landscape')).toBe('landscape');
+    expect(aspectRatioOfFormatKey('standard')).toBe('square');
+    expect(aspectRatioOfFormatKey('ultra')).toBe('square');
+  });
+
+  it('builds format keys from aspect and square resolution', () => {
+    expect(formatKeyForAspect('portrait')).toBe('portrait');
+    expect(formatKeyForAspect('landscape')).toBe('landscape');
+    expect(formatKeyForAspect('square', 'ultra')).toBe('ultra');
+    expect(formatKeyForAspect('square', 'invalid' as 'high')).toBe('high');
   });
 });
 

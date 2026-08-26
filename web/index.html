@@ -252,6 +252,7 @@
             <select id="map-theme">
               <option value="light" selected data-i18n="mapThemeLight">Light</option>
               <option value="dark" data-i18n="mapThemeDark">Dark</option>
+              <option value="night" data-i18n="mapThemeNight">Night</option>
             </select>
           </label>
           <label>
@@ -263,6 +264,14 @@
             </select>
           </label>
         </div>
+        <label>
+          <span data-i18n="markerStyleLabel">Marker style</span>
+          <select id="marker-style">
+            <option value="classic" selected data-i18n="markerStyleClassic">Classic dot</option>
+            <option value="pin" data-i18n="markerStylePin">Direction pin</option>
+            <option value="minimal" data-i18n="markerStyleMinimal">Minimal</option>
+          </select>
+        </label>
         </div>
 
         <div class="settings-group">
@@ -278,28 +287,43 @@
             <option value="60" data-i18n="durationSeconds" data-i18n-count="60">60 seconds</option>
           </select>
         </label>
-        <label>
-          <span data-i18n="videoFormatLabel">Video format</span>
-          <select id="video-format" aria-describedby="format-warning">
+        <div class="aspect-ratio-field">
+          <span class="field-label" id="aspect-ratio-label" data-i18n="aspectRatioLabel">Aspect ratio</span>
+          <div class="aspect-chip-group" role="group" aria-labelledby="aspect-ratio-label">
+            <button type="button" class="aspect-chip" data-aspect="portrait" aria-pressed="true" data-i18n="aspectRatioPortrait">9:16</button>
+            <button type="button" class="aspect-chip" data-aspect="square" aria-pressed="false" data-i18n="aspectRatioSquare">1:1</button>
+            <button type="button" class="aspect-chip" data-aspect="landscape" aria-pressed="false" data-i18n="aspectRatioLandscape">16:9</button>
+          </div>
+        </div>
+        <details class="export-format-advanced">
+          <summary data-i18n="exportAdvancedSummary">Resolution and frame rate</summary>
+          <label id="square-resolution-field" class="hidden">
+            <span data-i18n="squareResolutionLabel">Square resolution</span>
+            <select id="square-resolution">
+              <option value="standard" data-i18n="formatSquare480">Square · 480p</option>
+              <option value="high" selected data-i18n="formatSquare720">Square · 720p</option>
+              <option value="ultra" data-i18n="formatSquare1080">Square · 1080p</option>
+            </select>
+          </label>
+          <select id="video-format" class="visually-hidden" tabindex="-1" aria-hidden="true" aria-describedby="format-warning">
             <option value="standard" data-i18n="formatSquare480">Square · 480p</option>
             <option value="high" data-i18n="formatSquare720">Square · 720p</option>
             <option value="ultra" data-i18n="formatSquare1080">Square · 1080p</option>
             <option value="portrait" selected data-i18n="formatPortrait">Portrait · 1080×1920</option>
             <option value="landscape" data-i18n="formatLandscape">Landscape · 1920×1080</option>
           </select>
-          <span class="field-help" data-i18n="videoFormatHelp">Larger formats take longer to create and produce larger files.</span>
-        </label>
-        <label>
-          <span data-i18n="frameRateLabel">Frame rate</span>
-          <select id="frame-rate" aria-describedby="format-warning">
-            <option value="recommended" selected>Recommended · 24 fps</option>
-            <option value="24">24 fps</option>
-            <option value="30">30 fps</option>
-            <option value="60">60 fps</option>
-          </select>
-          <span class="field-help" data-i18n="frameRateHelp">Higher frame rates look smoother but take longer and create larger files.</span>
-        </label>
-        <p id="format-warning" class="status hidden" role="status"></p>
+          <label>
+            <span data-i18n="frameRateLabel">Frame rate</span>
+            <select id="frame-rate" aria-describedby="format-warning">
+              <option value="recommended" selected>Recommended · 24 fps</option>
+              <option value="24">24 fps</option>
+              <option value="30">30 fps</option>
+              <option value="60">60 fps</option>
+            </select>
+            <span class="field-help" data-i18n="frameRateHelp">Higher frame rates look smoother but take longer and create larger files.</span>
+          </label>
+          <p id="format-warning" class="status hidden" role="status"></p>
+        </details>
         </div>
 
         <details class="settings-group settings-group--advanced">
@@ -407,9 +431,22 @@
             </div>
           </div>
           <div id="preview-controls" class="preview-controls preview-controls--overlay hidden">
-            <button id="preview-play-button" class="secondary" type="button" data-i18n="previewPlay">Play</button>
-            <button id="preview-pause-button" class="secondary hidden" type="button" data-i18n="previewPause">Pause</button>
-            <button id="preview-replay-button" class="secondary" type="button" data-i18n="previewReplay">Replay</button>
+            <input
+              id="preview-scrubber"
+              class="preview-scrubber"
+              type="range"
+              min="0"
+              max="1000"
+              value="0"
+              step="1"
+              data-i18n-attr="aria-label:previewScrubberLabel"
+              aria-label="Preview timeline"
+            />
+            <div class="preview-control-buttons">
+              <button id="preview-play-button" class="secondary" type="button" data-i18n="previewPlay">Play</button>
+              <button id="preview-pause-button" class="secondary hidden" type="button" data-i18n="previewPause">Pause</button>
+              <button id="preview-replay-button" class="secondary" type="button" data-i18n="previewReplay">Replay</button>
+            </div>
           </div>
         </div>
         <div id="result-actions" class="preview-result-actions hidden">
