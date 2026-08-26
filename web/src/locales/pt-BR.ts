@@ -1,5 +1,6 @@
 import type { Strings } from '../i18n';
 import { landingEn } from './landing-en';
+import { pagesEn } from './pages-en';
 
 /**
  * Brazilian Portuguese (pt-BR) catalog. Translated.
@@ -203,4 +204,5 @@ export const ptBR: Strings = {
   warnFormatLockedExporting: 'O formato de vídeo não pode ser alterado enquanto um vídeo está sendo criado.',
   warnFormatLockedPreparing: 'O formato de vídeo não pode ser alterado enquanto o mapa está sendo preparado.',
   ...landingEn,
+  ...pagesEn,
 };

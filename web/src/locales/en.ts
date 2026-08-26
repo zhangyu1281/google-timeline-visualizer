@@ -1,5 +1,6 @@
 import type { Strings } from '../i18n';
 import { landingEn } from './landing-en';
+import { pagesEn } from './pages-en';
 
 /**
  * The source catalog. Every other locale is translated from this file.
@@ -195,4 +196,5 @@ export const en: Strings = {
   warnFormatLockedExporting: 'Video format cannot change while a video is being created.',
   warnFormatLockedPreparing: 'Video format cannot change while the map is being prepared.',
   ...landingEn,
+  ...pagesEn,
 };

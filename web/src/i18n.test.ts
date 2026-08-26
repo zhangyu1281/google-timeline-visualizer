@@ -537,6 +537,62 @@ describe('index.html i18n keys', () => {
   });
 });
 
+const STATIC_PAGES = [
+  'how-to-export.html',
+  'how-to-export-iphone.html',
+  'how-to-export-android.html',
+  'faq.html',
+  'about.html',
+  'privacy.html',
+] as const;
+
+describe.each(STATIC_PAGES)('%s i18n keys', (page) => {
+  const html = readFileSync(new URL(`../${page}`, import.meta.url), 'utf8');
+  const catalog: Record<string, string | PluralEntry> = { ...CATALOGS.en };
+
+  it('annotates the document with keys that exist', () => {
+    for (const tag of html.match(/<[a-zA-Z][^>]*>/g) ?? []) {
+      const key = /\sdata-i18n="([^"]*)"/.exec(tag);
+      if (!key) continue;
+      expect(Object.prototype.hasOwnProperty.call(catalog, key[1]), key[1]).toBe(true);
+    }
+  });
+
+  it('references only keys that exist from data-i18n-attr', () => {
+    for (const match of html.matchAll(/data-i18n-attr="([^"]*)"/g)) {
+      for (const pair of match[1].split(';')) {
+        const [, key] = pair.split(':');
+        expect(Object.prototype.hasOwnProperty.call(catalog, key), key).toBe(true);
+        expect(typeof catalog[key], key).toBe('string');
+      }
+    }
+  });
+
+  it('renders exactly the text and attributes the markup already carries', () => {
+    const translate = createI18n('en').t as (key: string, params?: Params) => string;
+    for (const tag of html.match(/<[a-zA-Z][^>]*>/g) ?? []) {
+      const annotation = /\sdata-i18n-attr="([^"]*)"/.exec(tag);
+      if (annotation) {
+        for (const pair of annotation[1].split(';')) {
+          const [attribute, key] = pair.split(':');
+          const literal = new RegExp(`\\s${attribute}="([^"]*)"`).exec(tag);
+          expect(literal?.[1], pair).toBe(translate(key));
+        }
+      }
+    }
+    for (const match of html.matchAll(/<([a-zA-Z]+)([^>]*\sdata-i18n="([^"]+)"[^>]*)>([^<]*)</g)) {
+      const [, , attrs, key, text] = match;
+      const count = /\sdata-i18n-count="([^"]*)"/.exec(attrs);
+      const rendered = count === null ? translate(key) : translate(key, { count: Number(count[1]) });
+      expect(rendered, key).toBe(text);
+    }
+  });
+
+  it('loads the static i18n bootstrap', () => {
+    expect(html).toContain('/src/static-i18n.ts');
+  });
+});
+
 /**
  * The English text the app composes at runtime, pinned against the literals the code used
  * before the catalog existed. An English speaker has to see no difference at all.

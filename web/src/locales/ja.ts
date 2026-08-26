@@ -1,5 +1,6 @@
 import type { Strings } from '../i18n';
 import { landingEn } from './landing-en';
+import { pagesEn } from './pages-en';
 
 /**
  * Japanese (ja) catalog, translated from the English source.
@@ -188,4 +189,5 @@ export const ja: Strings = {
   warnFormatLockedExporting: '動画の作成中は動画形式を変更できません。',
   warnFormatLockedPreparing: '地図の準備中は動画形式を変更できません。',
   ...landingEn,
+  ...pagesEn,
 };

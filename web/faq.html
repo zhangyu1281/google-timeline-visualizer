@@ -3,22 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>FAQ — Timeline Visualizer</title>
-    <meta name="description" content="Frequently asked questions about Timeline Visualizer — Google Timeline export, privacy, video formats, and browser support." />
+    <title data-i18n="faqPageTitle">FAQ — Timeline Visualizer</title>
+    <meta name="description" data-i18n-attr="content:faqMetaDescription" content="Frequently asked questions about Timeline Visualizer — Google Timeline export, privacy, video formats, and browser support." />
     <link rel="canonical" href="https://www.timelinevisualizer.app/faq.html" />
     <meta name="theme-color" content="#1a365d" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Timeline Visualizer" />
-    <meta property="og:title" content="Timeline Visualizer FAQ" />
-    <meta property="og:description" content="Frequently asked questions about Timeline Visualizer — export, privacy, video formats, and browser support." />
+    <meta property="og:title" data-i18n-attr="content:faqOgTitle" content="Timeline Visualizer FAQ" />
+    <meta property="og:description" data-i18n-attr="content:faqOgDescription" content="Frequently asked questions about Timeline Visualizer — export, privacy, video formats, and browser support." />
     <meta property="og:url" content="https://www.timelinevisualizer.app/faq.html" />
     <meta property="og:image" content="https://www.timelinevisualizer.app/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:type" content="image/png" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Timeline Visualizer FAQ" />
-    <meta name="twitter:description" content="Frequently asked questions about Timeline Visualizer — export, privacy, video formats, and browser support." />
+    <meta name="twitter:title" data-i18n-attr="content:faqOgTitle" content="Timeline Visualizer FAQ" />
+    <meta name="twitter:description" data-i18n-attr="content:faqOgDescription" content="Frequently asked questions about Timeline Visualizer — export, privacy, video formats, and browser support." />
     <meta name="twitter:image" content="https://www.timelinevisualizer.app/og-image.png" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" href="/logo-mark.svg" type="image/svg+xml" />
@@ -68,68 +68,87 @@
         <span>Timeline Visualizer</span>
       </a>
       <nav class="site-nav" aria-label="Main">
-        <a href="/how-to-export.html">How to export</a>
-        <a href="/faq.html" aria-current="page">FAQ</a>
-        <a href="/">Create video</a>
-        <span class="site-lang-switch" aria-label="Language">
-          <a href="/?lang=en" hreflang="en" class="site-lang-link">EN</a>
+        <a href="/how-to-export.html" data-i18n="navHowToExport">How to export</a>
+        <a href="/faq.html" aria-current="page" data-i18n="navFaq">FAQ</a>
+        <a href="/" data-i18n="stickyCreateVideo">Create video</a>
+        <span class="site-lang-switch" data-i18n-attr="aria-label:pageLangSwitchAria" aria-label="Language">
+          <a href="?lang=en" hreflang="en" class="site-lang-link">EN</a>
           <span class="site-lang-sep" aria-hidden="true">|</span>
-          <a href="/?lang=ko" hreflang="ko" class="site-lang-link">KO</a>
+          <a href="?lang=ko" hreflang="ko" class="site-lang-link">KO</a>
         </span>
       </nav>
     </header>
 
     <main class="page-shell">
       <article class="page-card">
-        <h1>Frequently Asked Questions</h1>
-        <p class="lead">Everything you need to know about turning Google Timeline data into a travel video.</p>
+        <h1 data-i18n="faqH1">Frequently Asked Questions</h1>
+        <p class="lead" data-i18n="faqLead">Everything you need to know about turning Google Timeline data into a travel video.</p>
 
         <div class="faq-item">
-          <h2>What is Timeline Visualizer?</h2>
-          <p>A free browser tool that reads your exported Google Maps <code>Timeline.json</code> and creates an animated travel recap MP4. It runs entirely in your browser — your location data is never uploaded.</p>
+          <h2 data-i18n="faqQ1">What is Timeline Visualizer?</h2>
+          <p data-i18n="faqA1">A free browser tool that reads your exported Google Maps Timeline.json and creates an animated travel recap MP4. It runs entirely in your browser — your location data is never uploaded.</p>
         </div>
 
         <div class="faq-item">
-          <h2>Is my data uploaded to a server?</h2>
-          <p>No. Your Timeline JSON is read locally in the browser. The only network requests are for map tiles from CARTO, which may reveal the geographic areas shown in your journey.</p>
+          <h2 data-i18n="faqQ2">Is my data uploaded to a server?</h2>
+          <p data-i18n="faqA2">No. Your Timeline JSON is read locally in the browser. The only network requests are for map tiles from CARTO, which may reveal the geographic areas shown in your journey.</p>
         </div>
 
         <div class="faq-item">
-          <h2>How do I get my Timeline.json file?</h2>
-          <p>Export directly from your phone. See our <a href="/how-to-export.html">export guide</a> for <a href="/how-to-export-iphone.html">iPhone</a> and <a href="/how-to-export-android.html">Android</a> steps. Google Takeout no longer works for newer on-device Timeline data.</p>
+          <h2 data-i18n="faqQ3">How do I get my Timeline.json file?</h2>
+          <p>
+            <span data-i18n="faqA3Prefix">Export directly from your phone. See our </span>
+            <a href="/how-to-export.html" data-i18n="faqA3ExportLink">export guide</a>
+            <span data-i18n="faqA3Mid"> for </span>
+            <a href="/how-to-export-iphone.html" data-i18n="faqA3IphoneLink">iPhone</a>
+            <span data-i18n="faqA3And"> and </span>
+            <a href="/how-to-export-android.html" data-i18n="faqA3AndroidLink">Android</a>
+            <span data-i18n="faqA3Suffix"> steps. Google Takeout no longer works for newer on-device Timeline data.</span>
+          </p>
         </div>
 
         <aside class="ad-slot ad-slot--native" aria-label="Advertisement">
-          <p class="ad-slot-label">Advertisement</p>
+          <p class="ad-slot-label" data-i18n="adLabel">Advertisement</p>
           <div id="container-3079ea078c358dd1684ccf17f742e95a"></div>
         </aside>
 
         <div class="faq-item">
-          <h2>Which browsers are supported?</h2>
-          <p>Video creation requires WebCodecs with H.264 encoding. Safari 16.4+ on iPhone and recent Chrome/Edge on desktop work best. Browsers without WebCodecs can still load Timeline data but cannot create MP4 videos.</p>
+          <h2 data-i18n="faqQ4">Which browsers are supported?</h2>
+          <p data-i18n="faqA4">Video creation requires WebCodecs with H.264 encoding. Safari 16.4+ on iPhone and recent Chrome/Edge on desktop work best. Browsers without WebCodecs can still load Timeline data but cannot create MP4 videos.</p>
         </div>
 
         <div class="faq-item">
-          <h2>What video formats are available?</h2>
-          <p>Square (480p–1080p), Portrait (1080×1920 for TikTok/Reels), and Landscape (1920×1080). Portrait is selected by default.</p>
+          <h2 data-i18n="faqQ5">What video formats are available?</h2>
+          <p data-i18n="faqA5">Square (480p–1080p), Portrait (1080×1920 for TikTok/Reels), and Landscape (1920×1080). Portrait is selected by default.</p>
         </div>
 
         <div class="faq-item">
-          <h2>Can I try it without exporting my data?</h2>
-          <p>Yes! Click <strong>Try demo journey</strong> on the homepage to load a fictional sample Timeline and preview the tool instantly.</p>
+          <h2 data-i18n="faqQ6">Can I try it without exporting my data?</h2>
+          <p><span data-i18n="faqA6Prefix">Yes! Click </span><strong data-i18n="faqA6Bold">Try demo journey</strong><span data-i18n="faqA6Suffix"> on the homepage to load a fictional sample Timeline and preview the tool instantly.</span></p>
         </div>
 
         <div class="faq-item">
-          <h2>Is this an official Google product?</h2>
-          <p>No. Timeline Visualizer is an unofficial third-party tool and is not affiliated with Google. See <a href="/about.html">About</a> for attribution.</p>
+          <h2 data-i18n="faqQ7">Is this an official Google product?</h2>
+          <p>
+            <span data-i18n="faqA7Prefix">No. Timeline Visualizer is an unofficial third-party tool and is not affiliated with Google. See </span>
+            <a href="/about.html" data-i18n="faqA7AboutLink">About</a>
+            <span data-i18n="faqA7Suffix"> for attribution.</span>
+          </p>
         </div>
 
-        <a class="cta-button" href="/">Try Timeline Visualizer →</a>
+        <a class="cta-button" href="/" data-i18n="pageCtaTryApp">Try Timeline Visualizer →</a>
       </article>
     </main>
 
     <footer class="site-footer">
-      <p><a href="/privacy.html">Privacy</a> · <a href="/about.html">About</a> · Unofficial tool · Not affiliated with Google</p>
+      <p>
+        <a href="/privacy.html" data-i18n="footerPrivacy">Privacy</a>
+        <span aria-hidden="true"> · </span>
+        <a href="/about.html" data-i18n="footerAbout">About</a>
+        <span aria-hidden="true"> · </span>
+        <span data-i18n="pageFooterUnofficial">Unofficial tool · Not affiliated with Google</span>
+      </p>
     </footer>
+    <script type="module" src="/src/static-i18n.ts"></script>
   </body>
 </html>

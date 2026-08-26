@@ -1,5 +1,6 @@
 import type { Strings } from '../i18n';
 import { landingEn } from './landing-en';
+import { pagesEn } from './pages-en';
 
 /**
  * French (fr) catalog. Translated from the English source; every value is real French.
@@ -203,4 +204,5 @@ export const fr: Strings = {
   warnFormatLockedExporting: 'Le format vidéo ne peut pas être modifié pendant la création d’une vidéo.',
   warnFormatLockedPreparing: 'Le format vidéo ne peut pas être modifié pendant la préparation de la carte.',
   ...landingEn,
+  ...pagesEn,
 };

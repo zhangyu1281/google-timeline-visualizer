@@ -1,5 +1,6 @@
 import type { Strings } from '../i18n';
 import { landingEn } from './landing-en';
+import { pagesEn } from './pages-en';
 
 /**
  * German (de) catalog, translated from the English source.
@@ -195,4 +196,5 @@ export const de: Strings = {
   warnFormatLockedExporting: 'Das Videoformat kann nicht geändert werden, während ein Video erstellt wird.',
   warnFormatLockedPreparing: 'Das Videoformat kann nicht geändert werden, während die Karte vorbereitet wird.',
   ...landingEn,
+  ...pagesEn,
 };

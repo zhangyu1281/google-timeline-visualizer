@@ -1,5 +1,6 @@
 import type { Strings } from '../i18n';
 import { landingKo } from './landing-ko';
+import { pagesKo } from './pages-ko';
 
 /**
  * Korean (ko) catalog. Translated; every value is real Korean text.
@@ -190,4 +191,5 @@ export const ko: Strings = {
   warnFormatLockedExporting: '영상을 만드는 중에는 영상 형식을 변경할 수 없습니다.',
   warnFormatLockedPreparing: '지도를 준비하는 중에는 영상 형식을 변경할 수 없습니다.',
   ...landingKo,
+  ...pagesKo,
 };

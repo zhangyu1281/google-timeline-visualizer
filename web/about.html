@@ -3,22 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>About — Timeline Visualizer</title>
-    <meta name="description" content="About Timeline Visualizer — an unofficial free tool to turn Google Timeline exports into travel recap videos." />
+    <title data-i18n="aboutPageTitle">About — Timeline Visualizer</title>
+    <meta name="description" data-i18n-attr="content:aboutMetaDescription" content="About Timeline Visualizer — an unofficial free tool to turn Google Timeline exports into travel recap videos." />
     <link rel="canonical" href="https://www.timelinevisualizer.app/about.html" />
     <meta name="theme-color" content="#1a365d" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Timeline Visualizer" />
-    <meta property="og:title" content="About Timeline Visualizer" />
-    <meta property="og:description" content="An unofficial free tool to turn Google Timeline exports into travel recap videos." />
+    <meta property="og:title" data-i18n-attr="content:aboutOgTitle" content="About Timeline Visualizer" />
+    <meta property="og:description" data-i18n-attr="content:aboutOgDescription" content="An unofficial free tool to turn Google Timeline exports into travel recap videos." />
     <meta property="og:url" content="https://www.timelinevisualizer.app/about.html" />
     <meta property="og:image" content="https://www.timelinevisualizer.app/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:type" content="image/png" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="About Timeline Visualizer" />
-    <meta name="twitter:description" content="An unofficial free tool to turn Google Timeline exports into travel recap videos." />
+    <meta name="twitter:title" data-i18n-attr="content:aboutOgTitle" content="About Timeline Visualizer" />
+    <meta name="twitter:description" data-i18n-attr="content:aboutOgDescription" content="An unofficial free tool to turn Google Timeline exports into travel recap videos." />
     <meta name="twitter:image" content="https://www.timelinevisualizer.app/og-image.png" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" href="/logo-mark.svg" type="image/svg+xml" />
@@ -35,40 +35,51 @@
         <span>Timeline Visualizer</span>
       </a>
       <nav class="site-nav" aria-label="Main">
-        <a href="/how-to-export.html">How to export</a>
-        <a href="/faq.html">FAQ</a>
-        <a href="/">Create video</a>
-        <span class="site-lang-switch" aria-label="Language">
-          <a href="/?lang=en" hreflang="en" class="site-lang-link">EN</a>
+        <a href="/how-to-export.html" data-i18n="navHowToExport">How to export</a>
+        <a href="/faq.html" data-i18n="navFaq">FAQ</a>
+        <a href="/" data-i18n="stickyCreateVideo">Create video</a>
+        <span class="site-lang-switch" data-i18n-attr="aria-label:pageLangSwitchAria" aria-label="Language">
+          <a href="?lang=en" hreflang="en" class="site-lang-link">EN</a>
           <span class="site-lang-sep" aria-hidden="true">|</span>
-          <a href="/?lang=ko" hreflang="ko" class="site-lang-link">KO</a>
+          <a href="?lang=ko" hreflang="ko" class="site-lang-link">KO</a>
         </span>
       </nav>
     </header>
 
     <main class="page-shell">
       <article class="page-card">
-        <h1>About Timeline Visualizer</h1>
-        <p class="lead">A free, privacy-first web tool hosted at www.timelinevisualizer.app.</p>
+        <h1 data-i18n="aboutH1">About Timeline Visualizer</h1>
+        <p class="lead" data-i18n="aboutLead">A free, privacy-first web tool hosted at www.timelinevisualizer.app.</p>
 
-        <h2>What we do</h2>
-        <p>Timeline Visualizer helps you turn your exported Google Maps location history into an animated travel recap video — entirely in your browser, with no signup and no upload.</p>
+        <h2 data-i18n="aboutWhatTitle">What we do</h2>
+        <p data-i18n="aboutWhatBody">Timeline Visualizer helps you turn your exported Google Maps location history into an animated travel recap video — entirely in your browser, with no signup and no upload.</p>
 
-        <h2>Not affiliated with Google</h2>
-        <p>This is an unofficial third-party tool. Google, Google Maps, and Timeline are trademarks of Google LLC. We are not endorsed by or affiliated with Google.</p>
+        <h2 data-i18n="aboutGoogleTitle">Not affiliated with Google</h2>
+        <p data-i18n="aboutGoogleBody">This is an unofficial third-party tool. Google, Google Maps, and Timeline are trademarks of Google LLC. We are not endorsed by or affiliated with Google.</p>
 
-        <h2>Open source</h2>
-        <p>The core engine is based on <a href="https://github.com/mahlernim/google-timeline-visualizer" target="_blank" rel="noopener noreferrer">google-timeline-visualizer</a> by @mahler83, licensed under the MIT License. See <a href="https://github.com/mahlernim/google-timeline-visualizer/blob/main/ATTRIBUTION.md">ATTRIBUTION</a> for details.</p>
+        <h2 data-i18n="aboutOpenSourceTitle">Open source</h2>
+        <p>
+          <span data-i18n="aboutOpenSourceBodyPrefix">The core engine is based on </span>
+          <a href="https://github.com/mahlernim/google-timeline-visualizer" target="_blank" rel="noopener noreferrer" data-i18n="aboutOpenSourceLink">google-timeline-visualizer</a>
+          <span data-i18n="aboutOpenSourceBodyMid"> by @mahler83, licensed under the MIT License. See </span>
+          <a href="https://github.com/mahlernim/google-timeline-visualizer/blob/main/ATTRIBUTION.md" data-i18n="aboutOpenSourceAttributionLink">ATTRIBUTION</a>
+          <span data-i18n="aboutOpenSourceBodySuffix"> for details.</span>
+        </p>
 
-        <h2>Why this exists</h2>
-        <p>Google moved Timeline data to on-device storage and removed the web viewer. Millions of users still want to visualize and share their travel history — Timeline Visualizer fills that gap with a simple, private web tool.</p>
+        <h2 data-i18n="aboutWhyTitle">Why this exists</h2>
+        <p data-i18n="aboutWhyBody">Google moved Timeline data to on-device storage and removed the web viewer. Millions of users still want to visualize and share their travel history — Timeline Visualizer fills that gap with a simple, private web tool.</p>
 
-        <a class="cta-button" href="/">Create your travel video →</a>
+        <a class="cta-button" href="/" data-i18n="pageCtaCreateVideo">Create your travel video →</a>
       </article>
     </main>
 
     <footer class="site-footer">
-      <p><a href="/privacy.html">Privacy</a> · Unofficial tool · Not affiliated with Google</p>
+      <p>
+        <a href="/privacy.html" data-i18n="footerPrivacy">Privacy</a>
+        <span aria-hidden="true"> · </span>
+        <span data-i18n="pageFooterUnofficial">Unofficial tool · Not affiliated with Google</span>
+      </p>
     </footer>
+    <script type="module" src="/src/static-i18n.ts"></script>
   </body>
 </html>

@@ -1,5 +1,6 @@
 import type { Strings } from '../i18n';
 import { landingEn } from './landing-en';
+import { pagesEn } from './pages-en';
 
 /**
  * Traditional Chinese (zh-TW) catalog, translated.
@@ -185,4 +186,5 @@ export const zhTW: Strings = {
   warnFormatLockedExporting: '建立影片時無法變更影片格式。',
   warnFormatLockedPreparing: '準備地圖時無法變更影片格式。',
   ...landingEn,
+  ...pagesEn,
 };
