@@ -29,7 +29,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
       productId: process.env.WAFFO_PRODUCT_ID!,
       currency: 'USD',
       language: waffoCheckoutLanguage(body.locale),
-      successUrl: `${siteOrigin()}/?payment=success&exportId=${encodeURIComponent(exportId)}`,
+      successUrl: `${siteOrigin()}/payment/complete.html?exportId=${encodeURIComponent(exportId)}`,
       orderMerchantExternalId: exportId,
       metadata: { exportId, source: 'timeline-visualizer-web' },
       expiresInSeconds: 2700,
