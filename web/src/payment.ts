@@ -89,17 +89,12 @@ export async function fetchPaymentStatus(sessionId: string): Promise<boolean> {
   return payload.paid === true;
 }
 
-const CHECKOUT_POPUP_FEATURES = 'popup,width=520,height=720,noopener,noreferrer';
-const CHECKOUT_POPUP_NAME = 'waffo-checkout';
-
-/** Open a blank checkout popup synchronously (must run inside a user click handler). */
-export function openCheckoutPopup(): Window | null {
-  return window.open('about:blank', CHECKOUT_POPUP_NAME, CHECKOUT_POPUP_FEATURES);
-}
-
-/** Navigate a popup opened via openCheckoutPopup to the Waffo checkout URL. */
-export function loadCheckoutInPopup(popup: Window, checkoutUrl: string): void {
-  popup.location.href = checkoutUrl;
+export function openCheckoutWindow(checkoutUrl: string): Window | null {
+  return window.open(
+    checkoutUrl,
+    'waffo-checkout',
+    'popup,width=520,height=720,noopener,noreferrer',
+  );
 }
 
 export async function pollPaymentStatus(

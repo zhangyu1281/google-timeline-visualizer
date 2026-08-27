@@ -2,9 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   clearPaymentSession,
   createExportId,
-  loadCheckoutInPopup,
   markDownloadUnlocked,
-  openCheckoutPopup,
   paymentPriceLabel,
   paymentReturnExportId,
   storePendingPaymentSession,
@@ -76,23 +74,5 @@ describe('payment', () => {
   it('reads payment return export id from query params', () => {
     mockBrowserLocation('/?payment=success&exportId=export-123');
     expect(paymentReturnExportId()).toBe('export-123');
-  });
-
-  it('opens a blank checkout popup synchronously', () => {
-    const popup = { location: { href: '' } };
-    const open = vi.fn(() => popup);
-    vi.stubGlobal('window', { open });
-    expect(openCheckoutPopup()).toBe(popup);
-    expect(open).toHaveBeenCalledWith(
-      'about:blank',
-      'waffo-checkout',
-      'popup,width=520,height=720,noopener,noreferrer',
-    );
-  });
-
-  it('loads checkout url into popup', () => {
-    const popup = { location: { href: '' } };
-    loadCheckoutInPopup(popup as Window, 'https://pancake.waffo.ai/checkout/cs_test');
-    expect(popup.location.href).toBe('https://pancake.waffo.ai/checkout/cs_test');
   });
 });

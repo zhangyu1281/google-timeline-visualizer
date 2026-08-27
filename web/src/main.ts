@@ -8,8 +8,7 @@ import {
   isDownloadUnlocked,
   isPaymentEnabled,
   markDownloadUnlocked,
-  loadCheckoutInPopup,
-  openCheckoutPopup,
+  openCheckoutWindow,
   paymentPriceLabel,
   paymentReturnExportId,
   pollPaymentStatus,
@@ -793,24 +792,19 @@ async function startPaymentFlow(options: PaymentFlowOptions = {}): Promise<boole
     if (downloadAfterUnlock) triggerFileDownload();
     return true;
   }
-  if (isPaymentPending) return false;
 
   stopPaymentPolling();
   isPaymentPending = true;
   renderPaymentStatus(i18n.t('paymentPending'));
   updateResultActions();
 
-  // Must open the popup before any await — otherwise the browser may open checkout
-  // in a new window but return null, triggering a full-page redirect as well.
-  const popup = openCheckoutPopup();
-
   try {
     const session = await createCheckoutSession(currentExportId, activeLocale(languagePreference, browserLanguages()));
+    const popup = openCheckoutWindow(session.checkoutUrl);
     if (!popup) {
       window.location.assign(session.checkoutUrl);
       return false;
     }
-    loadCheckoutInPopup(popup, session.checkoutUrl);
 
     paymentPollController = new AbortController();
     const popupClosedTimer = window.setInterval(() => {
@@ -832,7 +826,6 @@ async function startPaymentFlow(options: PaymentFlowOptions = {}): Promise<boole
       window.clearInterval(popupClosedTimer);
     }
   } catch (error) {
-    popup?.close();
     if (error instanceof DOMException && error.name === 'AbortError') {
       renderPaymentStatus(null);
     } else if (error instanceof Error && error.message.includes('not configured')) {
