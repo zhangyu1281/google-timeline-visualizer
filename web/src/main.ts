@@ -41,6 +41,7 @@ import { filterLocationOutliers } from './outlier';
 import { parsePresetToken, presetIntentUrl } from './preset-link';
 import { formatRawDateRange } from './raw-range';
 import { drawFrame, prepareJourney, previewCanvasSize } from './renderer';
+import { VISUAL_PRESETS, type VisualPresetId } from './visual-presets';
 import {
   type RenderAppearance,
   isMapTheme,
@@ -131,6 +132,8 @@ const cameraMovementSelect = element<HTMLSelectElement>('camera-movement');
 const mapThemeSelect = element<HTMLSelectElement>('map-theme');
 const routeColorSelect = element<HTMLSelectElement>('route-color');
 const markerStyleSelect = element<HTMLSelectElement>('marker-style');
+const epicPresetButton = element<HTMLButtonElement>('epic-preset');
+const sunsetPresetButton = element<HTMLButtonElement>('sunset-preset');
 const formatSelect = element<HTMLSelectElement>('video-format');
 const squareResolutionSelect = element<HTMLSelectElement>('square-resolution');
 const squareResolutionField = element<HTMLElement>('square-resolution-field');
@@ -171,6 +174,7 @@ const resultActions = element<HTMLElement>('result-actions');
 const shareButton = element<HTMLButtonElement>('share-button');
 const downloadButton = element<HTMLButtonElement>('download-button');
 const paymentStatus = element<HTMLParagraphElement>('payment-status');
+const shareTip = element<HTMLParagraphElement>('share-tip');
 const backToPreviewButton = element<HTMLButtonElement>('back-to-preview-button');
 const rawOnlyDialog = element<HTMLDialogElement>('raw-only-dialog');
 const openGoogleMapsButton = element<HTMLButtonElement>('open-google-maps');
@@ -592,14 +596,32 @@ function currentPeriodLabel(): string {
 }
 
 /** The renderer holds no copy, so the title fallback is resolved here against the catalog. */
-function overlayText(): OverlayText {
+function overlayText(journey?: PreparedJourney | null): OverlayText {
   const unit = currentDistanceUnit();
   const exportI18n = i18n;
+  const statsJourney = journey ?? prepared;
+  const statsSubtitle = statsJourney
+    ? [
+      exportI18n.formatDistance(statsJourney.totalDistanceKm, unit),
+      exportI18n.t('overlayDayCount', { count: statsJourney.dayCount }),
+      exportI18n.t('overlayStopCount', { count: statsJourney.stops.length }),
+    ].join(exportI18n.strings.listSeparator)
+    : '';
+  const outroStopsLine = statsJourney && statsJourney.stops.length >= 2
+    ? exportI18n.t('overlayViaStops', {
+      stops: statsJourney.stops
+        .slice(0, 5)
+        .map((stop) => stop.label)
+        .join(exportI18n.strings.listSeparator),
+    })
+    : '';
   return {
     title: titleInput.value.trim() || i18n.t('defaultVideoTitle'),
     periodLabel: currentPeriodLabel(),
     separator: i18n.strings.listSeparator,
     formatDistance: (kilometers) => exportI18n.formatDistance(kilometers, unit),
+    statsSubtitle,
+    outroStopsLine,
   };
 }
 
@@ -702,7 +724,7 @@ function seekPreviewTo(elapsedSeconds: number): void {
 }
 
 function drawPreviewFrame(journey: PreparedJourney, frame: TimelineFrame): void {
-  drawFrame(canvas, journey, frame, overlayText(), currentAppearance());
+  drawFrame(canvas, journey, frame, overlayText(journey), currentAppearance());
 }
 
 function updatePreviewControlButtons(): void {
@@ -1250,7 +1272,8 @@ async function getPreparedJourney(signal?: AbortSignal): Promise<PreparedJourney
   const durationSeconds = Number(durationSelect.value);
   const format = currentFormat();
   const mapTheme = currentAppearance().mapTheme;
-  const signature = `${currentRangeSignature()}:camera:${cameraMovement}:duration:${durationSeconds}:map:${mapTheme}`;
+  const resolveStopLabels = mapConsent.checked;
+  const signature = `${currentRangeSignature()}:camera:${cameraMovement}:duration:${durationSeconds}:map:${mapTheme}:geocode:${resolveStopLabels}`;
   if (prepared && signature === selectedSignature) return prepared;
   if (signal?.aborted) throw new DOMException('Video creation was cancelled.', 'AbortError');
   setProgress({ kind: 'key', key: 'progressPreparingMap' });
@@ -1264,6 +1287,7 @@ async function getPreparedJourney(signal?: AbortSignal): Promise<PreparedJourney
     (completed, total) => {
       setProgress({ kind: 'preparing', completed, total });
     },
+    resolveStopLabels,
   );
   if (signal?.aborted) throw new DOMException('Video creation was cancelled.', 'AbortError');
   prepared = nextJourney;
@@ -1552,6 +1576,24 @@ markerStyleSelect.addEventListener('change', () => {
     drawPreviewFrame(prepared, lastPreviewFrame);
   }
 });
+function applyVisualPreset(presetId: VisualPresetId): void {
+  const preset = VISUAL_PRESETS[presetId];
+  routeColorSelect.value = preset.routeColor;
+  mapThemeSelect.value = preset.mapTheme;
+  markerStyleSelect.value = preset.markerStyle;
+  cameraMovementSelect.value = preset.cameraMovement;
+  updateSelection();
+  if (prepared && lastPreviewFrame) {
+    drawPreviewFrame(prepared, lastPreviewFrame);
+  }
+}
+
+epicPresetButton.addEventListener('click', () => {
+  applyVisualPreset('epic');
+});
+sunsetPresetButton.addEventListener('click', () => {
+  applyVisualPreset('sunset');
+});
 languageSelect.addEventListener('change', onLanguageChange);
 distanceUnitSelect.addEventListener('change', onDistanceUnitChange);
 for (const button of aspectChipButtons()) {
@@ -1809,6 +1851,7 @@ createButton.addEventListener('click', async () => {
   setError(null);
   resultActions.classList.add('hidden');
   resultVideo.classList.add('hidden');
+  shareTip.hidden = true;
   updatePreviewChrome();
   cancelButton.disabled = false;
   progress.value = 0;
@@ -1823,7 +1866,7 @@ createButton.addEventListener('click', async () => {
     setProgress({ kind: 'key', key: 'progressCreating' });
     const blob = await createJourneyMp4(canvas, journey, {
       durationSeconds: Number(durationSelect.value),
-      overlay: overlayText(),
+      overlay: overlayText(journey),
       appearance: exportAppearance,
       format,
       signal: exportController.signal,
@@ -1834,7 +1877,12 @@ createButton.addEventListener('click', async () => {
     });
     if (resultUrl) URL.revokeObjectURL(resultUrl);
     resultUrl = URL.createObjectURL(blob);
-    resultFile = new File([blob], 'timeline-journey.mp4', { type: 'video/mp4' });
+    const distanceSlug = Math.round(journey.totalDistanceKm);
+    resultFile = new File(
+      [blob],
+      distanceSlug > 0 ? `timeline-journey-${distanceSlug}km.mp4` : 'timeline-journey.mp4',
+      { type: 'video/mp4' },
+    );
     currentExportId = createExportId();
     clearPaymentSession();
     resultVideo.src = resultUrl;
@@ -1843,6 +1891,8 @@ createButton.addEventListener('click', async () => {
     resultActions.classList.remove('hidden');
     updatePreviewChrome();
     setProgress({ kind: 'ready', bytes: blob.size });
+    shareTip.hidden = false;
+    shareTip.textContent = i18n.t('shareMusicTip');
     updateResultActions();
     renderPaymentStatus(
       isPaymentEnabled() && !isDownloadUnlocked(currentExportId)

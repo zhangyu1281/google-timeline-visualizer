@@ -272,6 +272,14 @@
             <option value="minimal" data-i18n="markerStyleMinimal">Minimal</option>
           </select>
         </label>
+        <div class="visual-preset-field">
+          <span class="field-label" id="visual-preset-label" data-i18n="visualPresetLabel">Quick looks</span>
+          <div class="visual-preset-group" role="group" aria-labelledby="visual-preset-label">
+            <button type="button" id="epic-preset" class="secondary visual-preset-button" data-i18n="epicPresetButton">Epic look</button>
+            <button type="button" id="sunset-preset" class="secondary visual-preset-button" data-i18n="sunsetPresetButton">Sunset look</button>
+          </div>
+          <p class="field-help" data-i18n="visualPresetHelp">One-tap combinations of route color, map style, marker, and camera.</p>
+        </div>
         </div>
 
         <div class="settings-group">
@@ -379,7 +387,7 @@
 
         <div class="privacy-notice">
           <strong data-i18n="privacyNoticeTitle">Before loading the map</strong>
-          <p data-i18n="privacyNoticeBody">Your Timeline file is never uploaded. Esri receives the tile coordinates for map areas in the selected journey, along with normal network information such as your IP address. This may reveal places in your Timeline to Esri.</p>
+          <p data-i18n="privacyNoticeBody">Your Timeline file is never uploaded. Esri receives the tile coordinates for map areas in the selected journey, along with normal network information such as your IP address. This may reveal places in your Timeline to Esri. Place names shown on stops may be looked up from OpenStreetMap.</p>
           <label class="checkbox-row">
             <input id="map-consent" type="checkbox" />
             <span data-i18n="mapConsentLabel">I understand and want to load the map</span>
@@ -454,6 +462,7 @@
           <button id="share-button" class="secondary" type="button" data-i18n="shareButton">Share video</button>
           <button id="back-to-preview-button" class="text-link-button" type="button" data-i18n="backToPreviewButton">Back to preview</button>
         </div>
+        <p id="share-tip" class="field-help hidden" role="status"></p>
         <p id="payment-status" class="payment-status hidden" role="status"></p>
         <p id="error-message" class="error hidden" role="alert"></p>
       </section>

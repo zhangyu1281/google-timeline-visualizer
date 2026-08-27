@@ -6,6 +6,9 @@ import {
   overviewViewport,
 } from './camera';
 import { cumulativeDistances, overviewRouteSegments, unwrapJourneyPoints } from './geo';
+import { buildStopCandidates, stopProgressAt } from './journey-stops';
+import { journeyDayCount } from './journey-stats';
+import { buildJourneyTransfers } from './journey-transfers';
 import {
   ASPECT_EPSILON,
   drawFrame,
@@ -103,6 +106,15 @@ function preparedAt(size: RenderSize): PreparedJourney {
     cumulativeDistanceKm,
     totalDistanceKm: cumulativeDistanceKm.at(-1) ?? 0,
   };
+  const stopCandidates = buildStopCandidates(points);
+  const stops = stopCandidates.map((candidate, index) => ({
+    label: `Stop ${index + 1}`,
+    progress: stopProgressAt(cumulativeDistanceKm, journey.totalDistanceKm, candidate.pointIndex),
+    latitude: points[candidate.pointIndex].latitude,
+    longitude: points[candidate.pointIndex].longitude,
+    worldPoint: worldPoints[candidate.pointIndex],
+    longHop: candidate.longHop,
+  }));
   const cameraTrack = buildCameraTrack(journey, size, 'steady');
   const segments = overviewRouteSegments(worldPoints);
   const endingOverview = overviewViewport({ ...journey, worldPoints: segments.flat() }, size);
@@ -122,6 +134,9 @@ function preparedAt(size: RenderSize): PreparedJourney {
   }
   const result: PreparedJourney = {
     ...journey,
+    dayCount: journeyDayCount(points),
+    stops,
+    transfers: buildJourneyTransfers(journey),
     overviewRouteSegments: segments,
     size,
     cameraTrack,
@@ -141,6 +156,7 @@ const SCALED_ARGS: Record<string, number[]> = {
   fillRect: [0, 1, 2, 3],
   moveTo: [0, 1],
   lineTo: [0, 1],
+  translate: [0, 1],
   arc: [0, 1, 2],
   roundRect: [0, 1, 2, 3, 4],
   fillText: [1, 2, 3],
@@ -164,6 +180,8 @@ function render(canvasSize: RenderSize, journey: PreparedJourney, frame: Timelin
     periodLabel: 'March 2026',
     separator: ' · ',
     formatDistance: (kilometers) => `${Math.round(kilometers)} km`,
+    statsSubtitle: '325 km · 3 days · 4 stops',
+    outroStopsLine: 'via Seoul · Busan',
   });
   return calls;
 }
@@ -174,6 +192,10 @@ function expectProportional(big: RecordedCall[], small: RecordedCall[], factor: 
     const other = small[index];
     const scaled = SCALED_ARGS[call.method] ?? [];
     call.args.forEach((argument, position) => {
+      if (call.method === 'setLineDash' && Array.isArray(argument) && Array.isArray(other.args[position])) {
+        expect(other.args[position]).toEqual((argument as number[]).map((value) => value / factor));
+        return;
+      }
       if (!scaled.includes(position)) {
         expect(other.args[position]).toBe(argument);
         return;
@@ -435,6 +457,8 @@ describe('map attribution', () => {
       periodLabel: 'March 2026',
       separator: ' · ',
       formatDistance: (kilometers) => `${Math.round(kilometers * 0.621371192237334)} mi`,
+      statsSubtitle: '200 mi · 3 days · 4 stops',
+      outroStopsLine: 'via Seoul · Busan',
     });
     const drawn = calls.filter((call) => call.method === 'fillText').map((call) => call.args[0]);
     expect(drawn).toContain(MAP_ATTRIBUTION);

@@ -48,6 +48,8 @@ export interface TimelineFrame {
   outroProgress: number;
 }
 
+import type { JourneyStop } from './journey-stops';
+import type { JourneyTransfer } from './journey-transfers';
 import type { MapTheme } from './render-theme';
 
 export interface PreparedJourney {
@@ -56,6 +58,9 @@ export interface PreparedJourney {
   overviewRouteSegments: WorldPoint[][];
   cumulativeDistanceKm: number[];
   totalDistanceKm: number;
+  dayCount: number;
+  stops: JourneyStop[];
+  transfers: JourneyTransfer[];
   /** The format size this journey was prepared for: its tile zooms and aspect ratio follow it. */
   size: RenderSize;
   cameraTrack: CameraTrack;

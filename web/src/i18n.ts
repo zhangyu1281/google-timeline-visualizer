@@ -196,6 +196,10 @@ export interface Strings extends LandingStrings, PagesStrings {
   markerStyleClassic: string;
   markerStylePin: string;
   markerStyleMinimal: string;
+  epicPresetButton: string;
+  sunsetPresetButton: string;
+  visualPresetLabel: string;
+  visualPresetHelp: string;
   previewPlay: string;
   previewPause: string;
   previewReplay: string;
@@ -230,6 +234,7 @@ export interface Strings extends LandingStrings, PagesStrings {
   progressVideoReady: string;
   cancelButton: string;
   shareButton: string;
+  shareMusicTip: string;
   downloadButton: string;
   /** {price} */
   payToDownloadButton: string;
@@ -288,6 +293,12 @@ export interface Strings extends LandingStrings, PagesStrings {
   periodRawLocationData: string;
   /** {start} {end} */
   periodRange: string;
+  /** {count} */
+  overlayDayCount: PluralEntry;
+  /** {count} */
+  overlayStopCount: PluralEntry;
+  /** {stops} */
+  overlayViaStops: string;
 
   // --- errors ---
   errorAccuracyLimit: string;

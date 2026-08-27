@@ -119,6 +119,10 @@ export const zhTW: Strings = {
   markerStyleClassic: 'Classic dot',
   markerStylePin: 'Direction pin',
   markerStyleMinimal: 'Minimal',
+  epicPresetButton: 'Epic look',
+  sunsetPresetButton: 'Sunset look',
+  visualPresetLabel: 'Quick looks',
+  visualPresetHelp: 'One-tap combinations of route color, map style, marker, and camera.',
   previewPlay: 'Play',
   previewPause: 'Pause',
   previewReplay: 'Replay',
@@ -149,6 +153,7 @@ export const zhTW: Strings = {
   progressVideoReady: '影片準備就緒 · {size} MB',
   cancelButton: '取消建立影片',
   shareButton: '分享影片',
+  shareMusicTip: 'Add music in TikTok or Instagram for the best share experience.',
   downloadButton: '下載 MP4',
   payToDownloadButton: '支付 {price} 下載',
   paymentPending: '請在彈出視窗中完成付款…',
@@ -203,6 +208,13 @@ export const zhTW: Strings = {
 
   periodRawLocationData: '原始定位資料',
   periodRange: '{start} – {end}',
+  overlayDayCount: {
+    other: '{count} days',
+  },
+  overlayStopCount: {
+    other: '{count} stops',
+  },
+  overlayViaStops: 'via {stops}',
 
   errorAccuracyLimit: '請輸入零或正數的精準度上限，或將此欄留白。',
   errorMapConsent: '向 Esri 請求地圖圖像前，請先確認地圖隱私權聲明。',

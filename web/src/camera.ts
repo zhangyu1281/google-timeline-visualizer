@@ -33,6 +33,12 @@ interface JourneyLeg {
   isTransfer: boolean;
 }
 
+export type { JourneyLeg };
+
+export function buildJourneyLegs(journey: CameraJourney): JourneyLeg[] {
+  return buildLegs(journey);
+}
+
 const MOVEMENT_PROFILES: Record<CameraMovement, CameraMovementProfile> = {
   fixed: {
     contextFraction: 0.10,

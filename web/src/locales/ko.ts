@@ -124,6 +124,10 @@ export const ko: Strings = {
   markerStyleClassic: '클래식 점',
   markerStylePin: '방향 핀',
   markerStyleMinimal: '미니멀',
+  epicPresetButton: 'Epic look',
+  sunsetPresetButton: 'Sunset look',
+  visualPresetLabel: 'Quick looks',
+  visualPresetHelp: 'One-tap combinations of route color, map style, marker, and camera.',
   previewPlay: '재생',
   previewPause: '일시정지',
   previewReplay: '다시 보기',
@@ -154,6 +158,7 @@ export const ko: Strings = {
   progressVideoReady: '영상 준비 완료 · {size} MB',
   cancelButton: '영상 만들기 취소',
   shareButton: '영상 공유',
+  shareMusicTip: 'Add music in TikTok or Instagram for the best share experience.',
   downloadButton: 'MP4 다운로드',
   payToDownloadButton: '{price} 결제 후 다운로드',
   paymentPending: '팝업 창에서 결제를 완료하세요…',
@@ -208,6 +213,13 @@ export const ko: Strings = {
 
   periodRawLocationData: '원시 위치 데이터',
   periodRange: '{start} – {end}',
+  overlayDayCount: {
+    other: '{count} days',
+  },
+  overlayStopCount: {
+    other: '{count} stops',
+  },
+  overlayViaStops: 'via {stops}',
 
   errorAccuracyLimit: '0 이상의 정확도 한도를 입력하거나 비워 두세요.',
   errorMapConsent: 'Esri에 지도 이미지를 요청하기 전에 지도 개인정보 안내를 확인해 주세요.',

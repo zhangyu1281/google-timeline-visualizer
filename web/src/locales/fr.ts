@@ -127,6 +127,10 @@ export const fr: Strings = {
   markerStyleClassic: 'Classic dot',
   markerStylePin: 'Direction pin',
   markerStyleMinimal: 'Minimal',
+  epicPresetButton: 'Epic look',
+  sunsetPresetButton: 'Sunset look',
+  visualPresetLabel: 'Quick looks',
+  visualPresetHelp: 'One-tap combinations of route color, map style, marker, and camera.',
   previewPlay: 'Play',
   previewPause: 'Pause',
   previewReplay: 'Replay',
@@ -157,6 +161,7 @@ export const fr: Strings = {
   progressVideoReady: 'Vidéo prête · {size} Mo',
   cancelButton: 'Annuler la création vidéo',
   shareButton: 'Partager la vidéo',
+  shareMusicTip: 'Add music in TikTok or Instagram for the best share experience.',
   downloadButton: 'Télécharger le MP4',
   payToDownloadButton: 'Débloquer le téléchargement · {price}',
   paymentPending: 'Finalisez le paiement dans la fenêtre contextuelle…',
@@ -223,6 +228,17 @@ export const fr: Strings = {
 
   periodRawLocationData: 'Données de localisation brutes',
   periodRange: '{start} – {end}',
+  overlayDayCount: {
+    one: '{count} day',
+    many: '{count} days',
+    other: '{count} days',
+  },
+  overlayStopCount: {
+    one: '{count} stop',
+    many: '{count} stops',
+    other: '{count} stops',
+  },
+  overlayViaStops: 'via {stops}',
 
   errorAccuracyLimit: 'Saisissez zéro ou un nombre positif, ou laissez ce champ vide.',
   errorMapConsent: 'Confirmez l’avis de confidentialité de la carte avant de demander des images de carte à Esri.',

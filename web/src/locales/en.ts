@@ -100,7 +100,7 @@ export const en: Strings = {
   frameRateValue: '{fps} fps',
   frameRateHelp: 'Higher frame rates look smoother but take longer and create larger files.',
   privacyNoticeTitle: 'Before loading the map',
-  privacyNoticeBody: 'Your Timeline file is never uploaded. Esri receives the tile coordinates for map areas in the selected journey, along with normal network information such as your IP address. This may reveal places in your Timeline to Esri.',
+  privacyNoticeBody: 'Your Timeline file is never uploaded. Esri receives the tile coordinates for map areas in the selected journey, along with normal network information such as your IP address. This may reveal places in your Timeline to Esri. Place names shown on stops may be looked up from OpenStreetMap.',
   mapConsentLabel: 'I understand and want to load the map',
   privacyPolicyLink: 'Read the web app privacy policy',
   previewButton: 'Preview',
@@ -124,6 +124,10 @@ export const en: Strings = {
   markerStyleClassic: 'Classic dot',
   markerStylePin: 'Direction pin',
   markerStyleMinimal: 'Minimal',
+  epicPresetButton: 'Epic look',
+  sunsetPresetButton: 'Sunset look',
+  visualPresetLabel: 'Quick looks',
+  visualPresetHelp: 'One-tap combinations of route color, map style, marker, and camera.',
   previewPlay: 'Play',
   previewPause: 'Pause',
   previewReplay: 'Replay',
@@ -154,6 +158,7 @@ export const en: Strings = {
   progressVideoReady: 'Video ready · {size} MB',
   cancelButton: 'Cancel video creation',
   shareButton: 'Share video',
+  shareMusicTip: 'Add music in TikTok or Instagram for the best share experience.',
   downloadButton: 'Download MP4',
   payToDownloadButton: 'Unlock download · {price}',
   paymentPending: 'Complete payment in the popup window…',
@@ -214,6 +219,15 @@ export const en: Strings = {
 
   periodRawLocationData: 'Raw location data',
   periodRange: '{start} – {end}',
+  overlayDayCount: {
+    one: '{count} day',
+    other: '{count} days',
+  },
+  overlayStopCount: {
+    one: '{count} stop',
+    other: '{count} stops',
+  },
+  overlayViaStops: 'via {stops}',
 
   errorAccuracyLimit: 'Enter a non-negative accuracy limit, or leave it blank.',
   errorMapConsent: 'Confirm the map privacy notice before requesting map images from Esri.',

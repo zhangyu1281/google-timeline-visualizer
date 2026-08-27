@@ -5,9 +5,19 @@ import {
   buildCameraTrack,
   cameraViewportAt,
   overviewViewport,
+  worldPositionAtDistance,
   worldPositionAtProgress,
 } from './camera';
 import { cumulativeDistances, overviewRouteSegments, unwrapJourneyPoints } from './geo';
+import { activeStopAtProgress, resolveJourneyStops } from './journey-stops';
+import { journeyDayCount } from './journey-stats';
+import {
+  activeTransferAtProgress,
+  buildJourneyTransfers,
+  pointOnTransferArc,
+  transferArcHeading,
+  transferArcPoints,
+} from './journey-transfers';
 import type {
   CameraMovement,
   GeoPoint,
@@ -43,6 +53,10 @@ export interface OverlayText {
   readonly periodLabel: string;
   readonly separator: string;
   readonly formatDistance: (kilometers: number) => string;
+  /** Total journey stats for the outro card, already formatted by the caller. */
+  readonly statsSubtitle: string;
+  /** Compact stop list for the outro, already formatted by the caller. */
+  readonly outroStopsLine: string;
 }
 
 /**
@@ -67,6 +81,8 @@ const HEAD_SHADOW_BLUR = 15;       // 10 px at 480
 const MINIMAL_HEAD_RADIUS = 9;     // 6 px at 480
 const PIN_LENGTH = 30;             // 20 px at 480
 const PIN_WIDTH = 18;              // 12 px at 480
+const FLIGHT_DASH = [11, 8];       // 7+5 px at 480
+const PLANE_SIZE = 18;             // 12 px at 480
 
 function markerHeading(journey: PreparedJourney, completedIndex: number, head: WorldPoint): number {
   const index = Math.max(0, Math.min(completedIndex, journey.worldPoints.length - 1));
@@ -133,6 +149,112 @@ function worldToCanvas(point: WorldPoint, viewport: Viewport, size: RenderSize):
     ((point.x - viewport.minX) / (viewport.maxX - viewport.minX)) * size.width,
     ((point.y - viewport.minY) / (viewport.maxY - viewport.minY)) * size.height,
   ];
+}
+
+function stopLabelAlpha(progress: number, stopProgress: number): number {
+  const lead = 0.025;
+  const tail = 0.04;
+  if (progress < stopProgress - lead || progress > stopProgress + tail) return 0;
+  if (progress <= stopProgress) {
+    return easeOutCubic((progress - (stopProgress - lead)) / lead);
+  }
+  return 1 - easeOutCubic((progress - stopProgress) / tail);
+}
+
+function drawStopCallout(
+  context: CanvasRenderingContext2D,
+  label: string,
+  worldPoint: WorldPoint,
+  viewport: Viewport,
+  size: RenderSize,
+  scale: number,
+  alpha: number,
+  colors: RoutePalette,
+): void {
+  if (alpha <= 0) return;
+  const [x, y] = worldToCanvas(worldPoint, viewport, size);
+  const paddingX = 14 * scale;
+  const paddingY = 8 * scale;
+  const fontSize = 16 * scale;
+  context.save();
+  context.globalAlpha = alpha;
+  context.font = `600 ${fontSize}px -apple-system, BlinkMacSystemFont, sans-serif`;
+  const textWidth = context.measureText(label).width;
+  const pillWidth = textWidth + paddingX * 2;
+  const pillHeight = fontSize + paddingY * 2;
+  const pillX = x - pillWidth / 2;
+  const pillY = y + 22 * scale;
+  context.fillStyle = colors.overlayCardFill;
+  context.beginPath();
+  context.roundRect(pillX, pillY, pillWidth, pillHeight, pillHeight / 2);
+  context.fill();
+  context.fillStyle = colors.overlayTitle;
+  context.textAlign = 'center';
+  context.textBaseline = 'middle';
+  context.fillText(label, x, pillY + pillHeight / 2, pillWidth - paddingX);
+  context.restore();
+}
+
+function drawPlaneIcon(
+  context: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  scale: number,
+  colors: RoutePalette,
+  heading: number,
+): void {
+  context.save();
+  context.translate(x, y);
+  context.rotate(heading);
+  context.shadowColor = 'rgba(36, 25, 29, 0.35)';
+  context.shadowBlur = HEAD_SHADOW_BLUR * 0.75 * scale;
+  const size = PLANE_SIZE * scale;
+  context.fillStyle = colors.headFill;
+  context.strokeStyle = colors.main;
+  context.lineWidth = HEAD_RING_WIDTH * 0.55 * scale;
+  context.beginPath();
+  context.moveTo(size * 0.95, 0);
+  context.lineTo(-size * 0.45, size * 0.38);
+  context.lineTo(-size * 0.15, 0);
+  context.lineTo(-size * 0.45, -size * 0.38);
+  context.closePath();
+  context.fill();
+  context.stroke();
+  context.shadowBlur = 0;
+  context.restore();
+}
+
+function strokeWorldPath(
+  context: CanvasRenderingContext2D,
+  points: WorldPoint[],
+  viewport: Viewport,
+  size: RenderSize,
+): void {
+  if (points.length === 0) return;
+  context.beginPath();
+  points.forEach((point, index) => {
+    const [x, y] = worldToCanvas(point, viewport, size);
+    if (index === 0) context.moveTo(x, y);
+    else context.lineTo(x, y);
+  });
+  context.stroke();
+}
+
+function strokeTransferArc(
+  context: CanvasRenderingContext2D,
+  start: WorldPoint,
+  end: WorldPoint,
+  localProgress: number,
+  viewport: Viewport,
+  size: RenderSize,
+  scale: number,
+): WorldPoint {
+  const arc = transferArcPoints(start, end);
+  const limit = Math.max(1, Math.ceil(localProgress * (arc.length - 1)));
+  context.setLineDash(FLIGHT_DASH.map((value) => value * scale));
+  strokeWorldPath(context, arc.slice(0, limit + 1), viewport, size);
+  context.setLineDash([]);
+  return pointOnTransferArc(start, end, localProgress);
 }
 
 interface TileCoordinate {
@@ -260,6 +382,7 @@ export async function prepareJourney(
   mapTheme: RenderAppearance['mapTheme'] = DEFAULT_RENDER_APPEARANCE.mapTheme,
   signal?: AbortSignal,
   onProgress?: (completed: number, total: number) => void,
+  resolveStopLabels = false,
 ): Promise<PreparedJourney> {
   if (points.length < 2) {
     throw new AppError('errorTooFewPoints', 'Select a period containing at least two location points.');
@@ -293,9 +416,21 @@ export async function prepareJourney(
     const ending = blendViewport(journeyEnd, endingOverview, easeOutCubic(sample / 12), size);
     for (const tile of requiredTiles(ending)) required.set(tileKey(tile), tile);
   }
+  const stops = await resolveJourneyStops(
+    points,
+    distances,
+    journey.totalDistanceKm,
+    worldPoints,
+    resolveStopLabels,
+    signal,
+  );
+  const transfers = buildJourneyTransfers(journey);
   const tiles = await loadRequiredTiles([...required.values()], mapTheme, signal, onProgress);
   return {
     ...journey,
+    dayCount: journeyDayCount(points),
+    stops,
+    transfers,
     overviewRouteSegments: overviewSegments,
     size,
     cameraTrack,
@@ -406,38 +541,94 @@ export function drawFrame(
   context.lineCap = 'round';
   context.lineJoin = 'round';
   const activeAlpha = 1 - easeOutCubic(frame.outroProgress);
+  const activeTransfer = frame.outroProgress <= 0
+    ? activeTransferAtProgress(journey.transfers, frame.journeyProgress)
+    : null;
   context.save();
   context.globalAlpha = activeAlpha;
-  const traveled = journey.worldPoints.slice(0, current.completedIndex + 1);
-  context.strokeStyle = colors.trail;
-  context.lineWidth = TRAIL_WIDTH * scale;
-  strokeRoute(context, traveled, current.point, viewport, size);
+  if (activeTransfer) {
+    const { transfer, localProgress } = activeTransfer;
+    const departure = worldPositionAtDistance(
+      journey,
+      transfer.startProgress * journey.totalDistanceKm,
+    );
+    const traveled = journey.worldPoints.slice(0, departure.fromIndex + 1);
+    context.strokeStyle = colors.trail;
+    context.lineWidth = TRAIL_WIDTH * scale;
+    strokeRoute(context, traveled, transfer.startWorld, viewport, size);
+
+    context.strokeStyle = colors.main;
+    context.lineWidth = RECENT_TRAIL_WIDTH * scale * 0.85;
+    const planeWorld = strokeTransferArc(
+      context,
+      transfer.startWorld,
+      transfer.endWorld,
+      localProgress,
+      viewport,
+      size,
+      scale,
+    );
+    const [planeX, planeY] = worldToCanvas(planeWorld, viewport, size);
+    drawPlaneIcon(
+      context,
+      planeX,
+      planeY,
+      scale,
+      colors,
+      transferArcHeading(transfer.startWorld, transfer.endWorld, localProgress),
+    );
+  } else {
+    const traveled = journey.worldPoints.slice(0, current.completedIndex + 1);
+    context.strokeStyle = colors.trail;
+    context.lineWidth = TRAIL_WIDTH * scale;
+    strokeRoute(context, traveled, current.point, viewport, size);
+
+    const currentDistance = journey.totalDistanceKm * Math.max(0, Math.min(1, frame.journeyProgress));
+    const recentStartDistance = Math.max(0, currentDistance - Math.max(80, journey.totalDistanceKm * 0.16));
+    const recentStartIndex = Math.max(
+      0,
+      journey.cumulativeDistanceKm.findIndex((distance) => distance >= recentStartDistance),
+    );
+    context.strokeStyle = colors.main;
+    context.lineWidth = RECENT_TRAIL_WIDTH * scale;
+    strokeRoute(
+      context,
+      journey.worldPoints.slice(recentStartIndex, current.completedIndex + 1),
+      current.point,
+      viewport,
+      size,
+    );
+    const [headX, headY] = worldToCanvas(current.point, viewport, size);
+    drawRouteHead(
+      context,
+      headX,
+      headY,
+      scale,
+      colors,
+      appearance.markerStyle,
+      markerHeading(journey, current.completedIndex, current.point),
+    );
+  }
 
   const currentDistance = journey.totalDistanceKm * Math.max(0, Math.min(1, frame.journeyProgress));
-  const recentStartDistance = Math.max(0, currentDistance - Math.max(80, journey.totalDistanceKm * 0.16));
-  const recentStartIndex = Math.max(
-    0,
-    journey.cumulativeDistanceKm.findIndex((distance) => distance >= recentStartDistance),
-  );
-  context.strokeStyle = colors.main;
-  context.lineWidth = RECENT_TRAIL_WIDTH * scale;
-  strokeRoute(
-    context,
-    journey.worldPoints.slice(recentStartIndex, current.completedIndex + 1),
-    current.point,
-    viewport,
-    size,
-  );
-  const [headX, headY] = worldToCanvas(current.point, viewport, size);
-  drawRouteHead(
-    context,
-    headX,
-    headY,
-    scale,
-    colors,
-    appearance.markerStyle,
-    markerHeading(journey, current.completedIndex, current.point),
-  );
+
+  if (frame.outroProgress <= 0 && journey.stops.length > 0) {
+    const activeStop = activeStopAtProgress(journey.stops, frame.journeyProgress);
+    if (activeStop) {
+      const alpha = stopLabelAlpha(frame.journeyProgress, activeStop.progress) * activeAlpha;
+      const label = activeStop.longHop ? `✈ ${activeStop.label}` : activeStop.label;
+      drawStopCallout(
+        context,
+        label,
+        activeStop.worldPoint,
+        viewport,
+        size,
+        scale,
+        alpha,
+        colors,
+      );
+    }
+  }
   context.restore();
 
   if (frame.outroProgress > 0) {
@@ -445,6 +636,7 @@ export function drawFrame(
     context.globalAlpha = (190 / 255) * easeInOutCubic(frame.outroProgress);
     context.strokeStyle = colors.main;
     context.lineWidth = OVERVIEW_TRAIL_WIDTH * scale;
+    context.setLineDash(FLIGHT_DASH.map((value) => value * scale * 0.65));
     for (const segment of journey.overviewRouteSegments) {
       strokeRoute(
         context,
@@ -454,27 +646,65 @@ export function drawFrame(
         size,
       );
     }
+    for (const transfer of journey.transfers) {
+      context.globalAlpha = (140 / 255) * easeInOutCubic(frame.outroProgress);
+      strokeWorldPath(
+        context,
+        transferArcPoints(transfer.startWorld, transfer.endWorld),
+        viewport,
+        size,
+      );
+    }
+    context.setLineDash([]);
     context.restore();
   }
 
+  const outroFade = easeInOutCubic(frame.outroProgress);
   const card = overlayCard(size);
   context.fillStyle = colors.overlayCardFill;
   context.beginPath();
   context.roundRect(card.left, card.top, card.width, card.bottom - card.top, 24 * scale);
   context.fill();
+  if (frame.outroProgress > 0) {
+    context.save();
+    context.globalAlpha = 0.35 * outroFade;
+    context.strokeStyle = colors.main;
+    context.lineWidth = 2.5 * scale;
+    context.stroke();
+    context.restore();
+  }
   context.textAlign = 'center';
   context.fillStyle = colors.overlayTitle;
   context.font = `700 ${34 * scale}px -apple-system, BlinkMacSystemFont, sans-serif`;
   context.fillText(text.title, card.centerX, 72 * scale, card.width - 36 * scale);
-  context.fillStyle = colors.overlaySubtitle;
-  context.font = `${20 * scale}px -apple-system, BlinkMacSystemFont, sans-serif`;
   const distanceLabel = text.formatDistance(currentDistance);
+  const showingOutroStats = frame.outroProgress > 0 && text.statsSubtitle;
+  context.fillStyle = colors.overlaySubtitle;
+  context.font = showingOutroStats
+    ? `700 ${24 * scale}px -apple-system, BlinkMacSystemFont, sans-serif`
+    : `${20 * scale}px -apple-system, BlinkMacSystemFont, sans-serif`;
+  const subtitle = showingOutroStats
+    ? text.statsSubtitle
+    : `${text.periodLabel}${text.separator}${distanceLabel}`;
   context.fillText(
-    `${text.periodLabel}${text.separator}${distanceLabel}`,
+    subtitle,
     card.centerX,
     108 * scale,
     card.width - 36 * scale,
   );
+  if (showingOutroStats && text.outroStopsLine) {
+    context.save();
+    context.globalAlpha = outroFade;
+    context.font = `600 ${16 * scale}px -apple-system, BlinkMacSystemFont, sans-serif`;
+    context.fillStyle = colors.overlaySubtitle;
+    context.fillText(
+      text.outroStopsLine,
+      card.centerX,
+      138 * scale,
+      card.width - 36 * scale,
+    );
+    context.restore();
+  }
 
   context.textAlign = 'right';
   context.fillStyle = 'rgba(36, 25, 29, 0.78)';

@@ -122,6 +122,10 @@ export const ja: Strings = {
   markerStyleClassic: 'クラシックドット',
   markerStylePin: '方向ピン',
   markerStyleMinimal: 'ミニマル',
+  epicPresetButton: 'Epic look',
+  sunsetPresetButton: 'Sunset look',
+  visualPresetLabel: 'Quick looks',
+  visualPresetHelp: 'One-tap combinations of route color, map style, marker, and camera.',
   previewPlay: '再生',
   previewPause: '一時停止',
   previewReplay: 'もう一度',
@@ -152,6 +156,7 @@ export const ja: Strings = {
   progressVideoReady: '動画の準備完了 · {size} MB',
   cancelButton: '動画作成をキャンセル',
   shareButton: '動画を共有',
+  shareMusicTip: 'Add music in TikTok or Instagram for the best share experience.',
   downloadButton: 'MP4をダウンロード',
   payToDownloadButton: '{price} でダウンロード',
   paymentPending: 'ポップアップウィンドウでお支払いを完了してください…',
@@ -206,6 +211,13 @@ export const ja: Strings = {
 
   periodRawLocationData: '未処理の位置情報',
   periodRange: '{start} – {end}',
+  overlayDayCount: {
+    other: '{count} days',
+  },
+  overlayStopCount: {
+    other: '{count} stops',
+  },
+  overlayViaStops: 'via {stops}',
 
   errorAccuracyLimit: '0以上の数値を入力するか、空欄にしてください。',
   errorMapConsent: 'Esriに地図画像を要求する前に、地図のプライバシーに関する説明を確認してください。',

@@ -124,6 +124,10 @@ export const zhCN: Strings = {
   markerStyleClassic: 'Classic dot',
   markerStylePin: 'Direction pin',
   markerStyleMinimal: 'Minimal',
+  epicPresetButton: 'Epic look',
+  sunsetPresetButton: 'Sunset look',
+  visualPresetLabel: 'Quick looks',
+  visualPresetHelp: 'One-tap combinations of route color, map style, marker, and camera.',
   previewPlay: 'Play',
   previewPause: 'Pause',
   previewReplay: 'Replay',
@@ -154,6 +158,7 @@ export const zhCN: Strings = {
   progressVideoReady: '视频准备就绪 · {size} MB',
   cancelButton: '取消视频创建',
   shareButton: '分享视频',
+  shareMusicTip: 'Add music in TikTok or Instagram for the best share experience.',
   downloadButton: '下载 MP4',
   payToDownloadButton: '支付 {price} 下载',
   paymentPending: '请在弹出窗口中完成支付…',
@@ -208,6 +213,13 @@ export const zhCN: Strings = {
 
   periodRawLocationData: '原始位置数据',
   periodRange: '{start} – {end}',
+  overlayDayCount: {
+    other: '{count} days',
+  },
+  overlayStopCount: {
+    other: '{count} stops',
+  },
+  overlayViaStops: 'via {stops}',
 
   errorAccuracyLimit: '请输入非负的精度上限，或者留空。',
   errorMapConsent: '在向 Esri 请求地图图像之前，请先确认地图隐私声明。',

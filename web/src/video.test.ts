@@ -299,6 +299,8 @@ describe('createJourneyMp4', () => {
       periodLabel: 'March 2026',
       separator: ' · ',
       formatDistance: (kilometers: number) => `${Math.round(kilometers)} km`,
+      statsSubtitle: '100 km · 2 days · 3 stops',
+      outroStopsLine: 'via A · B',
     },
     appearance: DEFAULT_RENDER_APPEARANCE,
     format,
