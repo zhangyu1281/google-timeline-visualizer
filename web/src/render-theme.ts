@@ -26,6 +26,11 @@ export function isMarkerPreset(value: string): value is MarkerPreset {
   return value === 'classic' || value === 'pin' || value === 'minimal';
 }
 
+/** Free CARTO basemap key — https://carto.com/basemaps/apikey/ */
+const CARTO_API_KEY = typeof import.meta.env.VITE_CARTO_API_KEY === 'string'
+  ? import.meta.env.VITE_CARTO_API_KEY.trim()
+  : '';
+
 function mapTileBase(theme: MapTheme): string {
   switch (theme) {
     case 'dark':
@@ -38,7 +43,9 @@ function mapTileBase(theme: MapTheme): string {
 }
 
 export function mapTileUrl(theme: MapTheme, z: number, x: number, y: number): string {
-  return `${mapTileBase(theme)}/${z}/${x}/${y}.png`;
+  const url = `${mapTileBase(theme)}/${z}/${x}/${y}.png`;
+  if (!CARTO_API_KEY) return url;
+  return `${url}?key=${encodeURIComponent(CARTO_API_KEY)}`;
 }
 
 export function mapFallbackBackground(theme: MapTheme): string {
