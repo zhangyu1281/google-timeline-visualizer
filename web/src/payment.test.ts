@@ -2,7 +2,11 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   clearPaymentSession,
   createExportId,
+  isPaymentSuccessPayload,
+  loadCheckoutInPopup,
   markDownloadUnlocked,
+  openCheckoutPopup,
+  PAYMENT_SUCCESS_MESSAGE,
   paymentPriceLabel,
   paymentReturnExportId,
   storePendingPaymentSession,
@@ -74,5 +78,21 @@ describe('payment', () => {
   it('reads payment return export id from query params', () => {
     mockBrowserLocation('/?payment=success&exportId=export-123');
     expect(paymentReturnExportId()).toBe('export-123');
+  });
+
+  it('opens a blank checkout popup synchronously', () => {
+    const popup = { location: { href: '' } };
+    const open = vi.fn(() => popup);
+    vi.stubGlobal('window', { open });
+    expect(openCheckoutPopup()).toBe(popup);
+    expect(open).toHaveBeenCalledWith('about:blank', 'waffo-checkout', 'popup,width=520,height=720');
+  });
+
+  it('recognizes payment success postMessage payloads', () => {
+    expect(isPaymentSuccessPayload({
+      type: PAYMENT_SUCCESS_MESSAGE,
+      exportId: 'd447afd2-f2bb-4704-bdb0-020442945330',
+    })).toBe(true);
+    expect(isPaymentSuccessPayload(null)).toBe(false);
   });
 });

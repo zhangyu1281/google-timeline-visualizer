@@ -1,6 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { verifyWebhook, WebhookEventType } from '@waffo/pancake-ts';
-import { markSessionPaid } from '../_lib/payment-store';
+import { markExportPaid, markSessionPaid } from '../_lib/payment-store';
+import { sessionIdLookupKeys } from '../_lib/waffo-payment-verify';
 
 export const config = {
   api: {
@@ -28,6 +29,24 @@ function sessionIdFromPayload(data: Record<string, unknown>): string | null {
   return null;
 }
 
+function exportIdFromPayload(data: Record<string, unknown>): string | null {
+  if (typeof data.orderMerchantExternalId === 'string' && data.orderMerchantExternalId.length > 0) {
+    return data.orderMerchantExternalId;
+  }
+  const metadata = data.orderMetadata ?? data.metadata;
+  if (metadata && typeof metadata === 'object' && metadata !== null) {
+    const exportId = (metadata as Record<string, unknown>).exportId;
+    if (typeof exportId === 'string' && exportId.length > 0) return exportId;
+  }
+  return null;
+}
+
+function isCompletedOrder(data: Record<string, unknown>): boolean {
+  const orderStatus = typeof data.orderStatus === 'string' ? data.orderStatus.toLowerCase() : '';
+  const paymentStatus = typeof data.paymentStatus === 'string' ? data.paymentStatus.toLowerCase() : '';
+  return orderStatus === 'completed' || paymentStatus === 'succeeded';
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse): Promise<void> {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
@@ -42,10 +61,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
     const event = verifyWebhook(rawBody, typeof signature === 'string' ? signature : null);
     const data = (event.data ?? {}) as Record<string, unknown>;
 
-    if (event.eventType === WebhookEventType.OrderCompleted) {
+    if (event.eventType === WebhookEventType.OrderCompleted && isCompletedOrder(data)) {
       const sessionId = sessionIdFromPayload(data);
+      const exportId = exportIdFromPayload(data);
       if (sessionId) {
-        await markSessionPaid(sessionId);
+        for (const key of sessionIdLookupKeys(sessionId)) {
+          await markSessionPaid(key);
+        }
+      }
+      if (exportId) {
+        await markExportPaid(exportId);
+        console.info('webhooks/waffo: marked export paid', exportId);
+      }
+      if (!sessionId && !exportId) {
+        console.warn('webhooks/waffo: order.completed missing sessionId and exportId', data);
       }
     }
 

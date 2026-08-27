@@ -10,6 +10,24 @@ export interface CheckoutSession {
   exportId: string;
 }
 
+/** postMessage type sent from /payment/complete.html popup back to the opener. */
+export const PAYMENT_SUCCESS_MESSAGE = 'tv-payment-success';
+
+export interface PaymentSuccessPayload {
+  type: typeof PAYMENT_SUCCESS_MESSAGE;
+  exportId: string;
+  sessionId?: string;
+}
+
+export function isPaymentSuccessPayload(data: unknown): data is PaymentSuccessPayload {
+  if (typeof data !== 'object' || data === null) return false;
+  const record = data as Record<string, unknown>;
+  return record.type === PAYMENT_SUCCESS_MESSAGE
+    && typeof record.exportId === 'string'
+    && record.exportId.length > 0
+    && (record.sessionId === undefined || typeof record.sessionId === 'string');
+}
+
 export function isPaymentEnabled(): boolean {
   return PAYMENT_ENABLED;
 }
@@ -82,28 +100,37 @@ export function storePendingPaymentSession(sessionId: string, exportId: string):
   sessionStorage.setItem(STORAGE_EXPORT, exportId);
 }
 
-export async function fetchPaymentStatus(sessionId: string): Promise<boolean> {
-  const response = await fetch(`/api/payment/status?sessionId=${encodeURIComponent(sessionId)}`);
+export async function fetchPaymentStatus(sessionId: string, exportId?: string): Promise<boolean> {
+  const params = new URLSearchParams();
+  if (sessionId.startsWith('cs_')) params.set('sessionId', sessionId);
+  if (exportId) params.set('exportId', exportId);
+  const response = await fetch(`/api/payment/status?${params.toString()}`, { cache: 'no-store' });
   if (!response.ok) return false;
   const payload = await response.json() as { paid?: boolean; configured?: boolean };
   return payload.paid === true;
 }
 
-export function openCheckoutWindow(checkoutUrl: string): Window | null {
-  return window.open(
-    checkoutUrl,
-    'waffo-checkout',
-    'popup,width=520,height=720,noopener,noreferrer',
-  );
+const CHECKOUT_POPUP_FEATURES = 'popup,width=520,height=720';
+const CHECKOUT_POPUP_NAME = 'waffo-checkout';
+
+/** Open a blank checkout popup synchronously (must run inside a user click handler). */
+export function openCheckoutPopup(): Window | null {
+  return window.open('about:blank', CHECKOUT_POPUP_NAME, CHECKOUT_POPUP_FEATURES);
+}
+
+/** Navigate a popup opened via openCheckoutPopup to the Waffo checkout URL. */
+export function loadCheckoutInPopup(popup: Window, checkoutUrl: string): void {
+  popup.location.href = checkoutUrl;
 }
 
 export async function pollPaymentStatus(
   sessionId: string,
   signal: AbortSignal,
   intervalMs = 2000,
+  exportId?: string,
 ): Promise<boolean> {
   while (!signal.aborted) {
-    if (await fetchPaymentStatus(sessionId)) return true;
+    if (await fetchPaymentStatus(sessionId, exportId)) return true;
     await new Promise<void>((resolve, reject) => {
       const timer = window.setTimeout(resolve, intervalMs);
       signal.addEventListener('abort', () => {

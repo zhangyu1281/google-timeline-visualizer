@@ -5,13 +5,17 @@ import {
   clearPaymentSession,
   createCheckoutSession,
   createExportId,
+  fetchPaymentStatus,
   isDownloadUnlocked,
   isPaymentEnabled,
+  isPaymentSuccessPayload,
+  loadCheckoutInPopup,
   markDownloadUnlocked,
-  openCheckoutWindow,
+  openCheckoutPopup,
   paymentPriceLabel,
   paymentReturnExportId,
   pollPaymentStatus,
+  readStoredExportId,
   readStoredPaymentSession,
 } from './payment';
 import { SITE_LOCALE, HIDE_LANGUAGE_PICKER } from './site-config';
@@ -776,6 +780,65 @@ async function unlockAfterPayment(sessionId: string, exportId: string): Promise<
   updateResultActions();
 }
 
+async function confirmPaidSession(sessionId: string, exportId: string): Promise<boolean> {
+  if (await fetchPaymentStatus(sessionId, exportId)) return true;
+  try {
+    return await pollPaymentStatus(sessionId, AbortSignal.timeout(60_000), 2000, exportId);
+  } catch {
+    return false;
+  }
+}
+
+async function handlePaymentSuccessFromPopup(exportId: string, sessionIdHint?: string): Promise<void> {
+  const storedExportId = readStoredExportId();
+  const sessionId = sessionIdHint ?? readStoredPaymentSession();
+  if (!sessionId || !storedExportId || storedExportId !== exportId) return;
+  if (currentExportId && exportId !== currentExportId) return;
+  if (isDownloadUnlocked(exportId)) return;
+
+  isPaymentPending = true;
+  renderPaymentStatus(i18n.t('paymentPending'));
+  updateResultActions();
+  try {
+    if (await confirmPaidSession(sessionId, exportId)) {
+      await unlockAfterPayment(sessionId, exportId);
+    }
+  } finally {
+    isPaymentPending = false;
+    updateResultActions();
+  }
+}
+
+async function finalizePaymentAfterPopupClosed(
+  sessionId: string,
+  exportId: string,
+  downloadAfterUnlock: boolean,
+): Promise<void> {
+  if (isDownloadUnlocked(exportId)) return;
+  isPaymentPending = true;
+  renderPaymentStatus(i18n.t('paymentPending'));
+  updateResultActions();
+  try {
+    if (await confirmPaidSession(sessionId, exportId)) {
+      await unlockAfterPayment(sessionId, exportId);
+      if (downloadAfterUnlock) triggerFileDownload();
+    } else {
+      renderPaymentStatus(null);
+    }
+  } finally {
+    isPaymentPending = false;
+    updateResultActions();
+  }
+}
+
+function setupPaymentReturnListener(): void {
+  window.addEventListener('message', (event) => {
+    if (event.origin !== window.location.origin) return;
+    if (!isPaymentSuccessPayload(event.data)) return;
+    void handlePaymentSuccessFromPopup(event.data.exportId, event.data.sessionId);
+  });
+}
+
 type PaymentFlowOptions = {
   /** After a successful checkout, trigger file download. Default: true for the download button. */
   downloadAfterUnlock?: boolean;
@@ -792,40 +855,53 @@ async function startPaymentFlow(options: PaymentFlowOptions = {}): Promise<boole
     if (downloadAfterUnlock) triggerFileDownload();
     return true;
   }
+  if (isPaymentPending) return false;
 
   stopPaymentPolling();
   isPaymentPending = true;
   renderPaymentStatus(i18n.t('paymentPending'));
   updateResultActions();
 
+  const popup = openCheckoutPopup();
+
   try {
     const session = await createCheckoutSession(currentExportId, activeLocale(languagePreference, browserLanguages()));
-    const popup = openCheckoutWindow(session.checkoutUrl);
-    if (!popup) {
+    if (!popup || popup.closed) {
       window.location.assign(session.checkoutUrl);
       return false;
     }
+    loadCheckoutInPopup(popup, session.checkoutUrl);
 
     paymentPollController = new AbortController();
+    let popupFinalizeTriggered = false;
     const popupClosedTimer = window.setInterval(() => {
-      if (popup.closed) {
-        window.clearInterval(popupClosedTimer);
-        paymentPollController?.abort();
-      }
+      if (!popup.closed || popupFinalizeTriggered) return;
+      popupFinalizeTriggered = true;
+      window.clearInterval(popupClosedTimer);
+      paymentPollController?.abort();
+      void finalizePaymentAfterPopupClosed(session.sessionId, session.exportId, downloadAfterUnlock);
     }, 500);
     try {
-      const paid = await pollPaymentStatus(session.sessionId, paymentPollController.signal);
+      const paid = await pollPaymentStatus(
+        session.sessionId,
+        paymentPollController.signal,
+        2000,
+        session.exportId,
+      );
       if (paid) {
         await unlockAfterPayment(session.sessionId, session.exportId);
         if (downloadAfterUnlock) triggerFileDownload();
         return true;
       }
-      renderPaymentStatus(null);
+      if (!popupFinalizeTriggered) {
+        renderPaymentStatus(null);
+      }
       return false;
     } finally {
       window.clearInterval(popupClosedTimer);
     }
   } catch (error) {
+    popup?.close();
     if (error instanceof DOMException && error.name === 'AbortError') {
       renderPaymentStatus(null);
     } else if (error instanceof Error && error.message.includes('not configured')) {
@@ -856,7 +932,7 @@ async function resumePaymentFromReturn(): Promise<void> {
   renderPaymentStatus(i18n.t('paymentPending'));
   updateResultActions();
   try {
-    if (await pollPaymentStatus(sessionId, AbortSignal.timeout(15000))) {
+    if (await pollPaymentStatus(sessionId, AbortSignal.timeout(15_000), 2000, exportId)) {
       await unlockAfterPayment(sessionId, exportId);
     }
   } finally {
@@ -1832,6 +1908,7 @@ languageSelect.value = languagePreference;
 languageField.classList.toggle('site-ui-hidden', HIDE_LANGUAGE_PICKER);
 distanceUnitSelect.value = distanceUnitPreference;
 renderLocalizedText();
+setupPaymentReturnListener();
 void resumePaymentFromReturn();
 initHeaderLanguageSwitch();
 // Safari restores form control values on reload and on bfcache restore without firing
