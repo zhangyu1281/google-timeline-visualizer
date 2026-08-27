@@ -1,12 +1,10 @@
-import { BufferTarget, CanvasSource, Mp4OutputFormat, Output, Quality, AudioBufferSource } from 'mediabunny';
+import { BufferTarget, CanvasSource, Mp4OutputFormat, Output, Quality } from 'mediabunny';
 import { frameAtElapsedSeconds, OUTRO_SECONDS } from './animation';
 import { AppError } from './errors';
 import { drawFrame } from './renderer';
 import type { OverlayText } from './renderer';
 import type { RenderAppearance } from './render-theme';
 import type { PreparedJourney } from './types';
-import type { BgmTrackId } from './bgm';
-import { hasAudioEncoder, prepareBgmForExport } from './bgm';
 
 export interface ExportOptions {
   durationSeconds: number;
@@ -14,7 +12,6 @@ export interface ExportOptions {
   overlay: OverlayText;
   format: ResolvedVideoFormat;
   appearance: RenderAppearance;
-  bgmTrackId?: BgmTrackId;
   onProgress?: (fraction: number) => void;
   signal?: AbortSignal;
 }
@@ -256,36 +253,8 @@ export async function createJourneyMp4(
     hardwareAcceleration: 'no-preference',
   });
   output.addVideoTrack(source, { frameRate: fps });
-
-  const bgmTrackId = options.bgmTrackId ?? 'none';
-  let audioSource: AudioBufferSource | null = null;
-  let bgmBuffer: Awaited<ReturnType<typeof prepareBgmForExport>> = null;
-  if (bgmTrackId !== 'none' && hasAudioEncoder()) {
-    try {
-      bgmBuffer = await prepareBgmForExport(bgmTrackId, options.durationSeconds, options.signal);
-      if (bgmBuffer) {
-        audioSource = new AudioBufferSource({
-          codec: 'aac',
-          bitrate: 128_000,
-        });
-        output.addAudioTrack(audioSource);
-      }
-    } catch {
-      audioSource = null;
-      bgmBuffer = null;
-    }
-  }
-
   output.setMetadataTags({ title: options.overlay.title });
   await output.start();
-
-  if (audioSource && bgmBuffer) {
-    try {
-      await audioSource.add(bgmBuffer);
-    } catch {
-      // Video export continues without audio if BGM encoding fails.
-    }
-  }
 
   // Every failure after start() has to reach output.cancel(): only cancel force-closes
   // the VideoEncoder and drops the samples that fastStart 'in-memory' keeps buffered.

@@ -8,7 +8,3 @@ License text: https://www.mozilla.org/MPL/2.0/
 
 Timeline Visualizer does not modify Mediabunny source files. The generated
 browser JavaScript bundle includes the modules needed for MP4 creation.
-
-Background music (Wander, Horizon, Passage)
-Procedurally generated ambient tracks bundled in web/public/audio/.
-Copyright MahlerLab. Licensed for use within Timeline Visualizer exports.
