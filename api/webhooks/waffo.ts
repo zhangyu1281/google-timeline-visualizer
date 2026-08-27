@@ -1,7 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { verifyWebhook, WebhookEventType } from '@waffo/pancake-ts';
 import { markExportPaid, markSessionPaid } from '../_lib/payment-store';
-import { sessionIdLookupKeys } from '../_lib/waffo-payment-verify';
 
 export const config = {
   api: {
@@ -41,12 +40,6 @@ function exportIdFromPayload(data: Record<string, unknown>): string | null {
   return null;
 }
 
-function isCompletedOrder(data: Record<string, unknown>): boolean {
-  const orderStatus = typeof data.orderStatus === 'string' ? data.orderStatus.toLowerCase() : '';
-  const paymentStatus = typeof data.paymentStatus === 'string' ? data.paymentStatus.toLowerCase() : '';
-  return orderStatus === 'completed' || paymentStatus === 'succeeded';
-}
-
 export default async function handler(req: VercelRequest, res: VercelResponse): Promise<void> {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
@@ -61,13 +54,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
     const event = verifyWebhook(rawBody, typeof signature === 'string' ? signature : null);
     const data = (event.data ?? {}) as Record<string, unknown>;
 
-    if (event.eventType === WebhookEventType.OrderCompleted && isCompletedOrder(data)) {
+    if (event.eventType === WebhookEventType.OrderCompleted) {
       const sessionId = sessionIdFromPayload(data);
       const exportId = exportIdFromPayload(data);
       if (sessionId) {
-        for (const key of sessionIdLookupKeys(sessionId)) {
-          await markSessionPaid(key);
-        }
+        await markSessionPaid(sessionId);
       }
       if (exportId) {
         await markExportPaid(exportId);
