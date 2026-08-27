@@ -25,7 +25,7 @@ const COMPLETED_SESSION_STATUSES = new Set(['completed', 'complete', 'paid', 'su
 export async function verifyExportPaidWithWaffo(exportId: string): Promise<boolean> {
   const client = getWaffoClient();
 
-  const payments = await client.graphql.query<PaymentsQueryResult>({
+  const paymentsResult = await client.graphql.query<PaymentsQueryResult>({
     query: `query VerifyExportPayment($ref: String!) {
       payments(
         filter: { orderMerchantExternalId: { eq: $ref }, status: { eq: "succeeded" } }
@@ -37,9 +37,9 @@ export async function verifyExportPaidWithWaffo(exportId: string): Promise<boole
     }`,
     variables: { ref: exportId },
   });
-  if ((payments.payments?.length ?? 0) > 0) return true;
+  if ((paymentsResult.data?.payments?.length ?? 0) > 0) return true;
 
-  const orders = await client.graphql.query<OnetimeOrdersQueryResult>({
+  const ordersResult = await client.graphql.query<OnetimeOrdersQueryResult>({
     query: `query VerifyExportOrder($ref: String!) {
       onetimeOrders(
         filter: { orderMerchantExternalId: { eq: $ref }, status: { eq: "completed" } }
@@ -51,7 +51,7 @@ export async function verifyExportPaidWithWaffo(exportId: string): Promise<boole
     }`,
     variables: { ref: exportId },
   });
-  return (orders.onetimeOrders?.length ?? 0) > 0;
+  return (ordersResult.data?.onetimeOrders?.length ?? 0) > 0;
 }
 
 export async function verifySessionPaidWithWaffo(sessionId: string): Promise<boolean> {
@@ -67,7 +67,7 @@ export async function verifySessionPaidWithWaffo(sessionId: string): Promise<boo
       }`,
       variables: { sessionId: id },
     });
-    const status = result.checkoutSession?.status?.toLowerCase();
+    const status = result.data?.checkoutSession?.status?.toLowerCase();
     if (status && COMPLETED_SESSION_STATUSES.has(status)) return true;
   }
   return false;
