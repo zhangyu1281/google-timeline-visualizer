@@ -3,7 +3,6 @@ import {
   clearPaymentSession,
   createExportId,
   isPaymentSuccessPayload,
-  loadCheckoutInPopup,
   markDownloadUnlocked,
   openCheckoutPopup,
   PAYMENT_SUCCESS_MESSAGE,
