@@ -82,11 +82,8 @@ export function storePendingPaymentSession(sessionId: string, exportId: string):
   sessionStorage.setItem(STORAGE_EXPORT, exportId);
 }
 
-export async function fetchPaymentStatus(sessionId: string, exportId?: string): Promise<boolean> {
-  const params = new URLSearchParams();
-  if (sessionId.startsWith('cs_')) params.set('sessionId', sessionId);
-  if (exportId) params.set('exportId', exportId);
-  const response = await fetch(`/api/payment/status?${params.toString()}`);
+export async function fetchPaymentStatus(sessionId: string): Promise<boolean> {
+  const response = await fetch(`/api/payment/status?sessionId=${encodeURIComponent(sessionId)}`);
   if (!response.ok) return false;
   const payload = await response.json() as { paid?: boolean; configured?: boolean };
   return payload.paid === true;
@@ -130,10 +127,9 @@ export async function pollPaymentStatus(
   sessionId: string,
   signal: AbortSignal,
   intervalMs = 2000,
-  exportId?: string,
 ): Promise<boolean> {
   while (!signal.aborted) {
-    if (await fetchPaymentStatus(sessionId, exportId)) return true;
+    if (await fetchPaymentStatus(sessionId)) return true;
     await new Promise<void>((resolve, reject) => {
       const timer = window.setTimeout(resolve, intervalMs);
       signal.addEventListener('abort', () => {

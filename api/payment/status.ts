@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { isWaffoConfigured } from '../_lib/waffo';
-import { isExportPaid, isSessionPaid } from '../_lib/payment-store';
+import { isSessionPaid } from '../_lib/payment-store';
 
 export default async function handler(req: VercelRequest, res: VercelResponse): Promise<void> {
   if (req.method !== 'GET') {
@@ -15,10 +15,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
   }
 
   const sessionId = typeof req.query.sessionId === 'string' ? req.query.sessionId : '';
-  const exportId = typeof req.query.exportId === 'string' ? req.query.exportId : '';
-
-  if (!sessionId.startsWith('cs_') && exportId.length === 0) {
-    res.status(400).json({ configured: true, paid: false, error: 'Missing sessionId or exportId' });
+  if (!sessionId.startsWith('cs_')) {
+    res.status(400).json({ configured: true, paid: false, error: 'Invalid sessionId' });
     return;
   }
 
@@ -28,13 +26,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
   }
 
   try {
-    let paid = false;
-    if (exportId.length > 0) {
-      paid = await isExportPaid(exportId);
-    }
-    if (!paid && sessionId.startsWith('cs_')) {
-      paid = await isSessionPaid(sessionId);
-    }
+    const paid = await isSessionPaid(sessionId);
     res.status(200).json({ configured: true, paid });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Status check failed';
