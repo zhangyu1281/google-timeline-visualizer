@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "vite",
     "icons": "node brand/export-icons.mjs",
-    "prebuild": "pnpm icons",
+    "generate:bgm": "node scripts/generate-bgm.mjs",
+    "prebuild": "pnpm icons && pnpm generate:bgm",
     "build": "tsc -b && vite build",
     "test": "vitest run",
     "typecheck": "tsc -b --pretty false"

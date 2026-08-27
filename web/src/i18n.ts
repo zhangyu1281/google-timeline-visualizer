@@ -173,6 +173,16 @@ export interface Strings extends LandingStrings, PagesStrings {
   frameRateRecommended: string;
   frameRateValue: string;
   frameRateHelp: string;
+  socialPresetLabel: string;
+  socialPresetReels: string;
+  socialPresetYoutube: string;
+  socialPresetCustom: string;
+  bgmLabel: string;
+  bgmNone: string;
+  bgmWander: string;
+  bgmHorizon: string;
+  bgmPassage: string;
+  bgmHelp: string;
   privacyNoticeTitle: string;
   privacyNoticeBody: string;
   mapConsentLabel: string;

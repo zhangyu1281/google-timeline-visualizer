@@ -37,7 +37,14 @@ import {
   writeLanguagePreference,
 } from './i18n';
 import { applyStrings, syncDocumentLang } from './i18n-dom';
-import { filterLocationOutliers } from './outlier';
+import { isBgmTrackId, type BgmTrackId } from './bgm';
+import {
+  isSocialPresetId,
+  presetMatchesSettings,
+  SOCIAL_PRESETS,
+  type SocialPresetId,
+  type SocialPresetSettings,
+} from './social-presets';
 import { parsePresetToken, presetIntentUrl } from './preset-link';
 import { formatRawDateRange } from './raw-range';
 import { drawFrame, prepareJourney, previewCanvasSize } from './renderer';
@@ -60,6 +67,7 @@ import {
 import type { I18n, LanguagePreference, TextKey } from './i18n';
 import type { DistanceUnit, DistanceUnitPreference } from './distance-unit';
 import type { LocationFilterMode } from './outlier';
+import { filterLocationOutliers } from './outlier';
 import type { OverlayText } from './renderer';
 import type { RawSignalPoint, RawSignalProcessingResult, TimelineParseReason } from './timeline';
 import type {
@@ -131,6 +139,12 @@ const cameraMovementSelect = element<HTMLSelectElement>('camera-movement');
 const mapThemeSelect = element<HTMLSelectElement>('map-theme');
 const routeColorSelect = element<HTMLSelectElement>('route-color');
 const markerStyleSelect = element<HTMLSelectElement>('marker-style');
+const socialPresetButtons = () => Array.from(
+  document.querySelectorAll<HTMLButtonElement>('.preset-chip[data-social-preset]'),
+);
+const bgmTrackInputs = () => Array.from(
+  document.querySelectorAll<HTMLInputElement>('input[name="bgm-track"]'),
+);
 const formatSelect = element<HTMLSelectElement>('video-format');
 const squareResolutionSelect = element<HTMLSelectElement>('square-resolution');
 const squareResolutionField = element<HTMLElement>('square-resolution-field');
@@ -661,6 +675,73 @@ function syncAspectControlsFromFormat(): void {
   });
   if (aspect === 'square') squareResolutionSelect.value = key;
   updateSquareResolutionVisibility(aspect);
+}
+
+let activeSocialPreset: SocialPresetId = 'reels';
+/** Skips preset detection while programmatically applying a preset. */
+let applyingSocialPreset = false;
+
+function currentBgmTrackId(): BgmTrackId {
+  const selected = bgmTrackInputs().find((input) => input.checked);
+  const value = selected?.value ?? 'wander';
+  return isBgmTrackId(value) ? value : 'wander';
+}
+
+function setBgmTrackId(trackId: BgmTrackId): void {
+  for (const input of bgmTrackInputs()) {
+    input.checked = input.value === trackId;
+  }
+}
+
+function currentSocialPresetSettings(): Omit<SocialPresetSettings, 'bgmTrackId'> & { bgmTrackId: BgmTrackId } {
+  return {
+    aspect: selectedAspectRatio(),
+    duration: Number(durationSelect.value),
+    cameraMovement: cameraMovementSelect.value as CameraMovement,
+    mapTheme: isMapTheme(mapThemeSelect.value) ? mapThemeSelect.value : 'light',
+    routeColor: isRouteColorPreset(routeColorSelect.value) ? routeColorSelect.value : 'classic',
+    markerStyle: isMarkerPreset(markerStyleSelect.value) ? markerStyleSelect.value : 'classic',
+    squareFormatKey: selectedSquareFormatKey(),
+    bgmTrackId: currentBgmTrackId(),
+  };
+}
+
+function detectActiveSocialPreset(): SocialPresetId {
+  const settings = currentSocialPresetSettings();
+  if (presetMatchesSettings('reels', settings)) return 'reels';
+  if (presetMatchesSettings('youtube', settings)) return 'youtube';
+  return 'custom';
+}
+
+function syncSocialPresetButtons(): void {
+  for (const button of socialPresetButtons()) {
+    const id = button.dataset.socialPreset;
+    const pressed = isSocialPresetId(id ?? '') && id === activeSocialPreset;
+    button.setAttribute('aria-pressed', pressed ? 'true' : 'false');
+  }
+}
+
+function applySocialPreset(presetId: Exclude<SocialPresetId, 'custom'>): void {
+  const preset = SOCIAL_PRESETS[presetId];
+  applyingSocialPreset = true;
+  activeSocialPreset = presetId;
+  durationSelect.value = String(preset.duration);
+  cameraMovementSelect.value = preset.cameraMovement;
+  mapThemeSelect.value = preset.mapTheme;
+  routeColorSelect.value = preset.routeColor;
+  markerStyleSelect.value = preset.markerStyle;
+  squareResolutionSelect.value = preset.squareFormatKey;
+  setBgmTrackId(preset.bgmTrackId);
+  applyAspectSelection(preset.aspect);
+  frameRateSelect.value = 'recommended';
+  applyingSocialPreset = false;
+  syncSocialPresetButtons();
+}
+
+function onSocialPresetControlChange(): void {
+  if (applyingSocialPreset) return;
+  activeSocialPreset = detectActiveSocialPreset();
+  syncSocialPresetButtons();
 }
 
 function applyAspectSelection(aspect: AspectRatioPreset): void {
@@ -1232,6 +1313,7 @@ function renderSelection(): void {
 }
 
 function updateSelection(): void {
+  onSocialPresetControlChange();
   stopPreview();
   setSettingsError(null);
   if (!rawSignalsToggle.checked && exactDateToggle.checked) {
@@ -1543,15 +1625,38 @@ durationSelect.addEventListener('change', updateSelection);
 cameraMovementSelect.addEventListener('change', updateSelection);
 mapThemeSelect.addEventListener('change', updateSelection);
 routeColorSelect.addEventListener('change', () => {
+  onSocialPresetControlChange();
   if (prepared && lastPreviewFrame) {
     drawPreviewFrame(prepared, lastPreviewFrame);
   }
 });
 markerStyleSelect.addEventListener('change', () => {
+  onSocialPresetControlChange();
   if (prepared && lastPreviewFrame) {
     drawPreviewFrame(prepared, lastPreviewFrame);
   }
 });
+for (const button of socialPresetButtons()) {
+  button.addEventListener('click', () => {
+    const presetId = button.dataset.socialPreset;
+    if (!isSocialPresetId(presetId ?? '')) return;
+    if (presetId === 'custom') {
+      activeSocialPreset = 'custom';
+      syncSocialPresetButtons();
+      return;
+    }
+    if (presetId !== 'reels' && presetId !== 'youtube') return;
+    if (activeSocialPreset === presetId) return;
+    stopPreview();
+    applySocialPreset(presetId);
+    renderFrameRateOptions();
+    applyVideoFormat();
+    updateSelection();
+  });
+}
+for (const input of bgmTrackInputs()) {
+  input.addEventListener('change', onSocialPresetControlChange);
+}
 languageSelect.addEventListener('change', onLanguageChange);
 distanceUnitSelect.addEventListener('change', onDistanceUnitChange);
 for (const button of aspectChipButtons()) {
@@ -1826,6 +1931,7 @@ createButton.addEventListener('click', async () => {
       overlay: overlayText(),
       appearance: exportAppearance,
       format,
+      bgmTrackId: currentBgmTrackId(),
       signal: exportController.signal,
       onProgress: (fraction) => {
         progress.value = fraction;
@@ -1915,6 +2021,7 @@ initHeaderLanguageSwitch();
 // change, so the canvas has to be synced to the selected format before anything is drawn.
 syncAspectControlsFromFormat();
 applyVideoFormat();
+applySocialPreset('reels');
 updatePreviewChrome();
 updateToolWorkflow();
 if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {

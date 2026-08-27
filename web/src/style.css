@@ -253,6 +253,78 @@ button, input, select, .button { font: inherit; }
   opacity: 0.55;
 }
 
+.preset-chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.preset-chip {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--primary);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.preset-chip:hover:not(:disabled) {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+}
+
+.preset-chip[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+  color: var(--accent-strong, var(--accent));
+}
+
+.bgm-field {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.bgm-field legend {
+  font-size: inherit;
+  font-weight: 500;
+  margin-bottom: 6px;
+  padding: 0;
+}
+
+.bgm-radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
+.bgm-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.bgm-option input {
+  accent-color: var(--accent);
+}
+
+.social-preset-field {
+  margin-bottom: 4px;
+}
+
+.bgm-field .field-help {
+  margin-top: 6px;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;

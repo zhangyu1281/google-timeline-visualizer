@@ -30,6 +30,11 @@ const encoder = vi.hoisted(() => ({
 
 vi.mock('./renderer', () => ({ drawFrame: vi.fn() }));
 
+vi.mock('./bgm', () => ({
+  hasAudioEncoder: () => false,
+  prepareBgmForExport: vi.fn(async () => null),
+}));
+
 vi.mock('mediabunny', () => ({
   BufferTarget: class {
     get buffer(): ArrayBuffer | null {
@@ -39,6 +44,9 @@ vi.mock('mediabunny', () => ({
   CanvasSource: class {
     add = encoder.add;
   },
+  AudioBufferSource: class {
+    add = vi.fn(async () => undefined);
+  },
   Mp4OutputFormat: class {},
   Quality: class {},
   Output: class {
@@ -46,6 +54,7 @@ vi.mock('mediabunny', () => ({
     finalize = encoder.finalize;
     cancel = encoder.cancel;
     addVideoTrack = (): void => undefined;
+    addAudioTrack = (): void => undefined;
     setMetadataTags = (): void => undefined;
   },
 }));

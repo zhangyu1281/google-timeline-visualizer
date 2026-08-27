@@ -276,6 +276,24 @@
 
         <div class="settings-group">
           <h3 class="settings-group-title" data-i18n="settingsGroupExport">Video export</h3>
+        <div class="social-preset-field">
+          <span class="field-label" id="social-preset-label" data-i18n="socialPresetLabel">Quick preset</span>
+          <div class="preset-chip-group" role="group" aria-labelledby="social-preset-label">
+            <button type="button" class="preset-chip" data-social-preset="reels" aria-pressed="true" data-i18n="socialPresetReels">Reels & TikTok</button>
+            <button type="button" class="preset-chip" data-social-preset="youtube" aria-pressed="false" data-i18n="socialPresetYoutube">YouTube & Stories</button>
+            <button type="button" class="preset-chip" data-social-preset="custom" aria-pressed="false" data-i18n="socialPresetCustom">Custom</button>
+          </div>
+        </div>
+        <fieldset class="bgm-field">
+          <legend data-i18n="bgmLabel">Background music</legend>
+          <div class="bgm-radio-group">
+            <label class="bgm-option"><input type="radio" name="bgm-track" value="none" /><span data-i18n="bgmNone">None</span></label>
+            <label class="bgm-option"><input type="radio" name="bgm-track" value="wander" checked /><span data-i18n="bgmWander">Wander</span></label>
+            <label class="bgm-option"><input type="radio" name="bgm-track" value="horizon" /><span data-i18n="bgmHorizon">Horizon</span></label>
+            <label class="bgm-option"><input type="radio" name="bgm-track" value="passage" /><span data-i18n="bgmPassage">Passage</span></label>
+          </div>
+          <p class="field-help" data-i18n="bgmHelp">Music is mixed into the MP4 on export. Preview stays silent.</p>
+        </fieldset>
         <label>
           <span data-i18n="durationLabel">Duration</span>
           <select id="duration">
