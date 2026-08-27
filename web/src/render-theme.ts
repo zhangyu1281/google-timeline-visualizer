@@ -26,26 +26,20 @@ export function isMarkerPreset(value: string): value is MarkerPreset {
   return value === 'classic' || value === 'pin' || value === 'minimal';
 }
 
-/** Free CARTO basemap key — https://carto.com/basemaps/apikey/ */
-const CARTO_API_KEY = typeof import.meta.env.VITE_CARTO_API_KEY === 'string'
-  ? import.meta.env.VITE_CARTO_API_KEY.trim()
-  : '';
-
 function mapTileBase(theme: MapTheme): string {
+  // Esri Canvas basemaps — no API key, OSM-sourced, similar look to CARTO Positron/Dark Matter.
+  // Esri MapServer uses {z}/{y}/{x}, unlike OSM {z}/{x}/{y}.
   switch (theme) {
     case 'dark':
-      return 'https://a.basemaps.cartocdn.com/dark_all';
     case 'night':
-      return 'https://a.basemaps.cartocdn.com/dark_nolabels';
+      return 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile';
     default:
-      return 'https://a.basemaps.cartocdn.com/light_all';
+      return 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile';
   }
 }
 
 export function mapTileUrl(theme: MapTheme, z: number, x: number, y: number): string {
-  const url = `${mapTileBase(theme)}/${z}/${x}/${y}.png`;
-  if (!CARTO_API_KEY) return url;
-  return `${url}?key=${encodeURIComponent(CARTO_API_KEY)}`;
+  return `${mapTileBase(theme)}/${z}/${y}/${x}`;
 }
 
 export function mapFallbackBackground(theme: MapTheme): string {

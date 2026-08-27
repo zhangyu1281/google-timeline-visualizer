@@ -406,7 +406,7 @@ describe('catalog completeness', () => {
     expect(en.progressCancelling.endsWith('…')).toBe(true);
     expect(en.fileStatusLoadingSample.endsWith('…')).toBe(true);
     expect(en.fileStatusReading.endsWith('…')).toBe(true);
-    expect(en.footerMapAttribution).toBe('Map data © OpenStreetMap contributors and © CARTO.');
+    expect(en.footerMapAttribution).toBe('Map data © OpenStreetMap contributors and © Esri.');
   });
 });
 

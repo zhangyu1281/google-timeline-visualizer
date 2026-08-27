@@ -7,7 +7,7 @@ import { pagesKo } from './pages-ko';
  *
  * Terminology follows app/src/main/res/values-ko/strings.xml so the Android app and the web app
  * never call the same thing two different names. 'Timeline Visualizer' stays untranslated as the
- * product name, and MP4, H.264, JSON, Timeline.json, GPS, CARTO, OpenStreetMap and Safari stay in
+ * product name, and MP4, H.264, JSON, Timeline.json, GPS, Esri, OpenStreetMap and Safari stay in
  * English the way this platform shows them.
  *
  * Plural categories for this locale, from Intl.PluralRules: other. Do not
@@ -101,7 +101,7 @@ export const ko: Strings = {
   frameRateValue: '{fps} fps',
   frameRateHelp: '프레임 속도가 높을수록 더 부드럽지만 만드는 시간이 길어지고 파일도 커집니다.',
   privacyNoticeTitle: '지도를 불러오기 전에',
-  privacyNoticeBody: '타임라인 파일은 업로드되지 않습니다. CARTO에는 선택한 이동 경로의 지도 영역에 해당하는 타일 좌표가 IP 주소 같은 일반적인 네트워크 정보와 함께 전송됩니다. 이 정보로 타임라인에 포함된 장소가 CARTO에 알려질 수 있습니다.',
+  privacyNoticeBody: '타임라인 파일은 업로드되지 않습니다. Esri에는 선택한 이동 경로의 지도 영역에 해당하는 타일 좌표가 IP 주소 같은 일반적인 네트워크 정보와 함께 전송됩니다. 이 정보로 타임라인에 포함된 장소가 Esri에 알려질 수 있습니다.',
   mapConsentLabel: '이해했으며 지도를 불러오겠습니다',
   privacyPolicyLink: '웹 앱 개인정보 처리방침 읽기',
   previewButton: '미리보기',
@@ -164,7 +164,7 @@ export const ko: Strings = {
   errorPaymentRequired: '다운로드와 공유를 사용하려면 결제가 필요합니다.',
 
   footerNoAccount: '계정도, 위치 권한도, 타임라인 업로드도 필요하지 않습니다.',
-  footerMapAttribution: '지도 데이터 © OpenStreetMap 기여자 및 © CARTO.',
+  footerMapAttribution: '지도 데이터 © OpenStreetMap 기여자 및 © Esri.',
   footerThirdPartyNotices: '타사 고지 사항',
 
   rawOnlyDialogTitle: '원시 위치 데이터만 발견됨',
@@ -210,7 +210,7 @@ export const ko: Strings = {
   periodRange: '{start} – {end}',
 
   errorAccuracyLimit: '0 이상의 정확도 한도를 입력하거나 비워 두세요.',
-  errorMapConsent: 'CARTO에 지도 이미지를 요청하기 전에 지도 개인정보 안내를 확인해 주세요.',
+  errorMapConsent: 'Esri에 지도 이미지를 요청하기 전에 지도 개인정보 안내를 확인해 주세요.',
   errorMalformedJson: '올바르거나 완전한 JSON 파일이 아닙니다.',
   errorLegacyFormat: '이 파일은 이전 Google 테이크아웃 형식입니다. 휴대전화에서 타임라인 데이터를 내보내 주세요.',
   errorRawSignalsOnly: '이 내보내기 파일에는 원시 신호만 있고 재구성된 타임라인 이동 경로가 없습니다.',

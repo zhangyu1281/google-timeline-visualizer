@@ -101,7 +101,7 @@ export const zhCN: Strings = {
   frameRateValue: '{fps} fps',
   frameRateHelp: '帧率越高，画面越流畅，但创建时间更长，文件也更大。',
   privacyNoticeTitle: '加载地图之前',
-  privacyNoticeBody: '您的 Timeline 文件绝不会上传。CARTO 会收到所选旅程中地图区域的图块坐标，以及 IP 地址等常规网络信息。这可能会向 CARTO 透露您 Timeline 中的地点。',
+  privacyNoticeBody: '您的 Timeline 文件绝不会上传。Esri 会收到所选旅程中地图区域的图块坐标，以及 IP 地址等常规网络信息。这可能会向 Esri 透露您 Timeline 中的地点。',
   mapConsentLabel: '我已了解，希望加载地图',
   privacyPolicyLink: '阅读网页版隐私政策',
   previewButton: '预览',
@@ -164,7 +164,7 @@ export const zhCN: Strings = {
   errorPaymentRequired: '请先支付以解锁下载和分享。',
 
   footerNoAccount: '无需账号或位置权限，也不会上传 Timeline。',
-  footerMapAttribution: '地图数据 © OpenStreetMap 贡献者与 © CARTO。',
+  footerMapAttribution: '地图数据 © OpenStreetMap 贡献者与 © Esri。',
   footerThirdPartyNotices: '第三方声明',
 
   rawOnlyDialogTitle: '仅发现原始位置数据',
@@ -210,7 +210,7 @@ export const zhCN: Strings = {
   periodRange: '{start} – {end}',
 
   errorAccuracyLimit: '请输入非负的精度上限，或者留空。',
-  errorMapConsent: '在向 CARTO 请求地图图像之前，请先确认地图隐私声明。',
+  errorMapConsent: '在向 Esri 请求地图图像之前，请先确认地图隐私声明。',
   errorMalformedJson: '此文件不是有效或完整的 JSON 文件。',
   errorLegacyFormat: '这是旧版 Google Takeout 格式。请改为从手机导出 Timeline 数据。',
   errorRawSignalsOnly: '此导出文件包含原始信号，但没有重建的 Timeline 旅程。',

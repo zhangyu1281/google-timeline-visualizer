@@ -100,7 +100,7 @@ export const en: Strings = {
   frameRateValue: '{fps} fps',
   frameRateHelp: 'Higher frame rates look smoother but take longer and create larger files.',
   privacyNoticeTitle: 'Before loading the map',
-  privacyNoticeBody: 'Your Timeline file is never uploaded. CARTO receives the tile coordinates for map areas in the selected journey, along with normal network information such as your IP address. This may reveal places in your Timeline to CARTO.',
+  privacyNoticeBody: 'Your Timeline file is never uploaded. Esri receives the tile coordinates for map areas in the selected journey, along with normal network information such as your IP address. This may reveal places in your Timeline to Esri.',
   mapConsentLabel: 'I understand and want to load the map',
   privacyPolicyLink: 'Read the web app privacy policy',
   previewButton: 'Preview',
@@ -164,7 +164,7 @@ export const en: Strings = {
   errorPaymentRequired: 'Pay to unlock download and share.',
 
   footerNoAccount: 'No account, location permission, or Timeline upload is required.',
-  footerMapAttribution: 'Map data © OpenStreetMap contributors and © CARTO.',
+  footerMapAttribution: 'Map data © OpenStreetMap contributors and © Esri.',
   footerThirdPartyNotices: 'Third-party notices',
 
   rawOnlyDialogTitle: 'Only raw location data found',
@@ -216,7 +216,7 @@ export const en: Strings = {
   periodRange: '{start} – {end}',
 
   errorAccuracyLimit: 'Enter a non-negative accuracy limit, or leave it blank.',
-  errorMapConsent: 'Confirm the map privacy notice before requesting map images from CARTO.',
+  errorMapConsent: 'Confirm the map privacy notice before requesting map images from Esri.',
   errorMalformedJson: 'This is not a valid or complete JSON file.',
   errorLegacyFormat: 'This is an older Google Takeout format. Export Timeline data from your phone instead.',
   errorRawSignalsOnly: 'This export contains raw signals but no reconstructed Timeline journeys.',

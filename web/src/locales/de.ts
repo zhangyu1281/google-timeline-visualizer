@@ -100,7 +100,7 @@ export const de: Strings = {
   frameRateValue: '{fps} fps',
   frameRateHelp: 'Höhere Bildraten wirken flüssiger, benötigen aber mehr Zeit und erzeugen größere Dateien.',
   privacyNoticeTitle: 'Vor dem Laden der Karte',
-  privacyNoticeBody: 'Ihre Timeline-Datei wird niemals hochgeladen. CARTO erhält die Kachelkoordinaten der Kartenbereiche in der ausgewählten Reise zusammen mit normalen Netzwerkinformationen wie Ihrer IP-Adresse. Dadurch können Orte in Ihrer Timeline gegenüber CARTO offengelegt werden.',
+  privacyNoticeBody: 'Ihre Timeline-Datei wird niemals hochgeladen. Esri erhält die Kachelkoordinaten der Kartenbereiche in der ausgewählten Reise zusammen mit normalen Netzwerkinformationen wie Ihrer IP-Adresse. Dadurch können Orte in Ihrer Timeline gegenüber Esri offengelegt werden.',
   mapConsentLabel: 'Ich habe verstanden und möchte die Karte laden',
   privacyPolicyLink: 'Datenschutzrichtlinie der Web-App lesen',
   previewButton: 'Vorschau',
@@ -164,7 +164,7 @@ export const de: Strings = {
   errorPaymentRequired: 'Bezahlen Sie, um Download und Teilen freizuschalten.',
 
   footerNoAccount: 'Kein Konto, keine Standortberechtigung und kein Timeline-Upload erforderlich.',
-  footerMapAttribution: 'Kartendaten © OpenStreetMap-Mitwirkende und © CARTO.',
+  footerMapAttribution: 'Kartendaten © OpenStreetMap-Mitwirkende und © Esri.',
   footerThirdPartyNotices: 'Hinweise zu Drittanbietern',
 
   rawOnlyDialogTitle: 'Nur unverarbeitete Standortdaten gefunden',
@@ -216,7 +216,7 @@ export const de: Strings = {
   periodRange: '{start} – {end}',
 
   errorAccuracyLimit: 'Null oder eine positive Zahl eingeben oder das Feld leer lassen.',
-  errorMapConsent: 'Bestätigen Sie den Datenschutzhinweis zur Karte, bevor Kartenbilder von CARTO angefordert werden.',
+  errorMapConsent: 'Bestätigen Sie den Datenschutzhinweis zur Karte, bevor Kartenbilder von Esri angefordert werden.',
   errorMalformedJson: 'Diese Datei enthält kein gültiges oder vollständiges JSON.',
   errorLegacyFormat: 'Dies ist ein älteres Google Takeout-Format. Exportieren Sie die Timeline-Daten stattdessen vom Telefon.',
   errorRawSignalsOnly: 'Dieser Export enthält Rohsignale, aber keine rekonstruierten Timeline-Reisen.',

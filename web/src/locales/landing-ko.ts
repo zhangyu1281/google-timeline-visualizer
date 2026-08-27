@@ -41,7 +41,7 @@ export const landingKo = {
   whyTitle: 'Timeline Visualizer를 쓰는 이유',
   whyPrivateTitle: '설계상 비공개',
   whyPrivateBody:
-    'Timeline.json은 기기에서만 처리됩니다. 서버 업로드 없음 — CARTO에는 지도 타일 좌표만 전송됩니다.',
+    'Timeline.json은 기기에서만 처리됩니다. 서버 업로드 없음 — Esri에는 지도 타일 좌표만 전송됩니다.',
   whyFreeTitle: '무료 미리보기, 다운로드는 유료',
   whyFreeBody:
     '영상을 무료로 만들고 미리보세요. MP4 다운로드와 공유는 $2.59 — 계정이나 구독 없이 이용 가능합니다.',
@@ -65,7 +65,7 @@ export const landingKo = {
   faqPreviewTitle: '자주 묻는 질문',
   faqPreviewQ1: '위치 데이터가 업로드되나요?',
   faqPreviewA1:
-    '아니요. Timeline Visualizer는 브라우저에서만 파일을 읽습니다. CARTO에서 지도 타일을 가져올 때 이동 구간 좌표가 전달될 수 있습니다.',
+    '아니요. Timeline Visualizer는 브라우저에서만 파일을 읽습니다. Esri에서 지도 타일을 가져올 때 이동 구간 좌표가 전달될 수 있습니다.',
   faqPreviewQ2: '어떤 브라우저에서 MP4를 만들 수 있나요?',
   faqPreviewA2:
     'iPhone Safari 16.4+ 및 최신 Chrome/Edge(데스크톱)에서 WebCodecs H.264를 지원합니다. 다른 브라우저는 데이터 로드만 가능할 수 있습니다.',

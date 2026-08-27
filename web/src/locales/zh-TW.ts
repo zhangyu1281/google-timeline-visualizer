@@ -96,7 +96,7 @@ export const zhTW: Strings = {
   frameRateValue: '{fps} fps',
   frameRateHelp: '影格率越高，畫面越流暢，但建立時間更長，檔案也會更大。',
   privacyNoticeTitle: '載入地圖之前',
-  privacyNoticeBody: '您的時間軸檔案絕不會上傳。CARTO 會收到所選行程中地圖區域的圖塊座標，以及您的 IP 位址等一般網路資訊。這可能會將您時間軸中的地點揭露給 CARTO。',
+  privacyNoticeBody: '您的時間軸檔案絕不會上傳。Esri 會收到所選行程中地圖區域的圖塊座標，以及您的 IP 位址等一般網路資訊。這可能會將您時間軸中的地點揭露給 Esri。',
   mapConsentLabel: '我了解，我要載入地圖',
   privacyPolicyLink: '閱讀網頁版隱私權政策',
   previewButton: '預覽',
@@ -159,7 +159,7 @@ export const zhTW: Strings = {
   errorPaymentRequired: '請先付款以解鎖下載和分享。',
 
   footerNoAccount: '不需要帳號、定位權限，也不需要上傳時間軸。',
-  footerMapAttribution: '地圖資料 © OpenStreetMap 貢獻者與 © CARTO。',
+  footerMapAttribution: '地圖資料 © OpenStreetMap 貢獻者與 © Esri。',
   footerThirdPartyNotices: '第三方授權聲明',
 
   rawOnlyDialogTitle: '僅找到原始定位資料',
@@ -205,7 +205,7 @@ export const zhTW: Strings = {
   periodRange: '{start} – {end}',
 
   errorAccuracyLimit: '請輸入零或正數的精準度上限，或將此欄留白。',
-  errorMapConsent: '向 CARTO 請求地圖圖像前，請先確認地圖隱私權聲明。',
+  errorMapConsent: '向 Esri 請求地圖圖像前，請先確認地圖隱私權聲明。',
   errorMalformedJson: '這個檔案不是有效或完整的 JSON 檔案。',
   errorLegacyFormat: '這是舊版的 Google Takeout 格式。請改從手機匯出時間軸資料。',
   errorRawSignalsOnly: '此匯出檔含有原始訊號，但沒有重建的時間軸行程。',

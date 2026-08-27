@@ -102,7 +102,7 @@ export const fr: Strings = {
   frameRateValue: '{fps} ips',
   frameRateHelp: 'Une fréquence élevée est plus fluide, mais demande plus de temps et produit un fichier plus volumineux.',
   privacyNoticeTitle: 'Avant de charger la carte',
-  privacyNoticeBody: 'Votre fichier Timeline n’est jamais envoyé sur un serveur. CARTO reçoit les coordonnées des tuiles des zones cartographiques du voyage sélectionné, ainsi que des informations réseau normales telles que votre adresse IP. Cela peut révéler des lieux de votre Timeline à CARTO.',
+  privacyNoticeBody: 'Votre fichier Timeline n’est jamais envoyé sur un serveur. Esri reçoit les coordonnées des tuiles des zones cartographiques du voyage sélectionné, ainsi que des informations réseau normales telles que votre adresse IP. Cela peut révéler des lieux de votre Timeline à Esri.',
   mapConsentLabel: 'J’ai compris et je veux charger la carte',
   privacyPolicyLink: 'Lire la politique de confidentialité de l’app web',
   previewButton: 'Aperçu',
@@ -167,7 +167,7 @@ export const fr: Strings = {
   errorPaymentRequired: 'Payez pour débloquer le téléchargement et le partage.',
 
   footerNoAccount: 'Aucun compte, aucune autorisation de localisation ni aucun envoi de votre Timeline n’est nécessaire.',
-  footerMapAttribution: 'Données cartographiques © les contributeurs OpenStreetMap et © CARTO.',
+  footerMapAttribution: 'Données cartographiques © les contributeurs OpenStreetMap et © Esri.',
   footerThirdPartyNotices: 'Mentions légales des tiers',
 
   rawOnlyDialogTitle: 'Seules des données de localisation brutes ont été trouvées',
@@ -225,7 +225,7 @@ export const fr: Strings = {
   periodRange: '{start} – {end}',
 
   errorAccuracyLimit: 'Saisissez zéro ou un nombre positif, ou laissez ce champ vide.',
-  errorMapConsent: 'Confirmez l’avis de confidentialité de la carte avant de demander des images de carte à CARTO.',
+  errorMapConsent: 'Confirmez l’avis de confidentialité de la carte avant de demander des images de carte à Esri.',
   errorMalformedJson: 'Ce fichier ne contient pas de JSON valide ou complet.',
   errorLegacyFormat: 'Il s’agit d’un ancien format Google Takeout. Exportez les données Timeline depuis votre téléphone.',
   errorRawSignalsOnly: 'Cette exportation contient des signaux bruts, mais aucun voyage Timeline reconstitué.',

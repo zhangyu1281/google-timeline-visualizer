@@ -102,7 +102,7 @@ export const ptBR: Strings = {
   frameRateValue: '{fps} fps',
   frameRateHelp: 'Taxas maiores ficam mais suaves, mas levam mais tempo e geram arquivos maiores.',
   privacyNoticeTitle: 'Antes de carregar o mapa',
-  privacyNoticeBody: 'Seu arquivo Timeline nunca é enviado. CARTO recebe as coordenadas dos blocos das áreas do mapa na jornada selecionada, juntamente com informações normais de rede, como seu endereço IP. Isso pode revelar locais do seu Timeline a CARTO.',
+  privacyNoticeBody: 'Seu arquivo Timeline nunca é enviado. Esri recebe as coordenadas dos blocos das áreas do mapa na jornada selecionada, juntamente com informações normais de rede, como seu endereço IP. Isso pode revelar locais do seu Timeline a Esri.',
   mapConsentLabel: 'Entendi e quero carregar o mapa',
   privacyPolicyLink: 'Leia a política de privacidade do app web',
   previewButton: 'Visualizar',
@@ -167,7 +167,7 @@ export const ptBR: Strings = {
   errorPaymentRequired: 'Pague para desbloquear download e compartilhamento.',
 
   footerNoAccount: 'Não exige conta, permissão de localização nem envio do Timeline.',
-  footerMapAttribution: 'Dados do mapa © colaboradores do OpenStreetMap e © CARTO.',
+  footerMapAttribution: 'Dados do mapa © colaboradores do OpenStreetMap e © Esri.',
   footerThirdPartyNotices: 'Avisos de terceiros',
 
   rawOnlyDialogTitle: 'Apenas dados de localização brutos encontrados',
@@ -225,7 +225,7 @@ export const ptBR: Strings = {
   periodRange: '{start} – {end}',
 
   errorAccuracyLimit: 'Digite um limite de precisão zero ou positivo, ou deixe em branco.',
-  errorMapConsent: 'Confirme o aviso de privacidade do mapa antes de solicitar imagens de mapa a CARTO.',
+  errorMapConsent: 'Confirme o aviso de privacidade do mapa antes de solicitar imagens de mapa a Esri.',
   errorMalformedJson: 'Este arquivo não contém um JSON válido ou completo.',
   errorLegacyFormat: 'Este é um formato antigo do Google Takeout. Exporte os dados do Timeline pelo telefone.',
   errorRawSignalsOnly: 'Esta exportação contém sinais brutos, mas nenhuma jornada reconstruída do Timeline.',

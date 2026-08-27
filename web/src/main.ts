@@ -1107,7 +1107,7 @@ function updateLanguageAvailability(): void {
 // receives a journey prepared at the format size. Dropping the format from the key, or adding
 // the preview size to it, would silently encode a video from too low a tile zoom.
 // The language is deliberately absent: it changes no pixel of the map, and including it would
-// throw away every downloaded tile and re-request them from CARTO on every switch.
+// throw away every downloaded tile and re-request them from Esri on every switch.
 function currentRangeSignature(): string {
   const format = `:format:${currentFormat().key}`;
   if (rawSignalsToggle.checked) return `raw:${rawAccuracyLimit.value.trim()}${format}`;
@@ -1347,7 +1347,7 @@ function onDistanceUnitChange(): void {
  * Re-renders in place rather than reloading. A reload would lose the picked File, which cannot
  * be restored without a second trip through the Files app, revoke the object URL of a finished
  * but not yet downloaded MP4, and throw away the prepared journey along with every map tile it
- * downloaded, which means another round of requests to CARTO.
+ * downloaded, which means another round of requests to Esri.
  */
 function onLanguageChange(): void {
   const value = languageSelect.value;

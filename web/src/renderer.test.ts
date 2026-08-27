@@ -420,12 +420,12 @@ describe('drawFrame aspect ratio guard', () => {
 describe('map attribution', () => {
   // Burned into the MP4, where it outlives the app locale and cannot be corrected afterwards.
   // Android translates the same string and it has already regressed: values-pt-rBR dropped
-  // '© CARTO' entirely, and five other locales collapsed the double space. Keeping this
+  // '© Esri' entirely, and five other locales collapsed the double space. Keeping this
   // developer-owned is only safe if the constant itself is pinned.
   it('names both providers', () => {
     expect(MAP_ATTRIBUTION).toContain('OpenStreetMap');
-    expect(MAP_ATTRIBUTION).toContain('CARTO');
-    expect(MAP_ATTRIBUTION).toBe('© OpenStreetMap contributors  © CARTO');
+    expect(MAP_ATTRIBUTION).toContain('Esri');
+    expect(MAP_ATTRIBUTION).toBe('© OpenStreetMap contributors  © Esri');
   });
 
   it('is drawn into every frame', () => {

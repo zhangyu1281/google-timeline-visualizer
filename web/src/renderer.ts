@@ -48,12 +48,12 @@ export interface OverlayText {
 /**
  * The map attribution is a licensing artifact burned into the MP4, which outlives the app
  * locale, so it is developer-owned and deliberately not translatable. Android does translate
- * its map_attribution and that has already regressed: values-pt-rBR dropped '© CARTO'
+ * its map_attribution and that has already regressed: values-pt-rBR dropped '© Esri'
  * altogether, and five other locales collapsed the double space. A viewer of an exported video
  * has no way to correct it afterwards, so the only translatable token here, 'contributors', is
  * not worth the risk. renderer.test.ts pins both names against exactly that class of loss.
  */
-export const MAP_ATTRIBUTION = '© OpenStreetMap contributors  © CARTO';
+export const MAP_ATTRIBUTION = '© OpenStreetMap contributors  © Esri';
 
 // Route and marker sizes are authored on the same 720 design grid as the overlay,
 // so a single scale keeps every stroke proportional at any output size.

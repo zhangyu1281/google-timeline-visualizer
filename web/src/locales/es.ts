@@ -102,7 +102,7 @@ export const es: Strings = {
   frameRateValue: '{fps} fps',
   frameRateHelp: 'Una velocidad mayor se ve más fluida, pero tarda más y crea archivos más grandes.',
   privacyNoticeTitle: 'Antes de cargar el mapa',
-  privacyNoticeBody: 'Tu archivo Timeline nunca se sube. CARTO recibe las coordenadas de mosaico de las áreas del mapa del viaje seleccionado, junto con información de red normal, como tu dirección IP. Esto puede revelar a CARTO lugares de tu Timeline.',
+  privacyNoticeBody: 'Tu archivo Timeline nunca se sube. Esri recibe las coordenadas de mosaico de las áreas del mapa del viaje seleccionado, junto con información de red normal, como tu dirección IP. Esto puede revelar a Esri lugares de tu Timeline.',
   mapConsentLabel: 'Lo entiendo y quiero cargar el mapa',
   privacyPolicyLink: 'Leer la política de privacidad de la app web',
   previewButton: 'Vista previa',
@@ -167,7 +167,7 @@ export const es: Strings = {
   errorPaymentRequired: 'Pague para desbloquear la descarga y el uso compartido.',
 
   footerNoAccount: 'No se necesita cuenta, permiso de ubicación ni subir el archivo Timeline.',
-  footerMapAttribution: 'Datos del mapa © colaboradores de OpenStreetMap y © CARTO.',
+  footerMapAttribution: 'Datos del mapa © colaboradores de OpenStreetMap y © Esri.',
   footerThirdPartyNotices: 'Avisos de terceros',
 
   rawOnlyDialogTitle: 'Solo se encontraron datos de ubicación sin procesar',
@@ -225,7 +225,7 @@ export const es: Strings = {
   periodRange: '{start} – {end}',
 
   errorAccuracyLimit: 'Introduce un límite de precisión no negativo o deja el campo vacío.',
-  errorMapConsent: 'Confirma el aviso de privacidad del mapa antes de solicitar imágenes de mapa a CARTO.',
+  errorMapConsent: 'Confirma el aviso de privacidad del mapa antes de solicitar imágenes de mapa a Esri.',
   errorMalformedJson: 'Este archivo no es un JSON válido o completo.',
   errorLegacyFormat: 'Este es un formato antiguo de Google Takeout. Exporta los datos de Timeline desde tu teléfono.',
   errorRawSignalsOnly: 'Esta exportación contiene señales sin procesar, pero no viajes de Timeline reconstruidos.',

@@ -41,7 +41,7 @@ export const landingJa = {
   whyTitle: 'Timeline Visualizer を選ぶ理由',
   whyPrivateTitle: '設計上プライベート',
   whyPrivateBody:
-    'Timeline.json は端末内で解析されます。サーバーへのアップロードなし — CARTO には地図タイル座標のみ送信されます。',
+    'Timeline.json は端末内で解析されます。サーバーへのアップロードなし — Esri には地図タイル座標のみ送信されます。',
   whyFreeTitle: '無料プレビュー、ダウンロードは有料',
   whyFreeBody:
     '動画の作成とプレビューは無料です。MP4 のダウンロードと共有は $2.59 — アカウントやサブスクリプションは不要です。',
@@ -65,7 +65,7 @@ export const landingJa = {
   faqPreviewTitle: 'よくある質問',
   faqPreviewQ1: '位置データはアップロードされますか？',
   faqPreviewA1:
-    'いいえ。Timeline Visualizer はブラウザ内でファイルを読み込みます。CARTO から地図タイル取得時に、移動区間の座標が送信される場合があります。',
+    'いいえ。Timeline Visualizer はブラウザ内でファイルを読み込みます。Esri から地図タイル取得時に、移動区間の座標が送信される場合があります。',
   faqPreviewQ2: 'どのブラウザで MP4 を作成できますか？',
   faqPreviewA2:
     'iPhone の Safari 16.4+ とデスクトップの最新 Chrome/Edge が WebCodecs H.264 に対応。それ以外はデータ読み込みのみの場合があります。',

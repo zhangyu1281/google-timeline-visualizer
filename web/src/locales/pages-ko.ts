@@ -94,7 +94,7 @@ export const pagesKo = {
     '내보낸 Google 지도 Timeline.json을 읽어 움직이는 여행 recap MP4를 만드는 무료 브라우저 도구입니다. 전부 브라우저에서 실행되며 위치 데이터는 업로드되지 않습니다.',
   faqQ2: '데이터가 서버에 업로드되나요?',
   faqA2:
-    '아니요. Timeline JSON은 브라우저에서만 읽습니다. CARTO에서 지도 타일을 가져올 때 이동 구간의 지리적 영역이 드러날 수 있습니다.',
+    '아니요. Timeline JSON은 브라우저에서만 읽습니다. Esri에서 지도 타일을 가져올 때 이동 구간의 지리적 영역이 드러날 수 있습니다.',
   faqQ3: 'Timeline.json 파일은 어떻게 받나요?',
   faqA3Prefix: '휴대전화에서 직접 내보내세요. ',
   faqA3ExportLink: '내보내기 가이드',
@@ -191,7 +191,7 @@ export const pagesKo = {
     'If you believe a charge is incorrect, contact xevpass@gmail.com before opening a bank dispute. We aim to respond within 2 business days and resolve confirmed billing errors within 5 business days.',
   termsIpTitle: '9. Intellectual property',
   termsIpBody:
-    'You retain ownership of your Timeline data and the MP4 videos you generate. MahlerLab owns the Service, software, branding, and site content. Map tiles and attribution remain subject to third-party licenses (OpenStreetMap, CARTO).',
+    'You retain ownership of your Timeline data and the MP4 videos you generate. MahlerLab owns the Service, software, branding, and site content. Map tiles and attribution remain subject to third-party licenses (OpenStreetMap, Esri).',
   termsAupTitle: '10. Acceptable use',
   termsAupBody: 'You agree not to use the Service to:',
   termsAupList1: 'Violate any law or third-party rights.',
@@ -234,7 +234,7 @@ export const pagesKo = {
   privacyCollectBody:
     '2.1 Information you provide: If you contact support or complete checkout, we may receive your email address, message content, transaction amount, payment status, and order reference. We do not store full payment card numbers — card data is handled by Waffo Pancake (see Section 5).',
   privacyCollectBody2:
-    '2.2 Information collected automatically: device and browser type, IP address, pages visited, general usage events, and error logs. When you accept the map notice, map tile requests to CARTO include tile coordinates for areas in your selected journey plus standard network data (IP address, user agent).',
+    '2.2 Information collected automatically: device and browser type, IP address, pages visited, general usage events, and error logs. When you accept the map notice, map tile requests to Esri include tile coordinates for areas in your selected journey plus standard network data (IP address, user agent).',
   privacyCollectBody3:
     '2.3 Timeline data: Your Timeline.json file, route coordinates, titles, and generated MP4 are processed locally in your browser. We do not upload your location history to our application servers.',
   privacyUseTitle: '3. How we use information',
@@ -245,7 +245,7 @@ export const pagesKo = {
     'We and our partners may use cookies and similar technologies. Strictly necessary cookies support core functionality. Analytics (e.g., Google Analytics measurement ID G-D537HYXP7Z, Cloudflare Web Analytics) help us measure aggregate traffic — not Timeline contents or coordinates. Ad partners (e.g., Adsterra) may use cookies to serve and measure ads. You can adjust browser settings to limit non-essential cookies.',
   privacyShareTitle: '5. Sharing & disclosure',
   privacyShareBody:
-    'We do not sell your personal information as defined by applicable privacy laws. We share information only with: service providers (hosting, analytics, payment processing); Waffo Pancake for checkout and card processing; CARTO for map tiles when you consent; and when required by law. Payment card data is processed exclusively by Waffo Pancake and is not stored on our servers.',
+    'We do not sell your personal information as defined by applicable privacy laws. We share information only with: service providers (hosting, analytics, payment processing); Waffo Pancake for checkout and card processing; Esri for map tiles when you consent; and when required by law. Payment card data is processed exclusively by Waffo Pancake and is not stored on our servers.',
   privacySecurityTitle: '6. Data security',
   privacySecurityBody:
     'We use HTTPS for transport and follow reasonable security practices. No method is 100% secure. If a breach affects your rights, we will notify you and regulators as required by law (typically within 72 hours where applicable).',
@@ -266,7 +266,7 @@ export const pagesKo = {
     'The Service is not directed to children under 13. We do not knowingly collect personal information from children under 13. Contact us to request deletion if you believe a child provided information.',
   privacyThirdPartyTitle: '12. Third-party links & services',
   privacyThirdPartyBody:
-    'The Service links to third parties (Google Maps export instructions, GitHub, payment checkout). Their privacy practices are governed by their own policies. Map data © OpenStreetMap contributors and © CARTO — see /third-party-notices.txt for full attribution.',
+    'The Service links to third parties (Google Maps export instructions, GitHub, payment checkout). Their privacy practices are governed by their own policies. Map data © OpenStreetMap contributors and © Esri — see /third-party-notices.txt for full attribution.',
   privacyChangesTitle: '13. Changes to this policy',
   privacyChangesBody:
     'We may update this policy. Material changes will be posted here with a new "Last updated" date at least 15 days before they take effect where practicable.',

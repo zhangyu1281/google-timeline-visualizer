@@ -41,7 +41,7 @@ export const landingEn = {
   whyTitle: 'Why Use Timeline Visualizer?',
   whyPrivateTitle: 'Private by design',
   whyPrivateBody:
-    'Your Timeline.json is parsed locally. Nothing is uploaded to our servers — only map tile coordinates go to CARTO.',
+    'Your Timeline.json is parsed locally. Nothing is uploaded to our servers — only map tile coordinates go to Esri.',
   whyFreeTitle: 'Free preview, pay to download',
   whyFreeBody:
     'Create and preview your video for free. Download and share your MP4 for $2.59 — no account or subscription.',
@@ -65,7 +65,7 @@ export const landingEn = {
   faqPreviewTitle: 'Frequently Asked Questions',
   faqPreviewQ1: 'Is my location data uploaded?',
   faqPreviewA1:
-    'No. Timeline Visualizer reads your file locally in the browser. Map tiles are fetched from CARTO, which may receive coordinates for areas in your journey.',
+    'No. Timeline Visualizer reads your file locally in the browser. Map tiles are fetched from Esri, which may receive coordinates for areas in your journey.',
   faqPreviewQ2: 'Which browsers can create MP4 video?',
   faqPreviewA2:
     'Safari 16.4+ on iPhone and recent Chrome or Edge on desktop support WebCodecs H.264 encoding. Other browsers can load data but may not export video.',

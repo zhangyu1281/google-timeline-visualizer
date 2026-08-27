@@ -1,12 +1,16 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
+import { mapTileUrl } from './render-theme';
 
 describe('mapTileUrl', () => {
-  it('appends CARTO api key when configured', async () => {
-    vi.stubEnv('VITE_CARTO_API_KEY', 'test-carto-key');
-    vi.resetModules();
-    const { mapTileUrl } = await import('./render-theme');
+  it('uses Esri Canvas basemaps with {z}/{y}/{x} tile order', () => {
     expect(mapTileUrl('light', 3, 4, 5)).toBe(
-      'https://a.basemaps.cartocdn.com/light_all/3/4/5.png?key=test-carto-key',
+      'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/3/5/4',
+    );
+    expect(mapTileUrl('dark', 3, 4, 5)).toBe(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/3/5/4',
+    );
+    expect(mapTileUrl('night', 3, 4, 5)).toBe(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/3/5/4',
     );
   });
 });

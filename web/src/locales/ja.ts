@@ -99,7 +99,7 @@ export const ja: Strings = {
   frameRateValue: '{fps} fps',
   frameRateHelp: 'フレームレートが高いほど滑らかになりますが、作成時間とファイルサイズが増えます。',
   privacyNoticeTitle: '地図を読み込む前に',
-  privacyNoticeBody: 'タイムライン ファイルはアップロードされません。選択した移動経路に含まれる地域の地図タイル座標と、IPアドレスなど通常のネットワーク情報がCARTOへ送信されます。これにより、タイムライン内の場所がCARTOに伝わる場合があります。',
+  privacyNoticeBody: 'タイムライン ファイルはアップロードされません。選択した移動経路に含まれる地域の地図タイル座標と、IPアドレスなど通常のネットワーク情報がEsriへ送信されます。これにより、タイムライン内の場所がEsriに伝わる場合があります。',
   mapConsentLabel: '内容を理解したうえで地図を読み込む',
   privacyPolicyLink: 'ウェブアプリのプライバシーポリシーを読む',
   previewButton: 'プレビュー',
@@ -162,7 +162,7 @@ export const ja: Strings = {
   errorPaymentRequired: 'ダウンロードと共有のロックを解除するにはお支払いが必要です。',
 
   footerNoAccount: 'アカウント、位置情報の権限、タイムラインのアップロードはいずれも不要です。',
-  footerMapAttribution: '地図データ © OpenStreetMap contributors および © CARTO。',
+  footerMapAttribution: '地図データ © OpenStreetMap contributors および © Esri。',
   footerThirdPartyNotices: 'サードパーティに関する通知',
 
   rawOnlyDialogTitle: '未処理の位置情報のみが見つかりました',
@@ -208,7 +208,7 @@ export const ja: Strings = {
   periodRange: '{start} – {end}',
 
   errorAccuracyLimit: '0以上の数値を入力するか、空欄にしてください。',
-  errorMapConsent: 'CARTOに地図画像を要求する前に、地図のプライバシーに関する説明を確認してください。',
+  errorMapConsent: 'Esriに地図画像を要求する前に、地図のプライバシーに関する説明を確認してください。',
   errorMalformedJson: '有効または完全な JSON ファイルではありません。',
   errorLegacyFormat: '以前の Google Takeout 形式です。端末からタイムライン データを書き出してください。',
   errorRawSignalsOnly: 'この書き出しには未処理のシグナルのみが含まれ、再構成されたタイムラインの移動経路がありません。',
