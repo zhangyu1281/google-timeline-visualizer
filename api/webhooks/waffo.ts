@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { verifyWebhook, WebhookEventType } from '@waffo/pancake-ts';
-import { markSessionPaid } from '../_lib/payment-store';
+import { markExportPaid, markSessionPaid } from '../_lib/payment-store';
 
 export const config = {
   api: {
@@ -28,6 +28,18 @@ function sessionIdFromPayload(data: Record<string, unknown>): string | null {
   return null;
 }
 
+function exportIdFromPayload(data: Record<string, unknown>): string | null {
+  if (typeof data.orderMerchantExternalId === 'string' && data.orderMerchantExternalId.length > 0) {
+    return data.orderMerchantExternalId;
+  }
+  const metadata = data.orderMetadata ?? data.metadata;
+  if (metadata && typeof metadata === 'object' && metadata !== null) {
+    const exportId = (metadata as Record<string, unknown>).exportId;
+    if (typeof exportId === 'string' && exportId.length > 0) return exportId;
+  }
+  return null;
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse): Promise<void> {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
@@ -44,8 +56,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
 
     if (event.eventType === WebhookEventType.OrderCompleted) {
       const sessionId = sessionIdFromPayload(data);
+      const exportId = exportIdFromPayload(data);
       if (sessionId) {
         await markSessionPaid(sessionId);
+      }
+      if (exportId) {
+        await markExportPaid(exportId);
+      }
+      if (!sessionId && !exportId) {
+        console.warn('webhooks/waffo: order.completed missing sessionId and exportId', data);
       }
     }
 

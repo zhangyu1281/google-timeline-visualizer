@@ -780,10 +780,10 @@ async function unlockAfterPayment(sessionId: string, exportId: string): Promise<
   updateResultActions();
 }
 
-async function confirmPaidSession(sessionId: string): Promise<boolean> {
-  if (await fetchPaymentStatus(sessionId)) return true;
+async function confirmPaidSession(sessionId: string, exportId: string): Promise<boolean> {
+  if (await fetchPaymentStatus(sessionId, exportId)) return true;
   try {
-    return await pollPaymentStatus(sessionId, AbortSignal.timeout(30_000));
+    return await pollPaymentStatus(sessionId, AbortSignal.timeout(60_000), 2000, exportId);
   } catch {
     return false;
   }
@@ -800,8 +800,30 @@ async function handlePaymentSuccessFromPopup(exportId: string, sessionIdHint?: s
   renderPaymentStatus(i18n.t('paymentPending'));
   updateResultActions();
   try {
-    if (await confirmPaidSession(sessionId)) {
+    if (await confirmPaidSession(sessionId, exportId)) {
       await unlockAfterPayment(sessionId, exportId);
+    }
+  } finally {
+    isPaymentPending = false;
+    updateResultActions();
+  }
+}
+
+async function finalizePaymentAfterPopupClosed(
+  sessionId: string,
+  exportId: string,
+  downloadAfterUnlock: boolean,
+): Promise<void> {
+  if (isDownloadUnlocked(exportId)) return;
+  isPaymentPending = true;
+  renderPaymentStatus(i18n.t('paymentPending'));
+  updateResultActions();
+  try {
+    if (await confirmPaidSession(sessionId, exportId)) {
+      await unlockAfterPayment(sessionId, exportId);
+      if (downloadAfterUnlock) triggerFileDownload();
+    } else {
+      renderPaymentStatus(null);
     }
   } finally {
     isPaymentPending = false;
@@ -853,20 +875,33 @@ async function startPaymentFlow(options: PaymentFlowOptions = {}): Promise<boole
     loadCheckoutInPopup(popup, session.checkoutUrl);
 
     paymentPollController = new AbortController();
+    let popupFinalizeTriggered = false;
     const popupClosedTimer = window.setInterval(() => {
-      if (popup.closed) {
-        window.clearInterval(popupClosedTimer);
-        // Keep polling after the popup closes — payment may complete via webhook shortly after.
-      }
+      if (!popup.closed || popupFinalizeTriggered) return;
+      popupFinalizeTriggered = true;
+      window.clearInterval(popupClosedTimer);
+      paymentPollController?.abort();
+      void finalizePaymentAfterPopupClosed(
+        session.sessionId,
+        session.exportId,
+        downloadAfterUnlock,
+      );
     }, 500);
     try {
-      const paid = await pollPaymentStatus(session.sessionId, paymentPollController.signal);
+      const paid = await pollPaymentStatus(
+        session.sessionId,
+        paymentPollController.signal,
+        2000,
+        session.exportId,
+      );
       if (paid) {
         await unlockAfterPayment(session.sessionId, session.exportId);
         if (downloadAfterUnlock) triggerFileDownload();
         return true;
       }
-      renderPaymentStatus(null);
+      if (!popupFinalizeTriggered) {
+        renderPaymentStatus(null);
+      }
       return false;
     } finally {
       window.clearInterval(popupClosedTimer);
@@ -903,7 +938,7 @@ async function resumePaymentFromReturn(): Promise<void> {
   renderPaymentStatus(i18n.t('paymentPending'));
   updateResultActions();
   try {
-    if (await pollPaymentStatus(sessionId, AbortSignal.timeout(15000))) {
+    if (await pollPaymentStatus(sessionId, AbortSignal.timeout(15_000), 2000, exportId)) {
       await unlockAfterPayment(sessionId, exportId);
     }
   } finally {

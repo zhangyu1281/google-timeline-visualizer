@@ -52,7 +52,8 @@
         var MESSAGE_TYPE = 'tv-payment-success';
         var params = new URLSearchParams(window.location.search);
         var exportId = params.get('exportId');
-        var sessionId = params.get('sessionId')
+        var sessionId = params.get('session_id')
+          || params.get('sessionId')
           || params.get('checkoutSessionId')
           || params.get('checkout_session_id');
         var status = document.getElementById('status');
