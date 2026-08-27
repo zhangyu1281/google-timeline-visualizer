@@ -806,7 +806,7 @@ async function startPaymentFlow(options: PaymentFlowOptions = {}): Promise<boole
 
   try {
     const session = await createCheckoutSession(currentExportId, activeLocale(languagePreference, browserLanguages()));
-    if (!popup) {
+    if (!popup || popup.closed) {
       window.location.assign(session.checkoutUrl);
       return false;
     }

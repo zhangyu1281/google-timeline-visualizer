@@ -86,13 +86,14 @@ describe('payment', () => {
     expect(open).toHaveBeenCalledWith(
       'about:blank',
       'waffo-checkout',
-      'popup,width=520,height=720,noopener,noreferrer',
+      'popup,width=520,height=720',
     );
   });
 
   it('loads checkout url into popup', () => {
-    const popup = { location: { href: '' } };
-    loadCheckoutInPopup(popup as Window, 'https://pancake.waffo.ai/checkout/cs_test');
+    const popup = { location: { href: '' }, opener: window };
+    loadCheckoutInPopup(popup as unknown as Window, 'https://pancake.waffo.ai/checkout/cs_test');
+    expect(popup.opener).toBeNull();
     expect(popup.location.href).toBe('https://pancake.waffo.ai/checkout/cs_test');
   });
 });

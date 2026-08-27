@@ -89,7 +89,9 @@ export async function fetchPaymentStatus(sessionId: string): Promise<boolean> {
   return payload.paid === true;
 }
 
-const CHECKOUT_POPUP_FEATURES = 'popup,width=520,height=720,noopener,noreferrer';
+// Do not pass noopener here — Chrome returns null (no window reference) while still
+// opening the popup, which leaves about:blank visible and triggers our full-page fallback.
+const CHECKOUT_POPUP_FEATURES = 'popup,width=520,height=720';
 const CHECKOUT_POPUP_NAME = 'waffo-checkout';
 
 /** Open a blank checkout popup synchronously (must run inside a user click handler). */
@@ -99,6 +101,7 @@ export function openCheckoutPopup(): Window | null {
 
 /** Navigate a popup opened via openCheckoutPopup to the Waffo checkout URL. */
 export function loadCheckoutInPopup(popup: Window, checkoutUrl: string): void {
+  popup.opener = null;
   popup.location.href = checkoutUrl;
 }
 
