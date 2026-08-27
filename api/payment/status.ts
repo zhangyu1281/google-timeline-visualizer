@@ -35,6 +35,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
     if (!paid && sessionId.startsWith('cs_')) {
       paid = await isSessionPaid(sessionId);
     }
+    res.setHeader('Cache-Control', 'no-store');
     res.status(200).json({ configured: true, paid });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Status check failed';

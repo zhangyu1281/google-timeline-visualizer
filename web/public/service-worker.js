@@ -1,4 +1,4 @@
-const CACHE_NAME = 'timeline-visualizer-web-v5';
+const CACHE_NAME = 'timeline-visualizer-web-v6';
 
 const PRECACHE = [
   './',
@@ -46,6 +46,12 @@ self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
   const url = new URL(event.request.url);
   if (url.origin !== self.location.origin) return;
+
+  // Never cache API responses — payment status polling must always hit the network.
+  if (url.pathname.startsWith('/api/')) {
+    event.respondWith(fetch(event.request));
+    return;
+  }
 
   event.respondWith(
     caches.match(event.request).then((cached) => {

@@ -86,7 +86,7 @@ export async function fetchPaymentStatus(sessionId: string, exportId?: string): 
   const params = new URLSearchParams();
   if (sessionId.startsWith('cs_')) params.set('sessionId', sessionId);
   if (exportId) params.set('exportId', exportId);
-  const response = await fetch(`/api/payment/status?${params.toString()}`);
+  const response = await fetch(`/api/payment/status?${params.toString()}`, { cache: 'no-store' });
   if (!response.ok) return false;
   const payload = await response.json() as { paid?: boolean; configured?: boolean };
   return payload.paid === true;
