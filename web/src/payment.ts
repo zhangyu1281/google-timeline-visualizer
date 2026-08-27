@@ -89,24 +89,6 @@ export async function fetchPaymentStatus(sessionId: string): Promise<boolean> {
   return payload.paid === true;
 }
 
-/** postMessage type sent from /payment/complete.html popup back to the opener. */
-export const PAYMENT_SUCCESS_MESSAGE = 'tv-payment-success';
-
-export interface PaymentSuccessPayload {
-  type: typeof PAYMENT_SUCCESS_MESSAGE;
-  exportId: string;
-  sessionId?: string;
-}
-
-export function isPaymentSuccessPayload(data: unknown): data is PaymentSuccessPayload {
-  if (typeof data !== 'object' || data === null) return false;
-  const record = data as Record<string, unknown>;
-  return record.type === PAYMENT_SUCCESS_MESSAGE
-    && typeof record.exportId === 'string'
-    && record.exportId.length > 0
-    && (record.sessionId === undefined || typeof record.sessionId === 'string');
-}
-
 // Do not pass noopener here — Chrome returns null (no window reference) while still
 // opening the popup, which leaves about:blank visible and triggers our full-page fallback.
 const CHECKOUT_POPUP_FEATURES = 'popup,width=520,height=720';
@@ -119,7 +101,7 @@ export function openCheckoutPopup(): Window | null {
 
 /** Navigate a popup opened via openCheckoutPopup to the Waffo checkout URL. */
 export function loadCheckoutInPopup(popup: Window, checkoutUrl: string): void {
-  // Keep window.opener so /payment/complete.html can postMessage back to the main app.
+  popup.opener = null;
   popup.location.href = checkoutUrl;
 }
 

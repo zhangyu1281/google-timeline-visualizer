@@ -18,7 +18,6 @@ export default defineConfig({
         privacy: resolve(__dirname, 'privacy.html'),
         terms: resolve(__dirname, 'terms.html'),
         about: resolve(__dirname, 'about.html'),
-        'payment-complete': resolve(__dirname, 'payment/complete.html'),
       },
     },
   },

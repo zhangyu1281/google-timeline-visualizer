@@ -2,11 +2,9 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   clearPaymentSession,
   createExportId,
-  isPaymentSuccessPayload,
   loadCheckoutInPopup,
   markDownloadUnlocked,
   openCheckoutPopup,
-  PAYMENT_SUCCESS_MESSAGE,
   paymentPriceLabel,
   paymentReturnExportId,
   storePendingPaymentSession,
@@ -95,17 +93,7 @@ describe('payment', () => {
   it('loads checkout url into popup', () => {
     const popup = { location: { href: '' }, opener: window };
     loadCheckoutInPopup(popup as unknown as Window, 'https://pancake.waffo.ai/checkout/cs_test');
-    expect(popup.opener).toBe(window);
+    expect(popup.opener).toBeNull();
     expect(popup.location.href).toBe('https://pancake.waffo.ai/checkout/cs_test');
-  });
-
-  it('recognizes payment success postMessage payloads', () => {
-    expect(isPaymentSuccessPayload({
-      type: PAYMENT_SUCCESS_MESSAGE,
-      exportId: 'export-1',
-      sessionId: 'cs_test',
-    })).toBe(true);
-    expect(isPaymentSuccessPayload({ type: 'other', exportId: 'x' })).toBe(false);
-    expect(isPaymentSuccessPayload(null)).toBe(false);
   });
 });

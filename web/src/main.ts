@@ -5,17 +5,14 @@ import {
   clearPaymentSession,
   createCheckoutSession,
   createExportId,
-  fetchPaymentStatus,
   isDownloadUnlocked,
   isPaymentEnabled,
-  isPaymentSuccessPayload,
   markDownloadUnlocked,
   loadCheckoutInPopup,
   openCheckoutPopup,
   paymentPriceLabel,
   paymentReturnExportId,
   pollPaymentStatus,
-  readStoredExportId,
   readStoredPaymentSession,
 } from './payment';
 import { SITE_LOCALE, HIDE_LANGUAGE_PICKER } from './site-config';
@@ -780,43 +777,6 @@ async function unlockAfterPayment(sessionId: string, exportId: string): Promise<
   updateResultActions();
 }
 
-async function confirmPaidSession(sessionId: string): Promise<boolean> {
-  if (await fetchPaymentStatus(sessionId)) return true;
-  try {
-    return await pollPaymentStatus(sessionId, AbortSignal.timeout(30_000));
-  } catch {
-    return false;
-  }
-}
-
-async function handlePaymentSuccessFromPopup(exportId: string, sessionIdHint?: string): Promise<void> {
-  const storedExportId = readStoredExportId();
-  const sessionId = sessionIdHint ?? readStoredPaymentSession();
-  if (!sessionId || !storedExportId || storedExportId !== exportId) return;
-  if (currentExportId && exportId !== currentExportId) return;
-  if (isDownloadUnlocked(exportId)) return;
-
-  isPaymentPending = true;
-  renderPaymentStatus(i18n.t('paymentPending'));
-  updateResultActions();
-  try {
-    if (await confirmPaidSession(sessionId)) {
-      await unlockAfterPayment(sessionId, exportId);
-    }
-  } finally {
-    isPaymentPending = false;
-    updateResultActions();
-  }
-}
-
-function setupPaymentReturnListener(): void {
-  window.addEventListener('message', (event) => {
-    if (event.origin !== window.location.origin) return;
-    if (!isPaymentSuccessPayload(event.data)) return;
-    void handlePaymentSuccessFromPopup(event.data.exportId, event.data.sessionId);
-  });
-}
-
 type PaymentFlowOptions = {
   /** After a successful checkout, trigger file download. Default: true for the download button. */
   downloadAfterUnlock?: boolean;
@@ -856,7 +816,7 @@ async function startPaymentFlow(options: PaymentFlowOptions = {}): Promise<boole
     const popupClosedTimer = window.setInterval(() => {
       if (popup.closed) {
         window.clearInterval(popupClosedTimer);
-        // Keep polling after the popup closes — payment may complete via webhook shortly after.
+        paymentPollController?.abort();
       }
     }, 500);
     try {
@@ -1879,7 +1839,6 @@ languageSelect.value = languagePreference;
 languageField.classList.toggle('site-ui-hidden', HIDE_LANGUAGE_PICKER);
 distanceUnitSelect.value = distanceUnitPreference;
 renderLocalizedText();
-setupPaymentReturnListener();
 void resumePaymentFromReturn();
 initHeaderLanguageSwitch();
 // Safari restores form control values on reload and on bfcache restore without firing
