@@ -36,6 +36,26 @@ export function formatRouteLine(stops: readonly string[], separator: string): st
   return stops.filter((stop) => stop.length > 0).join(separator);
 }
 
+export function countUniqueCountries(stops: readonly { country?: string | null }[]): number {
+  const seen = new Set<string>();
+  for (const stop of stops) {
+    const country = stop.country?.trim();
+    if (!country) continue;
+    seen.add(country.toLowerCase());
+  }
+  return seen.size;
+}
+
+export function countUniqueCityLabels(stops: readonly { label: string }[]): number {
+  const seen = new Set<string>();
+  for (const stop of stops) {
+    const label = stop.label.trim();
+    if (!label) continue;
+    seen.add(label.toLowerCase());
+  }
+  return seen.size;
+}
+
 export interface OutroHighlightInput {
   totalDistanceKm: number;
   dayCount: number;

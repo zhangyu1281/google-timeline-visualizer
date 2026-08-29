@@ -87,6 +87,7 @@ export const ko: Strings = {
   aspectRatioPortrait: '9:16',
   aspectRatioSquare: '1:1',
   aspectRatioLandscape: '16:9',
+  aspectRatioSocialHint: 'Instagram, TikTok, Stories에는 세로 9:16을 권장합니다.',
   exportAdvancedSummary: '해상도 및 프레임 레이트',
   squareResolutionLabel: '정사각형 해상도',
   videoFormatLabel: '영상 형식',
@@ -158,8 +159,10 @@ export const ko: Strings = {
   progressVideoReady: '영상 준비 완료 · {size} MB',
   cancelButton: '영상 만들기 취소',
   shareButton: '영상 공유',
+  sharePosterButton: '포스터 공유',
   shareMusicTip: 'Add music in TikTok or Instagram for the best share experience.',
   downloadButton: 'MP4 다운로드',
+  downloadPosterButton: '포스터 PNG 다운로드',
   payToDownloadButton: '{price} 결제 후 다운로드',
   paymentPending: '팝업 창에서 결제를 완료하세요…',
   paymentComplete: '결제가 완료되었습니다. 영상을 다운로드하고 공유할 수 있습니다.',
@@ -228,6 +231,12 @@ export const ko: Strings = {
   overlayTransferCount: {
     other: '장거리 {count}회',
   },
+  overlayCountryCount: {
+    other: '{count}개국',
+  },
+  overlayCityCount: {
+    other: '{count}개 도시',
+  },
   overlayRouteSeparator: ' → ',
 
   errorAccuracyLimit: '0 이상의 정확도 한도를 입력하거나 비워 두세요.',
@@ -241,6 +250,7 @@ export const ko: Strings = {
   errorSampleUnavailable: '가상 샘플을 불러오지 못했습니다.',
   errorPreviewFailed: '미리보기에 실패했습니다.',
   errorExportFailed: '영상 만들기에 실패했습니다.',
+  errorPosterExport: '포스터 이미지를 만들 수 없습니다.',
   errorShareUnavailable: 'iPhone 공유 시트를 열 수 없습니다. 대신 MP4 다운로드를 사용하세요.',
   errorTooFewPoints: '위치 정보가 두 개 이상 포함된 기간을 선택하세요.',
   errorNoEncoder: '이 브라우저에서는 MP4 영상을 만들 수 없습니다. Safari 16.4 이상을 사용하세요.',

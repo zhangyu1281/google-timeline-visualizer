@@ -86,10 +86,11 @@ describe('isMp4', () => {
 });
 
 describe('video format table', () => {
-  it('lists the five Android formats with standard first and unique keys', () => {
+  it('lists the five Android formats with portrait as the default key', () => {
     expect(VIDEO_FORMATS).toHaveLength(5);
     expect(new Set(VIDEO_FORMATS.map((format) => format.key)).size).toBe(5);
-    expect(VIDEO_FORMATS[0].key).toBe(DEFAULT_VIDEO_FORMAT_KEY);
+    expect(DEFAULT_VIDEO_FORMAT_KEY).toBe('portrait');
+    expect(VIDEO_FORMATS[0].key).toBe('standard');
     expect(videoFormatByKey(DEFAULT_VIDEO_FORMAT_KEY)).not.toBeNull();
   });
 

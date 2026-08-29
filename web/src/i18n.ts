@@ -161,6 +161,8 @@ export interface Strings extends LandingStrings, PagesStrings {
   aspectRatioPortrait: string;
   aspectRatioSquare: string;
   aspectRatioLandscape: string;
+  /** Shown under the aspect ratio chips. */
+  aspectRatioSocialHint: string;
   exportAdvancedSummary: string;
   squareResolutionLabel: string;
   formatSquare480: string;
@@ -234,8 +236,10 @@ export interface Strings extends LandingStrings, PagesStrings {
   progressVideoReady: string;
   cancelButton: string;
   shareButton: string;
+  sharePosterButton: string;
   shareMusicTip: string;
   downloadButton: string;
+  downloadPosterButton: string;
   /** {price} */
   payToDownloadButton: string;
   paymentPending: string;
@@ -306,6 +310,10 @@ export interface Strings extends LandingStrings, PagesStrings {
   overlayFullYear: string;
   /** {count} */
   overlayTransferCount: PluralEntry;
+  /** {count} */
+  overlayCountryCount: PluralEntry;
+  /** {count} */
+  overlayCityCount: PluralEntry;
   overlayRouteSeparator: string;
 
   // --- errors ---
@@ -320,6 +328,7 @@ export interface Strings extends LandingStrings, PagesStrings {
   errorSampleUnavailable: string;
   errorPreviewFailed: string;
   errorExportFailed: string;
+  errorPosterExport: string;
   errorShareUnavailable: string;
   errorTooFewPoints: string;
   errorNoEncoder: string;

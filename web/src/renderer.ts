@@ -536,6 +536,7 @@ export async function prepareJourney(
   signal?: AbortSignal,
   onProgress?: (completed: number, total: number) => void,
   resolveStopLabels = false,
+  acceptLanguage = 'en',
 ): Promise<PreparedJourney> {
   if (points.length < 2) {
     throw new AppError('errorTooFewPoints', 'Select a period containing at least two location points.');
@@ -578,6 +579,7 @@ export async function prepareJourney(
       worldPoints,
       resolveStopLabels,
       signal,
+      acceptLanguage,
     ),
     loadRequiredTiles([...required.values()], mapTheme, signal, onProgress),
   ]);

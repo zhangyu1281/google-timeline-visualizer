@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
+  countUniqueCityLabels,
+  countUniqueCountries,
   earthLaps,
   formatRouteLine,
   pickHighlightStopLabels,
@@ -7,7 +9,7 @@ import {
 } from './journey-highlights';
 import type { JourneyStop } from './journey-stops';
 
-function stop(label: string, longHop = false): JourneyStop {
+function stop(label: string, longHop = false, country?: string | null): JourneyStop {
   return {
     label,
     progress: 0,
@@ -15,6 +17,7 @@ function stop(label: string, longHop = false): JourneyStop {
     longitude: 0,
     worldPoint: { x: 0, y: 0 },
     longHop,
+    country,
   };
 }
 
@@ -55,6 +58,19 @@ describe('pickHighlightStopLabels', () => {
 describe('formatRouteLine', () => {
   it('joins stops with the provided separator', () => {
     expect(formatRouteLine(['Seoul', 'Busan'], ' → ')).toBe('Seoul → Busan');
+  });
+});
+
+describe('country and city counts', () => {
+  it('counts unique countries and city labels', () => {
+    const stops = [
+      stop('Shanghai', false, 'China'),
+      stop('Hong Kong', true, 'Hong Kong'),
+      stop('Paris', true, 'France'),
+      stop('Shanghai', false, 'China'),
+    ];
+    expect(countUniqueCountries(stops)).toBe(3);
+    expect(countUniqueCityLabels(stops)).toBe(3);
   });
 });
 

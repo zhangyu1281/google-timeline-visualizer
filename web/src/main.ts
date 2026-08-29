@@ -24,11 +24,14 @@ import { frameAtElapsedSeconds, totalDurationSeconds } from './animation';
 import { AppError } from './errors';
 import { cumulativeDistances } from './geo';
 import {
+  countUniqueCityLabels,
+  countUniqueCountries,
   earthLaps,
   formatRouteLine,
   pickHighlightStopLabels,
   pickOutroHighlightKind,
 } from './journey-highlights';
+import { createJourneyPosterBlob } from './poster';
 import {
   isDistanceUnitPreference,
   readDistanceUnitPreference,
@@ -82,6 +85,7 @@ import {
   ALL_VIDEO_FORMATS,
   aspectRatioOfFormatKey,
   createJourneyMp4,
+  DEFAULT_VIDEO_FORMAT_KEY,
   formatKeyForAspect,
   hasVideoEncoder,
   probeVideoFormats,
@@ -178,7 +182,9 @@ const errorMessage = element<HTMLParagraphElement>('error-message');
 const resultVideo = element<HTMLVideoElement>('result-video');
 const resultActions = element<HTMLElement>('result-actions');
 const shareButton = element<HTMLButtonElement>('share-button');
+const sharePosterButton = element<HTMLButtonElement>('share-poster-button');
 const downloadButton = element<HTMLButtonElement>('download-button');
+const downloadPosterButton = element<HTMLButtonElement>('download-poster-button');
 const paymentStatus = element<HTMLParagraphElement>('payment-status');
 const shareTip = element<HTMLParagraphElement>('share-tip');
 const backToPreviewButton = element<HTMLButtonElement>('back-to-preview-button');
@@ -271,7 +277,9 @@ let months: MonthOption[] = [];
 let prepared: PreparedJourney | null = null;
 let selectedSignature = '';
 let resultUrl: string | null = null;
+let resultPosterUrl: string | null = null;
 let resultFile: File | null = null;
+let resultPosterFile: File | null = null;
 let currentExportId: string | null = null;
 let paymentPollController: AbortController | null = null;
 let isPaymentPending = false;
@@ -634,10 +642,18 @@ function overlayText(journey?: PreparedJourney | null): OverlayText {
     outroHeroDistance = exportI18n.formatDistance(statsJourney.totalDistanceKm, unit);
 
     const transferCount = statsJourney.transfers.length;
-    const secondaryParts = [
-      exportI18n.t('overlayDayCount', { count: statsJourney.dayCount }),
-      exportI18n.t('overlayStopCount', { count: statsJourney.stops.length }),
-    ];
+    const countryCount = countUniqueCountries(statsJourney.stops);
+    const cityCount = countUniqueCityLabels(statsJourney.stops);
+    const secondaryParts: string[] = [];
+    if (countryCount >= 2) {
+      secondaryParts.push(exportI18n.t('overlayCountryCount', { count: countryCount }));
+      if (cityCount >= 2) {
+        secondaryParts.push(exportI18n.t('overlayCityCount', { count: cityCount }));
+      }
+    } else {
+      secondaryParts.push(exportI18n.t('overlayStopCount', { count: statsJourney.stops.length }));
+    }
+    secondaryParts.push(exportI18n.t('overlayDayCount', { count: statsJourney.dayCount }));
     if (transferCount > 0) {
       secondaryParts.push(exportI18n.t('overlayTransferCount', { count: transferCount }));
     }
@@ -683,7 +699,9 @@ function overlayText(journey?: PreparedJourney | null): OverlayText {
 }
 
 function baseFormat(): VideoFormat {
-  return videoFormatByKey(formatSelect.value) ?? VIDEO_FORMATS[0];
+  return videoFormatByKey(formatSelect.value)
+    ?? videoFormatByKey(DEFAULT_VIDEO_FORMAT_KEY)
+    ?? VIDEO_FORMATS[0];
 }
 
 function selectedFrameRate(format = baseFormat()): VideoFrameRate {
@@ -858,11 +876,30 @@ function triggerFileDownload(): void {
   if (currentExportId) trackEvent('download', { export_id: currentExportId });
   const link = document.createElement('a');
   link.href = resultUrl;
-  link.download = 'timeline-journey.mp4';
+  link.download = resultFile?.name ?? 'timeline-journey.mp4';
   link.rel = 'noopener';
   document.body.append(link);
   link.click();
   link.remove();
+}
+
+function triggerPosterDownload(): void {
+  if (!resultPosterUrl) return;
+  if (currentExportId) trackEvent('download_poster', { export_id: currentExportId });
+  const link = document.createElement('a');
+  link.href = resultPosterUrl;
+  link.download = resultPosterFile?.name ?? 'timeline-journey-poster.png';
+  link.rel = 'noopener';
+  document.body.append(link);
+  link.click();
+  link.remove();
+}
+
+type DownloadTarget = 'mp4' | 'poster';
+
+function triggerDownloadForTarget(target: DownloadTarget): void {
+  if (target === 'poster') triggerPosterDownload();
+  else triggerFileDownload();
 }
 
 function updateResultActions(): void {
@@ -870,18 +907,30 @@ function updateResultActions(): void {
   if (isPaymentEnabled() && !unlocked) {
     downloadButton.textContent = i18n.t('payToDownloadButton', { price: paymentPriceLabel() });
     downloadButton.dataset.i18n = 'payToDownloadButton';
+    downloadPosterButton.textContent = i18n.t('payToDownloadButton', { price: paymentPriceLabel() });
+    downloadPosterButton.dataset.i18n = 'payToDownloadButton';
     shareButton.disabled = true;
+    sharePosterButton.disabled = true;
   } else {
     downloadButton.textContent = i18n.t('downloadButton');
     downloadButton.dataset.i18n = 'downloadButton';
+    downloadPosterButton.textContent = i18n.t('downloadPosterButton');
+    downloadPosterButton.dataset.i18n = 'downloadPosterButton';
     shareButton.disabled = false;
+    sharePosterButton.disabled = false;
   }
-  downloadButton.disabled = isPaymentPending;
+  downloadButton.disabled = isPaymentPending || !resultFile;
+  downloadPosterButton.disabled = isPaymentPending || !resultPosterFile;
   const shareData = resultFile ? { files: [resultFile] } : null;
   const canShare = shareData !== null
     && typeof navigator.share === 'function'
     && (typeof navigator.canShare !== 'function' || navigator.canShare(shareData));
   shareButton.hidden = !canShare;
+  const posterShareData = resultPosterFile ? { files: [resultPosterFile] } : null;
+  const canSharePoster = posterShareData !== null
+    && typeof navigator.share === 'function'
+    && (typeof navigator.canShare !== 'function' || navigator.canShare(posterShareData));
+  sharePosterButton.hidden = !canSharePoster;
 }
 
 async function unlockAfterPayment(sessionId: string, exportId: string): Promise<void> {
@@ -930,6 +979,7 @@ async function finalizePaymentAfterPopupClosed(
   sessionId: string,
   exportId: string,
   downloadAfterUnlock: boolean,
+  downloadTarget: DownloadTarget = 'mp4',
 ): Promise<void> {
   if (isDownloadUnlocked(exportId)) return;
   isPaymentPending = true;
@@ -938,7 +988,7 @@ async function finalizePaymentAfterPopupClosed(
   try {
     if (await confirmPaidSession(sessionId, exportId)) {
       await unlockAfterPayment(sessionId, exportId);
-      if (downloadAfterUnlock) triggerFileDownload();
+      if (downloadAfterUnlock) triggerDownloadForTarget(downloadTarget);
     } else {
       trackEvent('payment_abandoned', { export_id: exportId });
       renderPaymentStatus(null);
@@ -960,17 +1010,19 @@ function setupPaymentReturnListener(): void {
 type PaymentFlowOptions = {
   /** After a successful checkout, trigger file download. Default: true for the download button. */
   downloadAfterUnlock?: boolean;
+  downloadTarget?: DownloadTarget;
 };
 
 async function startPaymentFlow(options: PaymentFlowOptions = {}): Promise<boolean> {
   const downloadAfterUnlock = options.downloadAfterUnlock ?? true;
+  const downloadTarget = options.downloadTarget ?? 'mp4';
   if (!currentExportId || !resultFile) return false;
   if (isDownloadUnlocked(currentExportId)) {
-    if (downloadAfterUnlock) triggerFileDownload();
+    if (downloadAfterUnlock) triggerDownloadForTarget(downloadTarget);
     return true;
   }
   if (!isPaymentEnabled()) {
-    if (downloadAfterUnlock) triggerFileDownload();
+    if (downloadAfterUnlock) triggerDownloadForTarget(downloadTarget);
     return true;
   }
   if (isPaymentPending) return false;
@@ -1002,7 +1054,12 @@ async function startPaymentFlow(options: PaymentFlowOptions = {}): Promise<boole
       popupFinalizeTriggered = true;
       window.clearInterval(popupClosedTimer);
       paymentPollController?.abort();
-      void finalizePaymentAfterPopupClosed(session.sessionId, session.exportId, downloadAfterUnlock);
+      void finalizePaymentAfterPopupClosed(
+        session.sessionId,
+        session.exportId,
+        downloadAfterUnlock,
+        downloadTarget,
+      );
     }, 500);
     try {
       const paid = await pollPaymentStatus(
@@ -1013,7 +1070,7 @@ async function startPaymentFlow(options: PaymentFlowOptions = {}): Promise<boole
       );
       if (paid) {
         await unlockAfterPayment(session.sessionId, session.exportId);
-        if (downloadAfterUnlock) triggerFileDownload();
+        if (downloadAfterUnlock) triggerDownloadForTarget(downloadTarget);
         return true;
       }
       if (!popupFinalizeTriggered) {
@@ -1390,6 +1447,7 @@ async function getPreparedJourney(signal?: AbortSignal): Promise<PreparedJourney
       setProgress({ kind: 'preparing', completed, total });
     },
     resolveStopLabels,
+    i18n.formatLocale,
   );
   if (signal?.aborted) throw new DOMException('Video creation was cancelled.', 'AbortError');
   prepared = nextJourney;
@@ -1984,9 +2042,10 @@ createButton.addEventListener('click', async () => {
     const journey = await getPreparedJourney(exportController.signal);
     trackEvent('export_started', exportAnalyticsParams(format));
     setProgress({ kind: 'key', key: 'progressCreating' });
+    const frozenOverlay = overlayText(journey);
     const blob = await createJourneyMp4(canvas, journey, {
       durationSeconds: Number(durationSelect.value),
-      overlay: overlayText(journey),
+      overlay: frozenOverlay,
       appearance: exportAppearance,
       format,
       signal: exportController.signal,
@@ -1996,13 +2055,14 @@ createButton.addEventListener('click', async () => {
       },
     });
     if (resultUrl) URL.revokeObjectURL(resultUrl);
+    if (resultPosterUrl) URL.revokeObjectURL(resultPosterUrl);
     resultUrl = URL.createObjectURL(blob);
     const distanceSlug = Math.round(journey.totalDistanceKm);
-    resultFile = new File(
-      [blob],
-      distanceSlug > 0 ? `timeline-journey-${distanceSlug}km.mp4` : 'timeline-journey.mp4',
-      { type: 'video/mp4' },
-    );
+    const baseName = distanceSlug > 0 ? `timeline-journey-${distanceSlug}km` : 'timeline-journey';
+    resultFile = new File([blob], `${baseName}.mp4`, { type: 'video/mp4' });
+    const posterBlob = await createJourneyPosterBlob(canvas, journey, frozenOverlay, exportAppearance);
+    resultPosterUrl = URL.createObjectURL(posterBlob);
+    resultPosterFile = new File([posterBlob], `${baseName}-poster.png`, { type: 'image/png' });
     currentExportId = createExportId();
     clearPaymentSession();
     trackEvent('export_success', {
@@ -2065,7 +2125,26 @@ shareButton.addEventListener('click', async () => {
 });
 
 downloadButton.addEventListener('click', () => {
-  void startPaymentFlow({ downloadAfterUnlock: true });
+  void startPaymentFlow({ downloadAfterUnlock: true, downloadTarget: 'mp4' });
+});
+
+downloadPosterButton.addEventListener('click', () => {
+  void startPaymentFlow({ downloadAfterUnlock: true, downloadTarget: 'poster' });
+});
+
+sharePosterButton.addEventListener('click', async () => {
+  if (!resultPosterFile || typeof navigator.share !== 'function') return;
+  if (isPaymentEnabled() && !isDownloadUnlocked(currentExportId)) {
+    const unlocked = await startPaymentFlow({ downloadAfterUnlock: false });
+    if (!unlocked) return;
+  }
+  try {
+    await navigator.share({ files: [resultPosterFile], title: overlayText().title });
+    if (currentExportId) trackEvent('share_poster', { export_id: currentExportId });
+  } catch (error) {
+    if (error instanceof DOMException && error.name === 'AbortError') return;
+    setError({ kind: 'key', key: 'errorShareUnavailable' });
+  }
 });
 
 function applyFormatSupport(support: VideoFormatSupport): void {

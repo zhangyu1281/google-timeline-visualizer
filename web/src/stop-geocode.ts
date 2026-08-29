@@ -1,4 +1,9 @@
-const GEOCODE_CACHE = new Map<string, string>();
+export interface GeocodedStop {
+  label: string | null;
+  country: string | null;
+}
+
+const GEOCODE_CACHE = new Map<string, GeocodedStop>();
 const MIN_GEOCODE_INTERVAL_MS = 1100;
 let lastGeocodeAt = 0;
 
@@ -23,12 +28,18 @@ function labelFromNominatimAddress(address: Record<string, string> | undefined):
     ?? null;
 }
 
-/** Reverse-geocode a stop to a short place name (Nominatim / OSM). */
-export async function reverseGeocodeStopLabel(
+function countryFromNominatimAddress(address: Record<string, string> | undefined): string | null {
+  if (!address) return null;
+  return address.country ?? null;
+}
+
+/** Reverse-geocode a stop to a short place name and country (Nominatim / OSM). */
+export async function reverseGeocodeStop(
   latitude: number,
   longitude: number,
   signal?: AbortSignal,
-): Promise<string | null> {
+  acceptLanguage = 'en',
+): Promise<GeocodedStop> {
   const key = cacheKey(latitude, longitude);
   const cached = GEOCODE_CACHE.get(key);
   if (cached) return cached;
@@ -41,18 +52,32 @@ export async function reverseGeocodeStopLabel(
     lat: String(latitude),
     lon: String(longitude),
     zoom: '10',
-    'accept-language': 'en',
+    'accept-language': acceptLanguage,
   });
   const response = await fetch(`https://nominatim.openstreetmap.org/reverse?${params}`, {
     signal,
     headers: { Accept: 'application/json' },
   });
-  if (!response.ok) return null;
+  if (!response.ok) return { label: null, country: null };
 
   const payload = await response.json() as { address?: Record<string, string> };
-  const label = labelFromNominatimAddress(payload.address);
-  if (label) GEOCODE_CACHE.set(key, label);
-  return label;
+  const result: GeocodedStop = {
+    label: labelFromNominatimAddress(payload.address),
+    country: countryFromNominatimAddress(payload.address),
+  };
+  GEOCODE_CACHE.set(key, result);
+  return result;
+}
+
+/** Reverse-geocode a stop to a short place name (Nominatim / OSM). */
+export async function reverseGeocodeStopLabel(
+  latitude: number,
+  longitude: number,
+  signal?: AbortSignal,
+  acceptLanguage = 'en',
+): Promise<string | null> {
+  const result = await reverseGeocodeStop(latitude, longitude, signal, acceptLanguage);
+  return result.label;
 }
 
 /** @internal test helper */

@@ -1,5 +1,5 @@
 import { haversineKm } from './geo';
-import { reverseGeocodeStopLabel } from './stop-geocode';
+import { reverseGeocodeStop } from './stop-geocode';
 import type { GeoPoint, WorldPoint } from './types';
 
 export interface JourneyStop {
@@ -8,6 +8,8 @@ export interface JourneyStop {
   latitude: number;
   longitude: number;
   worldPoint: WorldPoint;
+  /** ISO country name when reverse-geocoded. */
+  country?: string | null;
   /** True when the hop into this stop is a long-distance segment (>300 km). */
   longHop: boolean;
 }
@@ -82,6 +84,7 @@ export async function resolveJourneyStops(
   worldPoints: WorldPoint[],
   resolveLabels: boolean,
   signal?: AbortSignal,
+  acceptLanguage = 'en',
 ): Promise<JourneyStop[]> {
   const candidates = pickStopCandidates(points);
   const stops: JourneyStop[] = [];
@@ -91,9 +94,11 @@ export async function resolveJourneyStops(
     const point = points[candidate.pointIndex];
     const worldPoint = worldPoints[candidate.pointIndex];
     let label = `Stop ${stops.length + 1}`;
+    let country: string | null = null;
     if (resolveLabels) {
-      const resolved = await reverseGeocodeStopLabel(point.latitude, point.longitude, signal);
-      if (resolved) label = resolved;
+      const resolved = await reverseGeocodeStop(point.latitude, point.longitude, signal, acceptLanguage);
+      if (resolved.label) label = resolved.label;
+      country = resolved.country;
     }
     stops.push({
       label,
@@ -101,6 +106,7 @@ export async function resolveJourneyStops(
       latitude: point.latitude,
       longitude: point.longitude,
       worldPoint,
+      country,
       longHop: candidate.longHop,
     });
   }

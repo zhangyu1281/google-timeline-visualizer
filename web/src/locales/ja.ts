@@ -85,6 +85,7 @@ export const ja: Strings = {
   aspectRatioPortrait: '9:16',
   aspectRatioSquare: '1:1',
   aspectRatioLandscape: '16:9',
+  aspectRatioSocialHint: 'Instagram、TikTok、Stories 向けに縦型 9:16 をおすすめします。',
   exportAdvancedSummary: '解像度とフレームレート',
   squareResolutionLabel: '正方形の解像度',
   videoFormatLabel: '動画形式',
@@ -156,8 +157,10 @@ export const ja: Strings = {
   progressVideoReady: '動画の準備完了 · {size} MB',
   cancelButton: '動画作成をキャンセル',
   shareButton: '動画を共有',
+  sharePosterButton: 'ポスターを共有',
   shareMusicTip: 'Add music in TikTok or Instagram for the best share experience.',
   downloadButton: 'MP4をダウンロード',
+  downloadPosterButton: 'ポスター PNG をダウンロード',
   payToDownloadButton: '{price} でダウンロード',
   paymentPending: 'ポップアップウィンドウでお支払いを完了してください…',
   paymentComplete: 'お支払いが完了しました。動画をダウンロードして共有できます。',
@@ -226,6 +229,12 @@ export const ja: Strings = {
   overlayTransferCount: {
     other: '長距離 {count} 回',
   },
+  overlayCountryCount: {
+    other: '{count} か国',
+  },
+  overlayCityCount: {
+    other: '{count} 都市',
+  },
   overlayRouteSeparator: ' → ',
 
   errorAccuracyLimit: '0以上の数値を入力するか、空欄にしてください。',
@@ -239,6 +248,7 @@ export const ja: Strings = {
   errorSampleUnavailable: '架空のサンプルを読み込めませんでした。',
   errorPreviewFailed: 'プレビューに失敗しました。',
   errorExportFailed: '動画の作成に失敗しました。',
+  errorPosterExport: 'ポスター画像を作成できませんでした。',
   errorShareUnavailable: 'iPhoneの共有シートを開けませんでした。代わりに「MP4をダウンロード」をご利用ください。',
   errorTooFewPoints: '位置情報が2件以上含まれる期間を選択してください。',
   errorNoEncoder: 'このブラウザではMP4動画を作成できません。Safari 16.4以降をご使用ください。',

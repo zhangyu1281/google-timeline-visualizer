@@ -53,7 +53,7 @@ export interface ResolvedVideoFormat extends VideoFormat {
   codec: string;
 }
 
-export const DEFAULT_VIDEO_FORMAT_KEY: VideoFormatKey = 'standard';
+export const DEFAULT_VIDEO_FORMAT_KEY: VideoFormatKey = 'portrait';
 
 // H.264 macroblocks are 16 by 16, so PicSizeInMbs = ceil(width / 16) * ceil(height / 16).
 // A codec string avc1.PPCCLL pins profile_idc, constraint flags and level_idc, and mediabunny

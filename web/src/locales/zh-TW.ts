@@ -82,6 +82,7 @@ export const zhTW: Strings = {
   aspectRatioPortrait: '9:16',
   aspectRatioSquare: '1:1',
   aspectRatioLandscape: '16:9',
+  aspectRatioSocialHint: 'Portrait is recommended for Instagram, TikTok, and Stories.',
   exportAdvancedSummary: '解析度與影格率',
   squareResolutionLabel: '正方形解析度',
   videoFormatLabel: '影片格式',
@@ -153,8 +154,10 @@ export const zhTW: Strings = {
   progressVideoReady: '影片準備就緒 · {size} MB',
   cancelButton: '取消建立影片',
   shareButton: '分享影片',
+  sharePosterButton: '分享海報',
   shareMusicTip: 'Add music in TikTok or Instagram for the best share experience.',
   downloadButton: '下載 MP4',
+  downloadPosterButton: '下載海報 PNG',
   payToDownloadButton: '支付 {price} 下載',
   paymentPending: '請在彈出視窗中完成付款…',
   paymentComplete: '付款成功，可以下載和分享影片。',
@@ -223,6 +226,12 @@ export const zhTW: Strings = {
   overlayTransferCount: {
     other: '{count} 次長途',
   },
+  overlayCountryCount: {
+    other: '{count} 個國家',
+  },
+  overlayCityCount: {
+    other: '{count} 個城市',
+  },
   overlayRouteSeparator: ' → ',
 
   errorAccuracyLimit: '請輸入零或正數的精準度上限，或將此欄留白。',
@@ -236,6 +245,7 @@ export const zhTW: Strings = {
   errorSampleUnavailable: '無法載入虛構範例。',
   errorPreviewFailed: '預覽失敗。',
   errorExportFailed: '建立影片失敗。',
+  errorPosterExport: '無法產生海報圖片。',
   errorShareUnavailable: '無法開啟 iPhone 的分享選單，請改用「下載 MP4」。',
   errorTooFewPoints: '請選擇至少包含兩個紀錄點的期間。',
   errorNoEncoder: '這個瀏覽器無法建立 MP4 影片，請使用 Safari 16.4 以上版本。',
