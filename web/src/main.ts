@@ -670,6 +670,10 @@ function exportAnalyticsParams(format = currentFormat()): Record<string, string 
   };
 }
 
+function analyticsErrorCode(error: unknown): string | undefined {
+  return error instanceof AppError ? error.code : undefined;
+}
+
 function trackTimelineLoadFailed(error: unknown): void {
   const reason = error instanceof TimelineParseError
     ? error.reason
@@ -1917,12 +1921,12 @@ createButton.addEventListener('click', async () => {
   isExporting = true;
   refreshActionAvailability();
   updatePreviewChrome();
-  trackEvent('export_started', exportAnalyticsParams(format));
   exportController = new AbortController();
   const exportAppearance = currentAppearance();
   const wakeLock = await requestWakeLock();
   try {
     const journey = await getPreparedJourney(exportController.signal);
+    trackEvent('export_started', exportAnalyticsParams(format));
     setProgress({ kind: 'key', key: 'progressCreating' });
     const blob = await createJourneyMp4(canvas, journey, {
       durationSeconds: Number(durationSelect.value),
@@ -1972,7 +1976,10 @@ createButton.addEventListener('click', async () => {
       setProgress({ kind: 'key', key: 'progressCancelled' });
       progress.value = 0;
     } else {
-      trackEvent('export_failed', { reason: 'export_error' });
+      trackEvent('export_failed', {
+        reason: 'export_error',
+        error_code: analyticsErrorCode(error) ?? 'unknown',
+      });
       setError(describeError(error, 'errorExportFailed'));
       setProgress({ kind: 'key', key: 'progressFailed' });
     }

@@ -6,6 +6,7 @@ export type AnalyticsEventName =
   | 'map_consent_granted'
   | 'preview_started'
   | 'preview_completed'
+  | 'preview_failed'
   | 'export_started'
   | 'export_success'
   | 'export_failed'
@@ -22,6 +23,7 @@ export type AnalyticsEventName =
 const ALLOWED_PARAM_KEYS = new Set([
   'source',
   'reason',
+  'error_code',
   'point_count_bucket',
   'has_raw_only',
   'duration_s',

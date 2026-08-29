@@ -38,6 +38,16 @@ describe('sanitizeAnalyticsParams', () => {
       point_count_bucket: '51-200',
     });
   });
+
+  it('allows stable error codes from AppError', () => {
+    expect(sanitizeAnalyticsParams({
+      reason: 'export_error',
+      error_code: 'errorTooFewPoints',
+    })).toEqual({
+      reason: 'export_error',
+      error_code: 'errorTooFewPoints',
+    });
+  });
 });
 
 describe('trackEvent', () => {

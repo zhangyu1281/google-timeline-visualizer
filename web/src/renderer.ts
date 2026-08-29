@@ -416,16 +416,18 @@ export async function prepareJourney(
     const ending = blendViewport(journeyEnd, endingOverview, easeOutCubic(sample / 12), size);
     for (const tile of requiredTiles(ending)) required.set(tileKey(tile), tile);
   }
-  const stops = await resolveJourneyStops(
-    points,
-    distances,
-    journey.totalDistanceKm,
-    worldPoints,
-    resolveStopLabels,
-    signal,
-  );
   const transfers = buildJourneyTransfers(journey);
-  const tiles = await loadRequiredTiles([...required.values()], mapTheme, signal, onProgress);
+  const [stops, tiles] = await Promise.all([
+    resolveJourneyStops(
+      points,
+      distances,
+      journey.totalDistanceKm,
+      worldPoints,
+      resolveStopLabels,
+      signal,
+    ),
+    loadRequiredTiles([...required.values()], mapTheme, signal, onProgress),
+  ]);
   return {
     ...journey,
     dayCount: journeyDayCount(points),
