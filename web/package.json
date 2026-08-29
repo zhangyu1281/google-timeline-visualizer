@@ -10,7 +10,9 @@
     "prebuild": "pnpm icons",
     "build": "tsc -b && vite build",
     "test": "vitest run",
-    "typecheck": "tsc -b --pretty false"
+    "typecheck": "tsc -b --pretty false",
+    "generate:demo-hero": "node scripts/generate-demo-hero.mjs",
+    "compress:demo-hero": "node scripts/compress-demo-hero.mjs"
   },
   "dependencies": {
     "mediabunny": "1.55.1"
@@ -18,6 +20,7 @@
   "devDependencies": {
     "@resvg/resvg-js": "2.6.2",
     "@types/node": "24.10.0",
+    "playwright": "^1.62.1",
     "to-ico": "1.1.5",
     "typescript": "7.0.2",
     "vite": "8.2.1",

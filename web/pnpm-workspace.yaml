@@ -1,3 +1,4 @@
 allowBuilds:
   esbuild: true
   '@resvg/resvg-js': true
+  ffmpeg-static: set this to true or false
