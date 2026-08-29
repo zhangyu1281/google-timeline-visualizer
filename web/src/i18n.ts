@@ -299,6 +299,14 @@ export interface Strings extends LandingStrings, PagesStrings {
   overlayStopCount: PluralEntry;
   /** {stops} */
   overlayViaStops: string;
+  /** {laps} formatted with one decimal place */
+  overlayEarthLaps: string;
+  /** {count} */
+  overlayLongHaulFlights: PluralEntry;
+  overlayFullYear: string;
+  /** {count} */
+  overlayTransferCount: PluralEntry;
+  overlayRouteSeparator: string;
 
   // --- errors ---
   errorAccuracyLimit: string;

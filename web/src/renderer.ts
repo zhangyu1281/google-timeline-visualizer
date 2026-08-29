@@ -28,7 +28,7 @@ import type {
   WorldPoint,
 } from './types';
 import { AppError } from './errors';
-import { overlayCard, overlayScale } from './overlay';
+import { overlayCard, overlayCardOutro, overlayScale } from './overlay';
 import {
   DEFAULT_RENDER_APPEARANCE,
   mapFallbackBackground,
@@ -57,6 +57,16 @@ export interface OverlayText {
   readonly statsSubtitle: string;
   /** Compact stop list for the outro, already formatted by the caller. */
   readonly outroStopsLine: string;
+  /** Raw total distance for the outro count-up animation. */
+  readonly outroTotalDistanceKm: number;
+  /** Final formatted total distance shown at the end of the outro count-up. */
+  readonly outroHeroDistance: string;
+  /** Single highlight line such as an Earth-lap equivalent. */
+  readonly outroHighlight: string;
+  /** Secondary stats row: days, stops, long-hauls. */
+  readonly outroSecondaryStats: string;
+  /** Compact route line such as "Seoul → Busan → Tokyo". */
+  readonly outroRouteLine: string;
 }
 
 /**
@@ -83,6 +93,149 @@ const PIN_LENGTH = 30;             // 20 px at 480
 const PIN_WIDTH = 18;              // 12 px at 480
 const FLIGHT_DASH = [11, 8];       // 7+5 px at 480
 const PLANE_SIZE = 18;             // 12 px at 480
+
+function staggerAlpha(outroProgress: number, index: number): number {
+  const start = 0.15 + index * 0.1;
+  return easeInOutCubic(Math.max(0, Math.min(1, (outroProgress - start) / 0.3)));
+}
+
+function animatedHeroDistance(
+  totalKm: number,
+  outroProgress: number,
+  formatDistance: (kilometers: number) => string,
+): string {
+  const countProgress = easeOutCubic(Math.max(0, Math.min(1, outroProgress / 0.65)));
+  return formatDistance(totalKm * countProgress);
+}
+
+function drawOutroVignette(
+  context: CanvasRenderingContext2D,
+  size: RenderSize,
+  outroFade: number,
+): void {
+  if (outroFade <= 0) return;
+  context.save();
+  context.globalAlpha = 0.24 * outroFade;
+  context.fillStyle = 'rgba(18, 14, 20, 1)';
+  const height = size.height * 0.55;
+  context.fillRect(0, size.height - height, size.width, height);
+  context.restore();
+}
+
+function drawJourneyOverlayCard(
+  context: CanvasRenderingContext2D,
+  card: ReturnType<typeof overlayCard>,
+  scale: number,
+  text: OverlayText,
+  currentDistance: number,
+  colors: RoutePalette,
+): void {
+  context.fillStyle = colors.overlayCardFill;
+  context.beginPath();
+  context.roundRect(card.left, card.top, card.width, card.bottom - card.top, 24 * scale);
+  context.fill();
+  context.textAlign = 'center';
+  context.fillStyle = colors.overlayTitle;
+  context.font = `700 ${34 * scale}px -apple-system, BlinkMacSystemFont, sans-serif`;
+  context.fillText(text.title, card.centerX, 72 * scale, card.width - 36 * scale);
+  const distanceLabel = text.formatDistance(currentDistance);
+  context.fillStyle = colors.overlaySubtitle;
+  context.font = `${20 * scale}px -apple-system, BlinkMacSystemFont, sans-serif`;
+  context.fillText(
+    `${text.periodLabel}${text.separator}${distanceLabel}`,
+    card.centerX,
+    108 * scale,
+    card.width - 36 * scale,
+  );
+}
+
+function drawOutroOverlayCard(
+  context: CanvasRenderingContext2D,
+  card: ReturnType<typeof overlayCardOutro>,
+  scale: number,
+  text: OverlayText,
+  outroProgress: number,
+  colors: RoutePalette,
+): void {
+  const outroFade = easeInOutCubic(outroProgress);
+  const slideOffset = (1 - outroFade) * 28 * scale;
+  const cardTop = card.top + slideOffset;
+  const cardHeight = card.bottom - card.top;
+  const inset = 24 * scale;
+
+  context.save();
+  context.globalAlpha = outroFade;
+  context.fillStyle = colors.overlayCardFill;
+  context.beginPath();
+  context.roundRect(card.left, cardTop, card.width, cardHeight, 28 * scale);
+  context.fill();
+  context.strokeStyle = colors.main;
+  context.lineWidth = 2.5 * scale;
+  context.globalAlpha = 0.35 * outroFade;
+  context.stroke();
+  context.globalAlpha = outroFade;
+
+  context.textAlign = 'center';
+  const textWidth = card.width - inset * 2;
+  const centerX = card.centerX;
+  let lineIndex = 0;
+
+  context.fillStyle = colors.overlayTitle;
+  context.font = `700 ${30 * scale}px -apple-system, BlinkMacSystemFont, sans-serif`;
+  context.fillText(text.title, centerX, cardTop + 42 * scale, textWidth);
+
+  context.save();
+  context.globalAlpha = outroFade * staggerAlpha(outroProgress, lineIndex);
+  context.fillStyle = colors.overlayTitle;
+  context.font = `700 ${56 * scale}px -apple-system, BlinkMacSystemFont, sans-serif`;
+  const heroDistance = text.outroTotalDistanceKm > 0
+    ? animatedHeroDistance(text.outroTotalDistanceKm, outroProgress, text.formatDistance)
+    : text.outroHeroDistance;
+  context.fillText(heroDistance, centerX, cardTop + cardHeight * 0.42, textWidth);
+  context.restore();
+  lineIndex += 1;
+
+  if (text.outroHighlight) {
+    context.save();
+    context.globalAlpha = outroFade * staggerAlpha(outroProgress, lineIndex);
+    context.fillStyle = colors.main;
+    context.font = `600 ${22 * scale}px -apple-system, BlinkMacSystemFont, sans-serif`;
+    context.fillText(text.outroHighlight, centerX, cardTop + cardHeight * 0.58, textWidth);
+    context.restore();
+    lineIndex += 1;
+  }
+
+  if (text.outroSecondaryStats) {
+    context.save();
+    context.globalAlpha = outroFade * staggerAlpha(outroProgress, lineIndex);
+    context.fillStyle = colors.overlaySubtitle;
+    context.font = `600 ${20 * scale}px -apple-system, BlinkMacSystemFont, sans-serif`;
+    context.fillText(text.outroSecondaryStats, centerX, cardTop + cardHeight * 0.72, textWidth);
+    context.restore();
+    lineIndex += 1;
+  }
+
+  if (text.outroRouteLine) {
+    context.save();
+    context.globalAlpha = outroFade * staggerAlpha(outroProgress, lineIndex);
+    context.fillStyle = colors.overlaySubtitle;
+    context.font = `600 ${16 * scale}px -apple-system, BlinkMacSystemFont, sans-serif`;
+    context.fillText(text.outroRouteLine, centerX, cardTop + cardHeight * 0.84, textWidth);
+    context.restore();
+    lineIndex += 1;
+  }
+
+  if (text.periodLabel) {
+    context.save();
+    context.globalAlpha = outroFade * staggerAlpha(outroProgress, lineIndex);
+    context.fillStyle = colors.overlaySubtitle;
+    context.font = `500 ${14 * scale}px -apple-system, BlinkMacSystemFont, sans-serif`;
+    context.fillText(text.periodLabel, centerX, cardTop + cardHeight * 0.94, textWidth);
+    context.restore();
+  }
+
+  context.restore();
+}
 
 function markerHeading(journey: PreparedJourney, completedIndex: number, head: WorldPoint): number {
   const index = Math.max(0, Math.min(completedIndex, journey.worldPoints.length - 1));
@@ -662,50 +815,25 @@ export function drawFrame(
   }
 
   const outroFade = easeInOutCubic(frame.outroProgress);
-  const card = overlayCard(size);
-  context.fillStyle = colors.overlayCardFill;
-  context.beginPath();
-  context.roundRect(card.left, card.top, card.width, card.bottom - card.top, 24 * scale);
-  context.fill();
+  drawOutroVignette(context, size, outroFade);
   if (frame.outroProgress > 0) {
-    context.save();
-    context.globalAlpha = 0.35 * outroFade;
-    context.strokeStyle = colors.main;
-    context.lineWidth = 2.5 * scale;
-    context.stroke();
-    context.restore();
-  }
-  context.textAlign = 'center';
-  context.fillStyle = colors.overlayTitle;
-  context.font = `700 ${34 * scale}px -apple-system, BlinkMacSystemFont, sans-serif`;
-  context.fillText(text.title, card.centerX, 72 * scale, card.width - 36 * scale);
-  const distanceLabel = text.formatDistance(currentDistance);
-  const showingOutroStats = frame.outroProgress > 0 && text.statsSubtitle;
-  context.fillStyle = colors.overlaySubtitle;
-  context.font = showingOutroStats
-    ? `700 ${24 * scale}px -apple-system, BlinkMacSystemFont, sans-serif`
-    : `${20 * scale}px -apple-system, BlinkMacSystemFont, sans-serif`;
-  const subtitle = showingOutroStats
-    ? text.statsSubtitle
-    : `${text.periodLabel}${text.separator}${distanceLabel}`;
-  context.fillText(
-    subtitle,
-    card.centerX,
-    108 * scale,
-    card.width - 36 * scale,
-  );
-  if (showingOutroStats && text.outroStopsLine) {
-    context.save();
-    context.globalAlpha = outroFade;
-    context.font = `600 ${16 * scale}px -apple-system, BlinkMacSystemFont, sans-serif`;
-    context.fillStyle = colors.overlaySubtitle;
-    context.fillText(
-      text.outroStopsLine,
-      card.centerX,
-      138 * scale,
-      card.width - 36 * scale,
+    drawOutroOverlayCard(
+      context,
+      overlayCardOutro(size),
+      scale,
+      text,
+      frame.outroProgress,
+      colors,
     );
-    context.restore();
+  } else {
+    drawJourneyOverlayCard(
+      context,
+      overlayCard(size),
+      scale,
+      text,
+      currentDistance,
+      colors,
+    );
   }
 
   context.textAlign = 'right';

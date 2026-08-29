@@ -215,6 +215,15 @@ export const zhTW: Strings = {
     other: '{count} stops',
   },
   overlayViaStops: 'via {stops}',
+  overlayEarthLaps: '≈ 繞地球 {laps} 圈',
+  overlayLongHaulFlights: {
+    other: '{count} 次長途',
+  },
+  overlayFullYear: '一整年在路上',
+  overlayTransferCount: {
+    other: '{count} 次長途',
+  },
+  overlayRouteSeparator: ' → ',
 
   errorAccuracyLimit: '請輸入零或正數的精準度上限，或將此欄留白。',
   errorMapConsent: '向 Esri 請求地圖圖像前，請先確認地圖隱私權聲明。',

@@ -1,7 +1,7 @@
 import type { TimelineFrame } from './types';
 
-export const OUTRO_SECONDS = 1.5;
-export const OUTRO_TRANSITION_SECONDS = 1;
+export const OUTRO_SECONDS = 3.5;
+export const OUTRO_TRANSITION_SECONDS = 1.5;
 
 function clamp(value: number, minimum = 0, maximum = 1): number {
   return Math.max(minimum, Math.min(maximum, value));

@@ -220,6 +220,15 @@ export const ko: Strings = {
     other: '{count} stops',
   },
   overlayViaStops: 'via {stops}',
+  overlayEarthLaps: '≈ 지구 {laps}바퀴',
+  overlayLongHaulFlights: {
+    other: '장거리 비행 {count}회',
+  },
+  overlayFullYear: '1년간의 여정',
+  overlayTransferCount: {
+    other: '장거리 {count}회',
+  },
+  overlayRouteSeparator: ' → ',
 
   errorAccuracyLimit: '0 이상의 정확도 한도를 입력하거나 비워 두세요.',
   errorMapConsent: 'Esri에 지도 이미지를 요청하기 전에 지도 개인정보 안내를 확인해 주세요.',

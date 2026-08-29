@@ -228,6 +228,17 @@ export const de: Strings = {
     other: '{count} stops',
   },
   overlayViaStops: 'via {stops}',
+  overlayEarthLaps: '≈ {laps} Erdumrundungen',
+  overlayLongHaulFlights: {
+    one: '{count} Langstreckenflug',
+    other: '{count} Langstreckenflüge',
+  },
+  overlayFullYear: 'Ein ganzes Jahr unterwegs',
+  overlayTransferCount: {
+    one: '{count} Langstrecke',
+    other: '{count} Langstrecken',
+  },
+  overlayRouteSeparator: ' → ',
 
   errorAccuracyLimit: 'Null oder eine positive Zahl eingeben oder das Feld leer lassen.',
   errorMapConsent: 'Bestätigen Sie den Datenschutzhinweis zur Karte, bevor Kartenbilder von Esri angefordert werden.',

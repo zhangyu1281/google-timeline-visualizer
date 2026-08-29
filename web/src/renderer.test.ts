@@ -182,6 +182,11 @@ function render(canvasSize: RenderSize, journey: PreparedJourney, frame: Timelin
     formatDistance: (kilometers) => `${Math.round(kilometers)} km`,
     statsSubtitle: '325 km · 3 days · 4 stops',
     outroStopsLine: 'via Seoul · Busan',
+    outroTotalDistanceKm: 325,
+    outroHeroDistance: '325 km',
+    outroHighlight: '',
+    outroSecondaryStats: '3 days · 4 stops',
+    outroRouteLine: 'Seoul → Busan',
   });
   return calls;
 }
@@ -459,6 +464,11 @@ describe('map attribution', () => {
       formatDistance: (kilometers) => `${Math.round(kilometers * 0.621371192237334)} mi`,
       statsSubtitle: '200 mi · 3 days · 4 stops',
       outroStopsLine: 'via Seoul · Busan',
+      outroTotalDistanceKm: 325,
+      outroHeroDistance: '200 mi',
+      outroHighlight: '',
+      outroSecondaryStats: '3 days · 4 stops',
+      outroRouteLine: 'Seoul → Busan',
     });
     const drawn = calls.filter((call) => call.method === 'fillText').map((call) => call.args[0]);
     expect(drawn).toContain(MAP_ATTRIBUTION);

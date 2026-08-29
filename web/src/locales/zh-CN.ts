@@ -220,6 +220,15 @@ export const zhCN: Strings = {
     other: '{count} stops',
   },
   overlayViaStops: 'via {stops}',
+  overlayEarthLaps: '≈ 绕地球 {laps} 圈',
+  overlayLongHaulFlights: {
+    other: '{count} 次长途',
+  },
+  overlayFullYear: '一整年在路上',
+  overlayTransferCount: {
+    other: '{count} 次长途',
+  },
+  overlayRouteSeparator: ' → ',
 
   errorAccuracyLimit: '请输入非负的精度上限，或者留空。',
   errorMapConsent: '在向 Esri 请求地图图像之前，请先确认地图隐私声明。',

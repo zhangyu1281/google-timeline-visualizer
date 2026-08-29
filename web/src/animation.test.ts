@@ -11,9 +11,9 @@ describe('timeline ending', () => {
     expect(totalDurationSeconds(75)).toBe(75);
   });
 
-  it('zooms to the overview for one second and holds it for the last half-second', () => {
-    expect(frameAtElapsedSeconds(28.5, 30)).toEqual({ journeyProgress: 1, outroProgress: 0 });
-    expect(frameAtElapsedSeconds(29.5, 30)).toEqual({ journeyProgress: 1, outroProgress: 1 });
+  it('zooms to the overview for 1.5 seconds and holds it for the last two seconds', () => {
+    expect(frameAtElapsedSeconds(26.5, 30)).toEqual({ journeyProgress: 1, outroProgress: 0 });
+    expect(frameAtElapsedSeconds(28, 30)).toEqual({ journeyProgress: 1, outroProgress: 1 });
     expect(frameAtElapsedSeconds(29.9, 30)).toEqual({ journeyProgress: 1, outroProgress: 1 });
   });
 

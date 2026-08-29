@@ -218,6 +218,15 @@ export const ja: Strings = {
     other: '{count} stops',
   },
   overlayViaStops: 'via {stops}',
+  overlayEarthLaps: '≈ 地球 {laps} 周',
+  overlayLongHaulFlights: {
+    other: '長距離フライト {count} 回',
+  },
+  overlayFullYear: '1年間の旅',
+  overlayTransferCount: {
+    other: '長距離 {count} 回',
+  },
+  overlayRouteSeparator: ' → ',
 
   errorAccuracyLimit: '0以上の数値を入力するか、空欄にしてください。',
   errorMapConsent: 'Esriに地図画像を要求する前に、地図のプライバシーに関する説明を確認してください。',

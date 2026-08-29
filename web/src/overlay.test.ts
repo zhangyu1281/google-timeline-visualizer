@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { overlayCard, overlayScale } from './overlay';
+import { overlayCard, overlayCardOutro, overlayScale } from './overlay';
 import type { RenderSize } from './types';
 
 const FORMATS: RenderSize[] = [
@@ -50,6 +50,16 @@ describe('overlay geometry', () => {
 
   it.each(FORMATS)('keeps the card inside the canvas at $width x $height', (size) => {
     const card = overlayCard(size);
+    expect(card.left).toBeGreaterThanOrEqual(0);
+    expect(card.right).toBeLessThanOrEqual(size.width);
+    expect(card.centerX).toBeCloseTo(size.width / 2, 10);
+  });
+
+  it.each(FORMATS)('anchors the outro card to the bottom at $width x $height', (size) => {
+    const scale = overlayScale(size);
+    const card = overlayCardOutro(size);
+    expect(card.bottom).toBeCloseTo(size.height - 28 * scale, 10);
+    expect(card.bottom - card.top).toBeCloseTo(size.height * 0.38, 10);
     expect(card.left).toBeGreaterThanOrEqual(0);
     expect(card.right).toBeLessThanOrEqual(size.width);
     expect(card.centerX).toBeCloseTo(size.width / 2, 10);

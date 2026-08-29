@@ -24,6 +24,12 @@ import { frameAtElapsedSeconds, totalDurationSeconds } from './animation';
 import { AppError } from './errors';
 import { cumulativeDistances } from './geo';
 import {
+  earthLaps,
+  formatRouteLine,
+  pickHighlightStopLabels,
+  pickOutroHighlightKind,
+} from './journey-highlights';
+import {
   isDistanceUnitPreference,
   readDistanceUnitPreference,
   resolveDistanceUnit,
@@ -616,6 +622,51 @@ function overlayText(journey?: PreparedJourney | null): OverlayText {
         .join(exportI18n.strings.listSeparator),
     })
     : '';
+
+  let outroTotalDistanceKm = 0;
+  let outroHeroDistance = '';
+  let outroHighlight = '';
+  let outroSecondaryStats = '';
+  let outroRouteLine = '';
+
+  if (statsJourney) {
+    outroTotalDistanceKm = statsJourney.totalDistanceKm;
+    outroHeroDistance = exportI18n.formatDistance(statsJourney.totalDistanceKm, unit);
+
+    const transferCount = statsJourney.transfers.length;
+    const secondaryParts = [
+      exportI18n.t('overlayDayCount', { count: statsJourney.dayCount }),
+      exportI18n.t('overlayStopCount', { count: statsJourney.stops.length }),
+    ];
+    if (transferCount > 0) {
+      secondaryParts.push(exportI18n.t('overlayTransferCount', { count: transferCount }));
+    }
+    outroSecondaryStats = secondaryParts.join(exportI18n.strings.listSeparator);
+
+    const highlightKind = pickOutroHighlightKind({
+      totalDistanceKm: statsJourney.totalDistanceKm,
+      dayCount: statsJourney.dayCount,
+      transferCount,
+    });
+    if (highlightKind === 'earthLaps') {
+      outroHighlight = exportI18n.t('overlayEarthLaps', {
+        laps: exportI18n.formatNumber(earthLaps(statsJourney.totalDistanceKm), {
+          minimumFractionDigits: 1,
+          maximumFractionDigits: 1,
+        }),
+      });
+    } else if (highlightKind === 'longHaulFlights') {
+      outroHighlight = exportI18n.t('overlayLongHaulFlights', { count: transferCount });
+    } else if (highlightKind === 'fullYear') {
+      outroHighlight = exportI18n.t('overlayFullYear');
+    }
+
+    const routeStops = pickHighlightStopLabels(statsJourney.stops);
+    if (routeStops.length >= 2) {
+      outroRouteLine = formatRouteLine(routeStops, exportI18n.strings.overlayRouteSeparator);
+    }
+  }
+
   return {
     title: titleInput.value.trim() || i18n.t('defaultVideoTitle'),
     periodLabel: currentPeriodLabel(),
@@ -623,6 +674,11 @@ function overlayText(journey?: PreparedJourney | null): OverlayText {
     formatDistance: (kilometers) => exportI18n.formatDistance(kilometers, unit),
     statsSubtitle,
     outroStopsLine,
+    outroTotalDistanceKm,
+    outroHeroDistance,
+    outroHighlight,
+    outroSecondaryStats,
+    outroRouteLine,
   };
 }
 

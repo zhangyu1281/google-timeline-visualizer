@@ -228,6 +228,17 @@ export const en: Strings = {
     other: '{count} stops',
   },
   overlayViaStops: 'via {stops}',
+  overlayEarthLaps: '≈ {laps} laps around Earth',
+  overlayLongHaulFlights: {
+    one: '{count} long-haul flight',
+    other: '{count} long-haul flights',
+  },
+  overlayFullYear: 'A full year on the road',
+  overlayTransferCount: {
+    one: '{count} long-haul',
+    other: '{count} long-hauls',
+  },
+  overlayRouteSeparator: ' → ',
 
   errorAccuracyLimit: 'Enter a non-negative accuracy limit, or leave it blank.',
   errorMapConsent: 'Confirm the map privacy notice before requesting map images from Esri.',

@@ -239,6 +239,19 @@ export const ptBR: Strings = {
     other: '{count} stops',
   },
   overlayViaStops: 'via {stops}',
+  overlayEarthLaps: '≈ {laps} voltas ao planeta',
+  overlayLongHaulFlights: {
+    one: '{count} voo de longa distância',
+    many: '{count} voos de longa distância',
+    other: '{count} voos de longa distância',
+  },
+  overlayFullYear: 'Um ano inteiro na estrada',
+  overlayTransferCount: {
+    one: '{count} longa distância',
+    many: '{count} longas distâncias',
+    other: '{count} longas distâncias',
+  },
+  overlayRouteSeparator: ' → ',
 
   errorAccuracyLimit: 'Digite um limite de precisão zero ou positivo, ou deixe em branco.',
   errorMapConsent: 'Confirme o aviso de privacidade do mapa antes de solicitar imagens de mapa a Esri.',
