@@ -1,5 +1,5 @@
 import './style.css';
-import { initAnalytics } from './analytics';
+import { initAnalytics, bucketCount, bucketKm, bucketMb, trackEvent } from './analytics';
 import {
   clearPaymentReturnParams,
   clearPaymentSession,
@@ -18,7 +18,7 @@ import {
   readStoredExportId,
   readStoredPaymentSession,
 } from './payment';
-import { SITE_LOCALE, HIDE_LANGUAGE_PICKER } from './site-config';
+import { PAYMENT_PRICE_USD, SITE_LOCALE, HIDE_LANGUAGE_PICKER } from './site-config';
 import { resolveInitialLanguagePreference } from './site-locale';
 import { frameAtElapsedSeconds, totalDurationSeconds } from './animation';
 import { AppError } from './errors';
@@ -275,6 +275,7 @@ let previewElapsedSeconds = 0;
 let previewScrubbing = false;
 const PREVIEW_SCRUBBER_STEPS = 1000;
 let previewSessionJourney: PreparedJourney | null = null;
+let previewCompletionTracked = false;
 let previewJourneyDuration = 8;
 let hasEncoder = false;
 let formatSupport: VideoFormatSupport | null = null;
@@ -659,6 +660,33 @@ function currentAppearance(): RenderAppearance {
   };
 }
 
+function exportAnalyticsParams(format = currentFormat()): Record<string, string | number> {
+  return {
+    duration_s: Number(durationSelect.value),
+    aspect: selectedAspectRatio(),
+    camera: cameraMovementSelect.value,
+    format: format.key,
+    fps: format.frameRate,
+  };
+}
+
+function trackTimelineLoadFailed(error: unknown): void {
+  const reason = error instanceof TimelineParseError
+    ? error.reason
+    : error instanceof AppError
+      ? error.code
+      : 'unknown';
+  trackEvent('timeline_load_failed', { reason });
+}
+
+function trackTimelineLoaded(source: TimelineSource, pointCount: number, useRawOnly: boolean): void {
+  trackEvent('timeline_loaded', {
+    source: source.sample ? 'sample' : 'file',
+    point_count_bucket: bucketCount(pointCount),
+    has_raw_only: useRawOnly,
+  });
+}
+
 function selectedAspectRatio(): AspectRatioPreset {
   const pressed = aspectChipButtons().find((button) => button.getAttribute('aria-pressed') === 'true');
   const aspect = pressed?.dataset.aspect;
@@ -767,6 +795,7 @@ function renderPaymentStatus(message: string | null): void {
 
 function triggerFileDownload(): void {
   if (!resultUrl) return;
+  if (currentExportId) trackEvent('download', { export_id: currentExportId });
   const link = document.createElement('a');
   link.href = resultUrl;
   link.download = 'timeline-journey.mp4';
@@ -798,6 +827,12 @@ function updateResultActions(): void {
 async function unlockAfterPayment(sessionId: string, exportId: string): Promise<void> {
   markDownloadUnlocked(exportId, sessionId);
   stopPaymentPolling();
+  trackEvent('purchase', {
+    export_id: exportId,
+    transaction_id: exportId,
+    value: Number(PAYMENT_PRICE_USD),
+    currency: 'USD',
+  });
   renderPaymentStatus(i18n.t('paymentComplete'));
   updateResultActions();
 }
@@ -845,6 +880,7 @@ async function finalizePaymentAfterPopupClosed(
       await unlockAfterPayment(sessionId, exportId);
       if (downloadAfterUnlock) triggerFileDownload();
     } else {
+      trackEvent('payment_abandoned', { export_id: exportId });
       renderPaymentStatus(null);
     }
   } finally {
@@ -888,7 +924,12 @@ async function startPaymentFlow(options: PaymentFlowOptions = {}): Promise<boole
 
   try {
     const session = await createCheckoutSession(currentExportId, activeLocale(languagePreference, browserLanguages()));
+    trackEvent('checkout_started', {
+      export_id: currentExportId,
+      entry: downloadAfterUnlock ? 'download' : 'share',
+    });
     if (!popup || popup.closed) {
+      trackEvent('payment_popup_blocked');
       window.location.assign(session.checkoutUrl);
       return false;
     }
@@ -916,6 +957,7 @@ async function startPaymentFlow(options: PaymentFlowOptions = {}): Promise<boole
         return true;
       }
       if (!popupFinalizeTriggered) {
+        trackEvent('payment_abandoned', { export_id: session.exportId });
         renderPaymentStatus(null);
       }
       return false;
@@ -1453,6 +1495,7 @@ function applyTimeline(data: unknown, source: TimelineSource, useRawOnly = false
   });
   renderTimelineSummary();
   updatePreviewChrome();
+  trackTimelineLoaded(source, allPoints.length, useRawOnly);
 }
 
 function resetTimeline(): void {
@@ -1513,6 +1556,7 @@ fileInput.addEventListener('change', async () => {
   try {
     await loadTimeline(file);
   } catch (error) {
+    trackTimelineLoadFailed(error);
     settingsCard.classList.add('hidden');
     setFileStatus({ kind: 'key', key: 'fileStatusLoadFailed' });
     setError(describeError(error, 'errorFileUnreadable'));
@@ -1529,8 +1573,10 @@ sampleButton.addEventListener('click', async () => {
     if (!response.ok) {
       throw new AppError('errorSampleUnavailable', 'The fictional sample could not be loaded.');
     }
+    trackEvent('sample_used');
     applyTimeline(parseTimelineText(await response.text()), { sample: true, name: '' });
   } catch (error) {
+    trackTimelineLoadFailed(error);
     settingsCard.classList.add('hidden');
     setFileStatus({ kind: 'key', key: 'fileStatusSampleFailed' });
     setError(describeError(error, 'errorSampleUnavailable'));
@@ -1582,6 +1628,7 @@ function applyVisualPreset(presetId: VisualPresetId): void {
   mapThemeSelect.value = preset.mapTheme;
   markerStyleSelect.value = preset.markerStyle;
   cameraMovementSelect.value = preset.cameraMovement;
+  trackEvent('visual_preset_applied', { preset: presetId });
   updateSelection();
   if (prepared && lastPreviewFrame) {
     drawPreviewFrame(prepared, lastPreviewFrame);
@@ -1645,7 +1692,10 @@ locationFilterSelect.addEventListener('change', () => {
   updateSelection();
 });
 mapConsent.addEventListener('change', () => {
-  if (mapConsent.checked) setSettingsError(null);
+  if (mapConsent.checked) {
+    trackEvent('map_consent_granted');
+    setSettingsError(null);
+  }
   renderPreviewPlaceholder();
   refreshActionAvailability();
 });
@@ -1688,6 +1738,10 @@ function runPreviewTick(
   } else {
     previewAnimation = 0;
     previewLoopActive = false;
+    if (fraction >= 1 && !previewCompletionTracked) {
+      previewCompletionTracked = true;
+      trackEvent('preview_completed', exportAnalyticsParams());
+    }
     updatePreviewControlButtons();
   }
 }
@@ -1699,6 +1753,7 @@ function startPreviewLoop(journey: PreparedJourney, fromElapsed = 0): void {
   stopPreviewLoop();
   previewSessionJourney = journey;
   previewLoopActive = true;
+  previewCompletionTracked = fromElapsed >= previewDuration;
   previewElapsedSeconds = fromElapsed;
   const startedAt = performance.now() - fromElapsed * 1000;
   previewControls.classList.remove('hidden');
@@ -1780,6 +1835,7 @@ continueRawDataButton.addEventListener('click', () => {
   try {
     applyTimeline(pending.data, pending.source, true);
   } catch (error) {
+    trackTimelineLoadFailed(error);
     settingsCard.classList.add('hidden');
     setFileStatus({ kind: 'key', key: 'fileStatusLoadFailed' });
     setError(describeError(error, 'errorFileUnreadable'));
@@ -1809,9 +1865,12 @@ previewButton.addEventListener('click', async () => {
     const journey = await getPreparedJourney();
     applyPreviewCanvasSize();
     previewSizeDirty = false;
+    trackEvent('preview_started', exportAnalyticsParams());
+    previewCompletionTracked = false;
     startPreviewLoop(journey, 0);
     updatePreviewChrome();
   } catch (error) {
+    trackEvent('export_failed', { reason: 'preview_failed' });
     setError(describeError(error, 'errorPreviewFailed'));
     updatePreviewChrome();
   } finally {
@@ -1858,6 +1917,7 @@ createButton.addEventListener('click', async () => {
   isExporting = true;
   refreshActionAvailability();
   updatePreviewChrome();
+  trackEvent('export_started', exportAnalyticsParams(format));
   exportController = new AbortController();
   const exportAppearance = currentAppearance();
   const wakeLock = await requestWakeLock();
@@ -1885,6 +1945,13 @@ createButton.addEventListener('click', async () => {
     );
     currentExportId = createExportId();
     clearPaymentSession();
+    trackEvent('export_success', {
+      ...exportAnalyticsParams(format),
+      export_id: currentExportId,
+      total_km_bucket: bucketKm(journey.totalDistanceKm),
+      stop_count_bucket: bucketCount(journey.stops.length),
+      file_size_mb_bucket: bucketMb(blob.size),
+    });
     resultVideo.src = resultUrl;
     resultVideo.style.setProperty('--preview-aspect', String(format.width / format.height));
     resultVideo.classList.remove('hidden');
@@ -1901,9 +1968,11 @@ createButton.addEventListener('click', async () => {
     );
   } catch (error) {
     if (exportController.signal.aborted || (error instanceof DOMException && error.name === 'AbortError')) {
+      trackEvent('export_failed', { reason: 'cancelled' });
       setProgress({ kind: 'key', key: 'progressCancelled' });
       progress.value = 0;
     } else {
+      trackEvent('export_failed', { reason: 'export_error' });
       setError(describeError(error, 'errorExportFailed'));
       setProgress({ kind: 'key', key: 'progressFailed' });
     }
@@ -1925,6 +1994,7 @@ shareButton.addEventListener('click', async () => {
   }
   try {
     await navigator.share({ files: [resultFile], title: overlayText().title });
+    if (currentExportId) trackEvent('share', { export_id: currentExportId });
   } catch (error) {
     if (error instanceof DOMException && error.name === 'AbortError') return;
     setError({ kind: 'key', key: 'errorShareUnavailable' });
@@ -1945,6 +2015,7 @@ function applyFormatSupport(support: VideoFormatSupport): void {
     compatibilityKey = 'compatibilityPartial';
   } else {
     compatibilityKey = 'compatibilityPreviewOnly';
+    trackEvent('browser_unsupported');
   }
   renderCompatibilityStatus();
   refreshActionAvailability();
